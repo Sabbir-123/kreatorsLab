@@ -1,0 +1,16 @@
+<svg width="280" height="56" viewBox="0 0 280 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Wordmark 'Kreator' -->
+  <text x="4" y="38" fill="#18152B" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" letter-spacing="-0.5">Kreator</text>
+  
+  <!-- Stylized Neon-Lime 's' Element with dark stroke for contrast on white -->
+  <g transform="translate(138, 14)">
+    <path d="M 19 0 C 26 0 28 5 28 9 C 28 15 20 16 14 18 C 6 20 0 23 0 30 C 0 37 7 42 16 42 C 22 42 27 39 29 36 L 25 30 C 23 32 19 34 16 34 C 10 34 8 31 8 28 C 8 23 15 21 21 19 C 27 17 35 14 35 7 C 35 0 26 -5 18 -5 C 12 -5 6 -2 3 2 L 8 7 C 11 3 15 0 19 0 Z" fill="#DFFF00" stroke="#35309B" stroke-width="1.2" />
+    <circle cx="15" cy="18" r="3.5" fill="#35309B" />
+  </g>
+
+  <!-- Wordmark 'Lab' -->
+  <text x="176" y="38" fill="#18152B" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="34" font-weight="800" letter-spacing="-0.5">Lab</text>
+
+  <!-- Trademark 'TM' -->
+  <text x="248" y="18" fill="#65617A" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" letter-spacing="0.5">TM</text>
+</svg>

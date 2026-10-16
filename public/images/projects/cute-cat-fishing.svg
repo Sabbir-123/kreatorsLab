@@ -1,0 +1,36 @@
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" rx="16" fill="#1E1940" />
+  <rect x="24" y="24" width="552" height="352" rx="12" fill="#292257" />
+  <!-- Window bar -->
+  <rect x="24" y="24" width="552" height="40" rx="12" fill="#352C6E" />
+  <circle cx="48" cy="44" r="6" fill="#FF5F56" />
+  <circle cx="68" cy="44" r="6" fill="#FFBD2E" />
+  <circle cx="88" cy="44" r="6" fill="#27C93F" />
+  <text x="300" y="49" fill="#EDEAFF" font-family="system-ui, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Cute Cat Fishing Game — Grade 1 Creation</text>
+
+  <!-- Game screen area -->
+  <rect x="44" y="80" width="512" height="276" rx="8" fill="#171333" />
+  <circle cx="480" cy="130" r="45" fill="#3928B8" fill-opacity="0.5" />
+  <circle cx="120" cy="300" r="80" fill="#5145E8" fill-opacity="0.3" />
+
+  <!-- Pixel / Vector Cat Graphic & Rod -->
+  <path d="M 280 200 Q 300 160 320 200 Z" fill="#DFFF39" />
+  <circle cx="300" cy="220" r="28" fill="#5145E8" stroke="#EDEAFF" stroke-width="2" />
+  <!-- Cat ears -->
+  <polygon points="280,200 290,180 300,200" fill="#DFFF39" />
+  <polygon points="300,200 310,180 320,200" fill="#DFFF39" />
+  <!-- Fishing line -->
+  <line x1="328" y1="220" x2="420" y2="150" stroke="#EDEAFF" stroke-width="3" stroke-linecap="round" />
+  <line x1="420" y1="150" x2="420" y2="270" stroke="#DFFF39" stroke-width="2" stroke-dasharray="4 4" />
+  <!-- Small fish -->
+  <ellipse cx="420" cy="280" rx="16" ry="8" fill="#FFBD2E" />
+  <polygon points="434,280 444,272 444,288" fill="#FFBD2E" />
+
+  <!-- Score pill -->
+  <rect x="64" y="98" width="120" height="32" rx="16" fill="#3928B8" />
+  <text x="124" y="119" fill="#DFFF39" font-family="system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">SCORE: 140 ★</text>
+
+  <!-- Replaceable badge -->
+  <rect x="180" y="320" width="240" height="24" rx="6" fill="#171529" fill-opacity="0.8" stroke="#5145E8" stroke-width="1" />
+  <text x="300" y="336" fill="#EDEAFF" font-family="system-ui, sans-serif" font-size="10" font-weight="500" text-anchor="middle">Original Student Concept • Grade 1</text>
+</svg>

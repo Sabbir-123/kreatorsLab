@@ -1,69 +1,147 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState } from "react";
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { ProjectShowcase } from "@/components/ProjectShowcase";
+import { WhyKreatorsLab } from "@/components/WhyKreatorsLab";
+import { LearningMethod } from "@/components/LearningMethod";
+import { ParentBenefits } from "@/components/ParentBenefits";
+import { ProgramsSection } from "@/components/ProgramsSection";
+import { WeeklyJourney } from "@/components/WeeklyJourney";
+import { PhilosophySection } from "@/components/PhilosophySection";
+import { MentorsSection } from "@/components/MentorsSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { ProgramFinder } from "@/components/ProgramFinder";
+import { FAQSection } from "@/components/FAQSection";
+import { FinalCTA } from "@/components/FinalCTA";
+import { Footer } from "@/components/Footer";
+import { ProjectModal } from "@/components/ProjectModal";
+import { VideoModal } from "@/components/VideoModal";
+import { InquiryModal } from "@/components/InquiryModal";
+import { ProjectItem, ProgramItem, SectionProgramItem } from "@/data/siteContent";
+import { trackEvent } from "@/lib/analytics";
+
+export default function HomePage() {
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
+  const [inquiryPrefill, setInquiryPrefill] = useState<Record<string, string>>({});
+
+  const handleOpenInquiry = (prefillData?: Record<string, string>) => {
+    if (prefillData) setInquiryPrefill(prefillData);
+    setIsInquiryModalOpen(true);
+  };
+
+  const handleSelectProgram = (program: ProgramItem | SectionProgramItem) => {
+    const grade: string =
+      ("gradeSpan" in program && program.gradeSpan) ||
+      ("grades" in program && program.grades) ||
+      "Ages 9–14";
+    trackEvent("program_view", { program_name: program.title, grade_level: grade });
+    handleOpenInquiry({ program: program.title, grade });
+  };
+
+  const handleExplorePrograms = () => {
+    trackEvent("cta_click", { label: "Explore Programs" });
+    const el = document.getElementById("programs");
+    el?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSeeProjects = () => {
+    trackEvent("cta_click", { label: "See What Kids Built" });
+    const el = document.getElementById("projects");
+    el?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen flex flex-col bg-white">
+      {/* 1. Official Sticky Header (Exactly 5 Navigation Links + CTA Button) */}
+      <Header onExplorePrograms={handleExplorePrograms} />
+
+      <main id="main-content" className="flex-1">
+        {/* 2. Hero Section */}
+        <Hero
+          onExplorePrograms={handleExplorePrograms}
+          onSeeProjects={handleSeeProjects}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        {/* 2. Student Project Showcase (Directly below Hero) */}
+        <ProjectShowcase
+          onSelectProject={(project) => setSelectedProject(project)}
+          onExploreAll={handleSeeProjects}
+        />
+
+        {/* 3. Program Discovery & Offerings (Immediately after Project Section) */}
+        <ProgramsSection
+          onSelectProgram={handleSelectProgram}
+          onViewAll={() => {
+            const el = document.getElementById("program-finder");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
+
+        {/* 4. Why Kreators Lab (Paper-first planning vs screen time) */}
+        <WhyKreatorsLab />
+
+        {/* 5. The Kreators Lab Method (5 connected steps: Think, Build, Test, Publish, Present) */}
+        <LearningMethod
+          onDiscoverMore={() => {
+            const el = document.getElementById("about");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
+
+        {/* 6. Educational Benefits (6 compact habit cards on soft lavender) */}
+        <ParentBenefits />
+
+        {/* 8. Inside the Learning Experience / A Week at Kreators Lab (5-Day timeline & Video) */}
+        <WeeklyJourney onWatchVideo={() => setIsVideoModalOpen(true)} />
+
+        {/* 9. Brand Philosophy (Prominent deep-purple section: AI is the tool, child is creator) */}
+        <PhilosophySection onLearnMore={() => handleOpenInquiry()} />
+
+        {/* 10. Parent Reviews & Testimonials (Authentic stories from Lake Travis, Lakeway, Westlake families) */}
+        <TestimonialsSection onWatchVideo={() => setIsVideoModalOpen(true)} />
+
+        {/* 11. Team & Mentors (Real guidance, background-checked educator guidance) */}
+        <MentorsSection onMeetTeam={() => handleOpenInquiry()} />
+
+        {/* 12. Program Finder (Clean selectors, matching real programs, parent inquiry) */}
+        <ProgramFinder onOpenInquiry={handleOpenInquiry} />
+
+        {/* 13. FAQ (Accessible minimal accordions with 8 exact questions) */}
+        <FAQSection />
+
+        {/* 14. Final Closing CTA (Clean deep-purple gradient, tagline, no fake urgency) */}
+        <FinalCTA
+          onExplorePrograms={handleExplorePrograms}
+          onSeeProjects={handleSeeProjects}
+        />
       </main>
+
+      {/* 15. Footer (Official logo, Explore, Resources, Connect, Legal, Copyright) */}
+      <Footer />
+
+      {/* Interactive Modals */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onInquire={(projectName) =>
+          handleOpenInquiry({ program: `Project Inquiry: ${projectName}` })
+        }
+      />
+
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+      />
+
+      <InquiryModal
+        isOpen={isInquiryModalOpen}
+        onClose={() => setIsInquiryModalOpen(false)}
+        prefilled={inquiryPrefill}
+      />
     </div>
   );
 }
