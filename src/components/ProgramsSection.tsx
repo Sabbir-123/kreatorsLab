@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Calendar,
   ArrowUpRight,
@@ -49,55 +50,104 @@ export function ProgramsSection({
           </p>
         </div>
 
-        {/* Centered Segmented Options Switcher (Picture 2) */}
-        <div className="flex justify-center mb-12 sm:mb-14">
-          <div className="inline-flex p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#EAE6F5] shadow-[0_4px_24px_rgba(53,48,155,0.06)]">
-            <button
-              type="button"
-              onClick={() => setSelectedCategory("after-school")}
-              className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
-                selectedCategory === "after-school"
-                  ? "bg-[#DED7FD] text-[#35309B] shadow-xs"
-                  : "text-[#696387] hover:text-[#18152B] bg-transparent"
-              }`}
-            >
-              After School Enrichment
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedCategory("day-camps")}
-              className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
-                selectedCategory === "day-camps"
-                  ? "bg-[#DED7FD] text-[#35309B] shadow-xs"
-                  : "text-[#696387] hover:text-[#18152B] bg-transparent"
-              }`}
-            >
-              Holiday &amp; Summer Camps
-            </button>
+        {/* Prominent High-Visibility Program Category Switcher */}
+        <div className="flex justify-center mb-10 sm:mb-12">
+          <div className="w-full max-w-2xl p-2 rounded-2xl sm:rounded-3xl bg-[#F0EEFB] border-2 border-[#35309B]/25 shadow-[0_8px_30px_rgba(53,48,155,0.08)]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("after-school")}
+                className={`flex flex-col items-center justify-center py-3.5 sm:py-4 px-5 rounded-xl sm:rounded-2xl transition-all duration-200 cursor-pointer text-center ${
+                  selectedCategory === "after-school"
+                    ? "bg-[#35309B] text-white shadow-md ring-2 ring-[#35309B]/30 scale-[1.01]"
+                    : "bg-white/80 hover:bg-white text-[#18152B] hover:text-[#35309B] border border-transparent hover:border-[#35309B]/20"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span
+                    className={`text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      selectedCategory === "after-school"
+                        ? "bg-[#DFFF00] text-[#18152B]"
+                        : "bg-[#EAE6F8] text-[#55506E]"
+                    }`}
+                  >
+                    Weekly Cohorts
+                  </span>
+                </div>
+                <span className="text-base sm:text-lg font-black tracking-tight">
+                  After-School Enrichment
+                </span>
+                <span
+                  className={`text-xs mt-0.5 ${
+                    selectedCategory === "after-school"
+                      ? "text-[#EEECFF]"
+                      : "text-[#65617A]"
+                  }`}
+                >
+                  12-Week Sessions • Fall &amp; Spring
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("day-camps")}
+                className={`flex flex-col items-center justify-center py-3.5 sm:py-4 px-5 rounded-xl sm:rounded-2xl transition-all duration-200 cursor-pointer text-center ${
+                  selectedCategory === "day-camps"
+                    ? "bg-[#35309B] text-white shadow-md ring-2 ring-[#35309B]/30 scale-[1.01]"
+                    : "bg-white/80 hover:bg-white text-[#18152B] hover:text-[#35309B] border border-transparent hover:border-[#35309B]/20"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span
+                    className={`text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      selectedCategory === "day-camps"
+                        ? "bg-[#DFFF00] text-[#18152B]"
+                        : "bg-[#EAE6F8] text-[#55506E]"
+                    }`}
+                  >
+                    School Breaks
+                  </span>
+                </div>
+                <span className="text-base sm:text-lg font-black tracking-tight">
+                  Holiday &amp; Summer Camps
+                </span>
+                <span
+                  className={`text-xs mt-0.5 ${
+                    selectedCategory === "day-camps"
+                      ? "text-[#EEECFF]"
+                      : "text-[#65617A]"
+                  }`}
+                >
+                  Thanksgiving, Winter &amp; Summer Sprints
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Category Header with Icon (Picture 2) */}
-        <div className="flex items-center gap-3 mb-8">
-          {selectedCategory === "after-school" ? (
-            <>
-              <span className="text-2xl sm:text-3xl" role="img" aria-label="party">
-                🎉
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#151226] tracking-tight">
-                After School Enrichment (12 Week)
+        {/* Clear Active Category Header & Subtext */}
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-white border border-[#E8E6F1] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl" role="img" aria-label="category indicator">
+              {selectedCategory === "after-school" ? "🎉" : "🏕️"}
+            </span>
+            <div>
+              <h3 className="text-xl sm:text-2xl font-black text-[#18152B] tracking-tight">
+                {selectedCategory === "after-school"
+                  ? "After-School Enrichment (12-Week Programs)"
+                  : "Holiday & Summer Camps (Multi-Day Immersive Sprints)"}
               </h3>
-            </>
-          ) : (
-            <>
-              <span className="text-2xl sm:text-3xl" role="img" aria-label="camp">
-                🏕️
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#151226] tracking-tight">
-                Holiday &amp; Summer Day-Camps
-              </h3>
-            </>
-          )}
+              <p className="text-xs sm:text-sm text-[#65617A] mt-0.5">
+                {selectedCategory === "after-school"
+                  ? "Weekly structured mentorship guiding students through design, logic, and creative AI mastery."
+                  : "Full-day school break maker camps from blank paper brainstorm to the Friday showcase."}
+              </p>
+            </div>
+          </div>
+
+          <div className="shrink-0 text-xs font-bold px-3 py-1.5 rounded-full bg-[#F3EFFC] text-[#35309B] self-start sm:self-center">
+            {currentPrograms.length} Sessions Available
+          </div>
         </div>
 
         {/* Unified Equal Glassmorphism Cards Grid (Picture 2 & 3) */}
@@ -109,8 +159,12 @@ export function ProgramsSection({
             >
               {/* Top Section */}
               <div>
-                {/* Photo / Visual Frame */}
-                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-100 mb-5 border border-[#F0EEF8]">
+                {/* Photo / Visual Frame with Link to Curriculum */}
+                <Link
+                  href={`/programs/${program.id}`}
+                  className="block relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-slate-100 mb-5 border border-[#F0EEF8] group/img"
+                  aria-label={`View curriculum and details for ${program.title}`}
+                >
                   <Image
                     src={program.image}
                     alt={`${program.title} interactive session`}
@@ -118,8 +172,12 @@ export function ProgramsSection({
                     className="object-cover transition-transform duration-500 group-hover:scale-104"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                  <div className="absolute bottom-2.5 right-2.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-[11px] font-bold text-[#35309B] opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1 shadow-md">
+                    <span>Explore Curriculum</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </div>
+                </Link>
 
                 {/* Date Pill with Calendar Icon */}
                 <div className="inline-flex items-center gap-2 bg-[#F3EFFC] text-[#5B46B5] text-xs font-bold px-3 py-1.5 rounded-full w-fit mb-3.5">
@@ -128,12 +186,14 @@ export function ProgramsSection({
                   <span>{program.dateRange}</span>
                 </div>
 
-                {/* Title */}
-                <h4 className="text-xl sm:text-[22px] font-black text-[#151226] tracking-tight leading-snug mb-4 group-hover:text-[#5438DC] transition-colors min-h-[58px] flex items-center">
-                  {program.title}
-                </h4>
+                {/* Title Linking to Detail Page */}
+                <Link href={`/programs/${program.id}`} className="block">
+                  <h4 className="text-xl sm:text-[22px] font-black text-[#151226] tracking-tight leading-snug mb-4 group-hover:text-[#5438DC] transition-colors min-h-[58px] flex items-center">
+                    {program.title}
+                  </h4>
+                </Link>
 
-                {/* 4 Metadata Badges (Equal Look-alike) */}
+                {/* 4 Metadata Badges */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   <span className="bg-[#F5F3FB] text-[#4E4870] text-xs font-semibold px-3 py-1.5 rounded-xl border border-[#EDE8F7]">
                     {program.scheduleDays}
@@ -150,7 +210,7 @@ export function ProgramsSection({
                 </div>
               </div>
 
-              {/* Bottom Section: Dual Pricing Boxes + Action CTA (Picture 3) */}
+              {/* Bottom Section: Dual Pricing Boxes + Actions */}
               <div>
                 <div className="grid grid-cols-2 gap-3 mb-5">
                   {/* Regular Price Box */}
@@ -159,7 +219,7 @@ export function ProgramsSection({
                       {program.regularPrice}
                     </div>
                     <div className="text-[11px] font-medium text-[#736E8F] mt-0.5 leading-tight">
-                      Regular-Time Tuition fee
+                      Regular Tuition
                     </div>
                   </div>
 
@@ -172,20 +232,30 @@ export function ProgramsSection({
                       {program.promoPrice}
                     </div>
                     <div className="text-[11px] font-medium text-[#736E8F] mt-0.5 leading-tight">
-                      Limited-Time Tuition fee
+                      Limited-Time Tuition
                     </div>
                   </div>
                 </div>
 
-                {/* Primary CTA Button (Full Width, diagonal arrow) */}
-                <button
-                  type="button"
-                  onClick={() => onSelectProgram?.(program)}
-                  className="w-full py-3.5 px-6 rounded-2xl bg-[#5438DC] hover:bg-[#4329C7] active:bg-[#3820B3] text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(84,56,220,0.35)] hover:shadow-[0_6px_20px_rgba(84,56,220,0.45)] transition-all hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
-                >
-                  <span>{program.ctaText}</span>
-                  <ArrowUpRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
+                {/* Dual Action Buttons: View Curriculum & Details + Direct Enroll Now */}
+                <div className="grid grid-cols-2 gap-2">
+                  <Link
+                    href={`/programs/${program.id}`}
+                    className="py-3.5 px-3 rounded-2xl bg-[#F0EEFB] hover:bg-[#E4DCFC] text-[#35309B] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all text-center border border-[#DED7FD]"
+                  >
+                    <span>Curriculum</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#35309B]" />
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => onSelectProgram?.(program)}
+                    className="py-3.5 px-4 rounded-2xl bg-[#5438DC] hover:bg-[#4329C7] active:bg-[#3820B3] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(84,56,220,0.3)] hover:shadow-[0_6px_20px_rgba(84,56,220,0.4)] transition-all hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
+                  >
+                    <span>{program.ctaText}</span>
+                    <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

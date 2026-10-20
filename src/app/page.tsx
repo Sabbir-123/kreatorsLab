@@ -6,11 +6,11 @@ import { Hero } from "@/components/Hero";
 import { ProjectShowcase } from "@/components/ProjectShowcase";
 import { WhyKreatorsLab } from "@/components/WhyKreatorsLab";
 import { LearningMethod } from "@/components/LearningMethod";
-import { ParentBenefits } from "@/components/ParentBenefits";
-import { ProgramsSection } from "@/components/ProgramsSection";
-import { WeeklyJourney } from "@/components/WeeklyJourney";
-import { PhilosophySection } from "@/components/PhilosophySection";
+import { AILiteracySection } from "@/components/AILiteracySection";
 import { MentorsSection } from "@/components/MentorsSection";
+import { EnrollmentCTA } from "@/components/EnrollmentCTA";
+import { PortfolioBenefitsSection } from "@/components/PortfolioBenefitsSection";
+import { ProgramsSection } from "@/components/ProgramsSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import { FAQSection } from "@/components/FAQSection";
@@ -81,10 +81,11 @@ export default function HomePage() {
           }}
         />
 
-        {/* 4. Why Kreators Lab (Paper-first planning vs screen time) */}
+        {/* 4. Unique Selling Proposition: Critical Thinking, Signature Method & AI Literacy */}
+        {/* 4.1 Critical Thinking and Ownership */}
         <WhyKreatorsLab />
 
-        {/* 5. The Kreators Lab Method (5 connected steps: Think, Build, Test, Publish, Present) */}
+        {/* 4.2 Project-Building Process: The Kreators Lab signature method */}
         <LearningMethod
           onDiscoverMore={() => {
             const el = document.getElementById("about");
@@ -92,28 +93,33 @@ export default function HomePage() {
           }}
         />
 
-        {/* 6. Educational Benefits (6 compact habit cards on soft lavender) */}
-        <ParentBenefits />
+        {/* 4.3 AI Literacy: Distinct Program Benefit */}
+        <AILiteracySection
+          onLearnMore={() => handleOpenInquiry({ program: "AI Literacy & Curriculum Inquiry" })}
+        />
 
-        {/* 8. Inside the Learning Experience / A Week at Kreators Lab (5-Day timeline & Video) */}
-        <WeeklyJourney onWatchVideo={() => setIsVideoModalOpen(true)} />
+        {/* 5. Founder & Guidance Content: Great Ideas Grow With the Right Guidance */}
+        <MentorsSection onMeetTeam={() => handleOpenInquiry({ program: "Educator Guidance Inquiry" })} />
 
-        {/* 9. Brand Philosophy (Prominent deep-purple section: AI is the tool, child is creator) */}
-        <PhilosophySection onLearnMore={() => handleOpenInquiry()} />
+        {/* 6. Call to Action: Encourage Enrollment */}
+        <EnrollmentCTA
+          onExplorePrograms={handleExplorePrograms}
+          onOpenInquiry={() => handleOpenInquiry()}
+        />
 
-        {/* 10. Parent Reviews & Testimonials (Authentic stories from Lake Travis, Lakeway, Westlake families) */}
+        {/* 7. Supporting Future Applications: Student Portfolio Benefits */}
+        <PortfolioBenefitsSection />
+
+        {/* 8. Parent Testimonials: Authentic Stories from Austin & Lake Travis */}
         <TestimonialsSection onWatchVideo={() => setIsVideoModalOpen(true)} />
 
-        {/* 11. Team & Mentors (Real guidance, background-checked educator guidance) */}
-        <MentorsSection onMeetTeam={() => handleOpenInquiry()} />
-
-        {/* 12. Program Finder (Clean selectors, matching real programs, parent inquiry) */}
-        <ProgramFinder onOpenInquiry={handleOpenInquiry} />
-
-        {/* 13. FAQ (Accessible minimal accordions with 8 exact questions) */}
+        {/* 9. FAQ Section: Good Questions Deserve Clear Answers */}
         <FAQSection />
 
-        {/* 14. Final Closing CTA (Clean deep-purple gradient, tagline, no fake urgency) */}
+        {/* Interactive Program Finder (for filter & cohort search) */}
+        <ProgramFinder onOpenInquiry={handleOpenInquiry} />
+
+        {/* Final Closing CTA */}
         <FinalCTA
           onExplorePrograms={handleExplorePrograms}
           onSeeProjects={handleSeeProjects}

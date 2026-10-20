@@ -159,18 +159,17 @@ export function LearningMethod({ onDiscoverMore }: LearningMethodProps) {
         >
           {/* Section Header: Compact & balanced vertical footprint */}
           <div className="text-center max-w-3xl mx-auto shrink-0 mb-2 sm:mb-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white text-[#35309B] text-[11px] font-bold uppercase tracking-wider mb-1.5 shadow-xs border-2 border-[#35309B]/20">
-              <Sparkles className="w-3 h-3 text-[#35309B]" />
-              <span>The Kreators Lab Method</span>
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#35309B] text-xs font-bold uppercase tracking-wider mb-2 shadow-xs border-2 border-[#35309B]/20">
+              <Sparkles className="w-3.5 h-3.5 text-[#35309B]" />
+              <span>The Kreators Lab signature method</span>
             </div>
 
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#18152B] tracking-tight leading-snug">
-              From &ldquo;What If?&rdquo; to &ldquo;Look What I Made!&rdquo;
+              From blank paper brainstorm to the Project showcase!
             </h2>
 
             <p className="hidden md:block mt-1 text-xs text-[#55506E] max-w-xl mx-auto leading-normal">
-              Great creations don&apos;t begin with the perfect prompt. They begin with curiosity.
-              We encourage students to think first, plan their ideas, and use technology with purpose.
+              An interactive 5-stage learning process where students move from initial brainstorming to completed, shareable projects with hands-on guidance.
             </p>
 
             {/* Synchronized Stage Navigation Pill Bar */}

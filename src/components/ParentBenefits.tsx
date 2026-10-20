@@ -120,8 +120,8 @@ export function ParentBenefits() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#18152B] tracking-tight leading-tight">
-            It&apos;s Not Just About What They Build.{" "}
-            <span className="text-[#35309B]">It&apos;s About How They Think.</span>
+            Essential Habits &amp; Mindsets{" "}
+            <span className="text-[#35309B]">That Matter Beyond the Screen.</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-[#65617A] leading-relaxed">

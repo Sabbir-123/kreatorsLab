@@ -93,10 +93,12 @@ export interface FaqItem {
 
 export const SITE_CONFIG = {
   brandName: "Kreators Lab",
-  tagline: "Think | Innovation | Excitement",
-  headline: "Your Child Has Big Ideas. Let's Bring Them to Life.",
+  tagline: "Think. Innovate. Explore.",
+  headline: "The AI program where kids think and build real things.",
   heroSupportingText:
-    "At Kreators Lab, kids think for themselves, explore AI, and turn their Ideas into Games, Stories, and Projects they're excited to share.",
+    "At Kreators Lab, kids think creatively, innovate with AI, and turn their ideas into games, websites, animations, and projects they’re excited to share.",
+  heroGradesLine: "For students in grades K–12.",
+  trustStatement: "Trusted by GT and Discovery families in the Austin Lake Travis area.",
   geographicFocus: "Lake Travis, Lakeway, Bee Cave, Westlake Hills, and surrounding West Austin communities.",
   contactEmail: "hello@kreatorslab.ai",
   officialWebsite: "https://www.kreatorslab.ai",
@@ -202,7 +204,7 @@ export const METHOD_STEPS: MethodStep[] = [
   },
   {
     step: "04",
-    title: "PUBLISH",
+    title: "POLISH",
     headline: "Get Ready to Share.",
     description:
       "Students prepare their creations for appropriate demonstration or sharing with safety guidance, polishing audio, menus, and visual flow.",

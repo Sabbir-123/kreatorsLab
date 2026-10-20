@@ -2,71 +2,86 @@
 
 import React from "react";
 import Image from "next/image";
-import { Sparkles, Check } from "lucide-react";
+import { Sparkles, CheckCircle2, Brain, Bug, Compass } from "lucide-react";
 
 export function WhyKreatorsLab() {
-  const reflectiveQuestions = [
-    "Can they spot a mistake?",
-    "Can they improve an idea?",
-    "Can they explain why something works?",
-    "Can they create something that reflects their own imagination?",
+  const pillars = [
+    {
+      icon: Compass,
+      title: "Independent Decisions & Ownership",
+      description:
+        "Students bring their own original ideas rather than following step-by-step copycat tutorials. They make every creative and architectural choice themselves.",
+    },
+    {
+      icon: Bug,
+      title: "Active Debugging & Resilience",
+      description:
+        "When things break or AI hallucinated, students learn to investigate what went wrong, test hypotheses, and solve the puzzle through iterative reasoning.",
+    },
+    {
+      icon: Brain,
+      title: "Critical Thinking & Real Problem-Solving",
+      description:
+        "Students learn to question computer suggestions, evaluate whether an answer is accurate, and resolve real-world design challenges with purpose.",
+    },
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-white border-b border-[#E8E6F1] relative">
+    <section id="critical-thinking" className="py-20 md:py-28 bg-white border-b border-[#E8E6F1] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Text Content */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEECFF] text-[#35309B] text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>A Different Kind of Technology Learning</span>
+              <span>Critical Thinking &amp; Ownership</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#18152B] tracking-tight leading-tight">
-              Kids Don&apos;t Need More Screen Time.{" "}
-              <span className="text-[#35309B]">They Need More Creative Time.</span>
+              It&apos;s Not Just About What They Build.{" "}
+              <span className="text-[#35309B]">It&apos;s About How They Think.</span>
             </h2>
 
-            <div className="space-y-4 text-base sm:text-lg text-[#65617A] leading-relaxed">
-              <p>
-                Today&apos;s children can ask AI to write a story, create an image, or answer a question in seconds.
-              </p>
+            {/* Client-provided supporting copy */}
+            <p className="text-base sm:text-lg lg:text-xl text-[#35309B] font-semibold leading-relaxed">
+              At Kreators Lab, kids bring their own ideas and explore the decision-making process, debug their work, and resolve the challenges they face. They use AI to bring their vision to life.
+            </p>
 
-              <p>
-                But being able to get an answer isn&apos;t the same as knowing what to do with it.
-              </p>
+            <p className="text-sm sm:text-base text-[#65617A] leading-relaxed">
+              Today&apos;s children can generate an answer, an image, or a block of code in seconds.
+              But true creative confidence doesn&apos;t come from clicking &ldquo;generate.&rdquo; It comes from knowing what you want to create, understanding how it functions, and having the persistence to make it work.
+            </p>
 
-              {/* 4 Reflective Questions */}
-              <div className="my-6 p-6 bg-[#F5F4FF] rounded-2xl border border-[#E8E6F1] space-y-3">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#35309B]">
-                  These are the questions that matter to us:
-                </p>
-                <ul className="space-y-2.5">
-                  {reflectiveQuestions.map((q, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm sm:text-base text-[#18152B] font-medium">
-                      <span className="w-5 h-5 rounded-full bg-[#35309B] text-white flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-3.5 h-3.5" />
-                      </span>
-                      <span>{q}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <p className="font-semibold text-[#18152B]">
-                At Kreators Lab, we want kids to do more than use technology.
-              </p>
-              <p className="font-semibold text-[#35309B]">
-                We want them to think, question, experiment, and create with it.
-              </p>
+            {/* 3 Core Thinking Pillars */}
+            <div className="pt-2 space-y-3.5">
+              {pillars.map((pillar, idx) => {
+                const IconComponent = pillar.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-2xl bg-[#F8F7FD] border border-[#EBE7F6] flex items-start gap-3.5 transition-all hover:border-[#D5CBF8] hover:bg-[#F4F1FC]"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[#35309B] text-[#DFFF00] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm sm:text-base font-bold text-[#18152B]">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#65617A] mt-1 leading-relaxed">
+                        {pillar.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* Real Photo: Paper-first planning beside laptop */}
           <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-[#302A91] aspect-[4/5] group">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-[#302A91] aspect-[4/5] group">
                 <Image
                   src="/images/students/planning-laptop.jpg"
                   alt="Student sketching creative project plans on paper beside a laptop"
@@ -74,14 +89,17 @@ export function WhyKreatorsLab() {
                   className="object-cover transition-transform duration-500 group-hover:scale-103"
                   sizes="(max-width: 768px) 100vw, 40vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-white/95 backdrop-blur-md shadow-md border border-white/60">
-                  <p className="text-xs font-bold text-[#35309B] uppercase tracking-wider">
-                    Paper First • Technology Second
-                  </p>
-                  <p className="text-xs text-[#18152B] mt-1 font-medium">
-                    Critical questioning and human imagination guide every digital tool.
+                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md shadow-lg border border-white/60">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-[#35309B]" />
+                    <p className="text-xs font-bold text-[#35309B] uppercase tracking-wider">
+                      Paper First • Technology Second
+                    </p>
+                  </div>
+                  <p className="text-xs text-[#18152B] font-medium leading-relaxed">
+                    Independent brainstorming and decision-making empower young minds before touching any digital tools.
                   </p>
                 </div>
               </div>

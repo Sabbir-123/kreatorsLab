@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Kreators Lab | Think | Innovation | Excitement",
+    title: "Kreators Lab | Think. Innovate. Explore.",
     description:
-      "Your Child Has Big Ideas. Let's Bring Them to Life. Hands-on, responsible AI & creative technology learning for curious young creators.",
+      "The AI program where kids think and build real things. At Kreators Lab, kids think creatively, innovate with AI, and turn their ideas into games, websites, animations, and projects they’re excited to share.",
     url: "https://www.kreatorslab.ai",
     siteName: "Kreators Lab",
     locale: "en_US",
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kreators Lab | AI Classes & Creative Projects for Kids",
+    title: "Kreators Lab | The AI program where kids think and build real things",
     description:
-      "Think | Innovation | Excitement. Empowering kids to think independently and build real digital projects with AI.",
+      "Think. Innovate. Explore. At Kreators Lab, kids think creatively, innovate with AI, and turn their ideas into games, websites, animations, and projects they’re excited to share.",
     images: ["/images/hero/building-laptop.jpg"],
   },
   robots: {
@@ -76,9 +76,9 @@ export default function RootLayout({
     "@type": "EducationalOrganization",
     name: "Kreators Lab",
     url: "https://www.kreatorslab.ai",
-    slogan: "Think | Innovation | Excitement",
+    slogan: "Think. Innovate. Explore.",
     description:
-      "Project-based AI education and innovation studio for K–12 students.",
+      "The AI program where kids think and build real things.",
     areaServed: [
       "Lake Travis, TX",
       "Lakeway, TX",

@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, MapPin, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, MapPin, Play, Pause, Volume2, VolumeX, Sparkles } from "lucide-react";
 
 interface HeroProps {
   onExplorePrograms?: () => void;
@@ -59,40 +59,36 @@ export function Hero({ onExplorePrograms, onSeeProjects }: HeroProps) {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           {/* Left Column: Core Positioning, Headline, and Actions */}
-          <div className="lg:col-span-7 flex flex-col items-start space-y-6">
+          <div className="lg:col-span-7 flex flex-col items-start space-y-5 sm:space-y-6">
             {/* Eyebrow: Official Tagline */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xs">
               <span className="w-2 h-2 rounded-full bg-[#DFFF00]" />
               <span className="text-xs sm:text-sm font-bold tracking-wide text-[#DFFF00]">
-                Think | Innovation | Excitement
+                Think. Innovate. Explore.
               </span>
             </div>
 
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] text-white">
-              Your Child Has Big Ideas.{" "}
-              <span className="block mt-1 sm:inline sm:mt-0 text-[#DFFF00]">
-                Let&apos;s Bring Them to Life.
+              The AI program where kids{" "}
+              <span className="text-[#DFFF00]">
+                think and build real things.
               </span>
             </h1>
 
-            {/* Supporting Copy */}
-            <div className="text-base sm:text-lg lg:text-xl text-[#F5F4FF] leading-relaxed max-w-2xl font-normal">
-              <p>
-                At Kreators Lab, kids{" "}
-                <strong className="font-semibold text-white">
-                  think for themselves, explore AI
-                </strong>
-                , and turn their Ideas into{" "}
-                <strong className="font-semibold text-white">
-                  Games, Stories, and Projects
-                </strong>{" "}
-                they&apos;re excited to share.
-              </p>
+            {/* Subheadline */}
+            <p className="text-base sm:text-lg lg:text-xl text-[#F5F4FF] leading-relaxed max-w-2xl font-normal">
+              At Kreators Lab, kids think creatively, innovate with AI, and turn their ideas into games, websites, animations, and projects they’re excited to share.
+            </p>
+
+            {/* Supporting Line: Grade Eligibility */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DFFF00]/15 border border-[#DFFF00]/30 text-[#DFFF00] text-xs sm:text-sm font-bold tracking-wide">
+              <Sparkles className="w-3.5 h-3.5 text-[#DFFF00] shrink-0" />
+              <span>For students in grades K–12.</span>
             </div>
 
             {/* Primary & Secondary CTAs */}
-            <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+            <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
               <a
                 href="#programs"
                 onClick={onExplorePrograms}
@@ -111,11 +107,11 @@ export function Hero({ onExplorePrograms, onSeeProjects }: HeroProps) {
               </a>
             </div>
 
-            {/* Microcopy & Local Context */}
+            {/* Microcopy & Local Context / Trust Statement */}
             <div className="pt-4 border-t border-white/15 w-full">
-              <p className="text-xs sm:text-sm text-[#EEECFF]/90 flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#DFFF00] shrink-0" />
-                <span>Explore programs for families in Lake Travis and the greater West Austin area.</span>
+              <p className="text-xs sm:text-sm text-[#EEECFF]/95 flex items-center gap-2 font-medium">
+                <MapPin className="w-4 h-4 text-[#DFFF00] shrink-0" />
+                <span>Trusted by GT and Discovery families in the Austin Lake Travis area.</span>
               </p>
             </div>
           </div>

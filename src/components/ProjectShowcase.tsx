@@ -15,16 +15,43 @@ export function ProjectShowcase({
   onExploreAll,
 }: ProjectShowcaseProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
   const touchStartX = useRef<number | null>(null);
 
   const total = FEATURED_PROJECTS.length;
 
+  // Responsive visible cards count
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 640) {
+        setVisibleCount(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
+
+  const maxIndex = Math.max(0, total - visibleCount);
+
+  // Keep currentIndex bounded when window resizes
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [maxIndex, currentIndex]);
+
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   // Keyboard navigation support
@@ -35,9 +62,9 @@ export function ProjectShowcase({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [total]);
+  }, [maxIndex]);
 
-  // Touch swipe support for mobile
+  // Touch swipe support for mobile & tablet
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -47,11 +74,9 @@ export function ProjectShowcase({
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartX.current - touchEndX;
 
-    if (diff > 50) {
-      // Swiped left -> Next
+    if (diff > 45) {
       handleNext();
-    } else if (diff < -50) {
-      // Swiped right -> Prev
+    } else if (diff < -45) {
       handlePrev();
     }
     touchStartX.current = null;
@@ -69,7 +94,7 @@ export function ProjectShowcase({
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header: Centered in the middle per requirements */}
+        {/* Section Header: Centered in the middle */}
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#35309B] text-xs font-bold uppercase tracking-wider mb-4 shadow-sm border-2 border-[#35309B]/20">
             <Sparkles className="w-3.5 h-3.5 text-[#35309B]" />
@@ -87,42 +112,46 @@ export function ProjectShowcase({
           </p>
         </div>
 
-        {/* Sliding Cards Container with High-Contrast Left/Right Controls */}
-        <div className="relative max-w-5xl mx-auto px-2 sm:px-6">
-          {/* Left Arrow Button: High-Contrast Solid Purple with White Rim & Deep Shadow */}
+        {/* Multi-Project Horizontal Carousel Container */}
+        <div className="relative max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+          {/* Left Arrow Button */}
           <button
             type="button"
             onClick={handlePrev}
-            aria-label="Previous student project"
-            className="absolute -left-2 sm:-left-6 lg:-left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#35309B] hover:bg-[#473DEA] text-white hover:text-[#DFFF00] border-2 border-white ring-4 ring-[#35309B]/25 shadow-[0_10px_30px_rgba(53,48,155,0.45)] flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#DFFF00] cursor-pointer"
+            aria-label="Previous student projects"
+            className="absolute -left-2 sm:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#35309B] hover:bg-[#473DEA] text-white hover:text-[#DFFF00] border-2 border-white ring-4 ring-[#35309B]/20 shadow-[0_8px_25px_rgba(53,48,155,0.4)] flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#DFFF00] cursor-pointer"
           >
             <ChevronLeft className="w-6 h-6 -ml-0.5" strokeWidth={2.5} />
           </button>
 
-          {/* Right Arrow Button: High-Contrast Solid Purple with White Rim & Deep Shadow */}
+          {/* Right Arrow Button */}
           <button
             type="button"
             onClick={handleNext}
-            aria-label="Next student project"
-            className="absolute -right-2 sm:-right-6 lg:-right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#35309B] hover:bg-[#473DEA] text-white hover:text-[#DFFF00] border-2 border-white ring-4 ring-[#35309B]/25 shadow-[0_10px_30px_rgba(53,48,155,0.45)] flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#DFFF00] cursor-pointer"
+            aria-label="Next student projects"
+            className="absolute -right-2 sm:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#35309B] hover:bg-[#473DEA] text-white hover:text-[#DFFF00] border-2 border-white ring-4 ring-[#35309B]/20 shadow-[0_8px_25px_rgba(53,48,155,0.4)] flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#DFFF00] cursor-pointer"
           >
             <ChevronRight className="w-6 h-6 ml-0.5" strokeWidth={2.5} />
           </button>
 
           {/* Sliding Track Viewport */}
           <div
-            className="overflow-hidden rounded-3xl"
+            className="overflow-hidden py-4 -my-4 px-1"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
             <div
               className="flex transition-transform duration-500 ease-out"
               style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
+                transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
               }}
             >
               {FEATURED_PROJECTS.map((project, index) => (
-                <div key={project.id} className="w-full shrink-0 p-1">
+                <div
+                  key={project.id}
+                  className="shrink-0 p-2 sm:p-3"
+                  style={{ width: `${100 / visibleCount}%` }}
+                >
                   <ProjectCard
                     project={project}
                     projectNumber={index + 1}
@@ -134,24 +163,24 @@ export function ProjectShowcase({
             </div>
           </div>
 
-          {/* High-Contrast Tactile Slider Dock: Dots + Current Count */}
+          {/* Carousel Pagination Dock & Dot Controls */}
           <div className="flex items-center justify-center mt-10">
-            <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white border-2 border-[#35309B]/20 shadow-md">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white border-2 border-[#35309B]/20 shadow-md">
               <span className="text-xs font-bold text-[#35309B] tracking-wider uppercase pr-1">
-                Project {currentIndex + 1} of {total}
+                Showing {currentIndex + 1}–{Math.min(currentIndex + visibleCount, total)} of {total} Projects
               </span>
               <div className="h-4 w-px bg-[#35309B]/20" />
               <div className="flex items-center gap-2">
-                {FEATURED_PROJECTS.map((project, idx) => (
+                {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
                   <button
-                    key={project.id}
+                    key={idx}
                     type="button"
                     onClick={() => setCurrentIndex(idx)}
-                    aria-label={`Jump to project ${idx + 1}: ${project.name}`}
+                    aria-label={`Jump to project group starting at ${idx + 1}`}
                     className={`transition-all duration-300 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#35309B] cursor-pointer ${
                       currentIndex === idx
-                        ? "w-8 h-3 bg-[#35309B] shadow-sm ring-2 ring-[#35309B]/30"
-                        : "w-3 h-3 bg-[#35309B]/30 hover:bg-[#35309B]/70"
+                        ? "w-7 h-2.5 bg-[#35309B] shadow-xs ring-2 ring-[#35309B]/30"
+                        : "w-2.5 h-2.5 bg-[#35309B]/30 hover:bg-[#35309B]/70"
                     }`}
                   />
                 ))}
