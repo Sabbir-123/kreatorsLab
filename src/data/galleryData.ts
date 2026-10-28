@@ -37,7 +37,7 @@ export interface GalleryMediaItem {
   caption: string;
   date?: string;
   featured?: boolean;
-  bentoSize?: "wide" | "tall" | "square" | "standard";
+  bentoSize?: "featured" | "wide" | "tall" | "square" | "standard";
   accentColor?: string;
 }
 
@@ -81,7 +81,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Students collaborating on sensor calibration and pathfinding algorithms during our Austin Summer Camp.",
     date: "Summer 2026",
     featured: true,
-    bentoSize: "wide",
+    bentoSize: "featured",
     accentColor: "from-amber-50 to-orange-50",
   },
   {
@@ -111,7 +111,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "First-grader Luna presenting her completed interactive fishing game built with custom block physics and sound.",
     date: "Spring 2026",
     featured: true,
-    bentoSize: "tall",
+    bentoSize: "wide",
     accentColor: "from-blue-50 to-cyan-50",
   },
   {
@@ -126,7 +126,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Before writing any code, young creators illustrate original characters and storyboard game world mechanics.",
     date: "Spring 2026",
     featured: true,
-    bentoSize: "wide",
+    bentoSize: "standard",
     accentColor: "from-emerald-50 to-teal-50",
   },
   {
@@ -141,7 +141,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Thanksgiving break makers teaming up to program collaborative holiday escape rooms and multi-level maze games.",
     date: "November 2025",
     featured: true,
-    bentoSize: "square",
+    bentoSize: "standard",
     accentColor: "from-rose-50 to-pink-50",
   },
   {
@@ -156,7 +156,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Student developers playtesting each other's custom boss fights and sharing constructive feedback.",
     date: "Winter 2025",
     featured: true,
-    bentoSize: "square",
+    bentoSize: "tall",
     accentColor: "from-violet-50 to-purple-50",
   },
   {
@@ -200,8 +200,8 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     category: "Classroom Activities",
     caption: "Grade 2 creators composing visual prompts and guiding child-friendly generative AI to generate dynamic story illustrations.",
     date: "Fall 2025",
-    featured: false,
-    bentoSize: "standard",
+    featured: true,
+    bentoSize: "featured",
     accentColor: "from-amber-50 to-yellow-50",
   },
   {
@@ -216,7 +216,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Grade 7 student's autonomous turn-based combat system calculating real-time Dijkstra path costs.",
     date: "Spring 2026",
     featured: false,
-    bentoSize: "standard",
+    bentoSize: "tall",
     accentColor: "from-indigo-50 to-blue-50",
   },
   {
@@ -231,7 +231,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Teams of 4 students designing, coding, and playtesting three arcade games in a rapid 3-day sprint.",
     date: "March 2026",
     featured: false,
-    bentoSize: "wide",
+    bentoSize: "standard",
     accentColor: "from-teal-50 to-emerald-50",
   },
   {
@@ -246,7 +246,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Students wiring microcontrollers, ultrasonic distance sensors, and LED visualizers into physical game controllers.",
     date: "Winter 2025",
     featured: false,
-    bentoSize: "tall",
+    bentoSize: "wide",
     accentColor: "from-cyan-50 to-sky-50",
   },
   {
@@ -276,7 +276,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Middle schoolers building complex state machines and adaptive dialogue trees for interactive RPGs.",
     date: "Fall 2025",
     featured: false,
-    bentoSize: "wide",
+    bentoSize: "tall",
     accentColor: "from-purple-50 to-violet-50",
   },
   {
@@ -306,7 +306,7 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     caption: "Grade 11 developer created a rate-limiting proxy and latency monitor benchmarked across multiple inference providers.",
     date: "Spring 2026",
     featured: false,
-    bentoSize: "standard",
+    bentoSize: "wide",
     accentColor: "from-emerald-50 to-green-50",
   },
   {
@@ -335,8 +335,8 @@ export const GALLERY_ITEMS: GalleryMediaItem[] = [
     category: "Special Events",
     caption: "High school senior demonstrating a deployed neural net that interprets user sketches into 3D polygon meshes.",
     date: "Spring 2026",
-    featured: false,
-    bentoSize: "wide",
+    featured: true,
+    bentoSize: "featured",
     accentColor: "from-fuchsia-50 to-pink-50",
   },
 ];
