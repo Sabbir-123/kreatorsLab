@@ -13,15 +13,42 @@ interface HeroProps {
 export function Hero({ onExplorePrograms, onSeeProjects, onWatchVideo }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
 
-  // Auto-play video on mount (muted by default per browser autoplay policy)
+  // Auto-play video with sound ON by default
   useEffect(() => {
     if (videoRef.current) {
+      videoRef.current.muted = false;
       videoRef.current.play().catch(() => {
-        setIsPlaying(false);
+        // If the browser autoplay policy blocks unmuted audio on first load,
+        // start playback muted and unmute upon first user interaction
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().catch(() => {
+            setIsPlaying(false);
+          });
+        }
       });
     }
+
+    // Automatically unmute on first user interaction if blocked initially
+    const handleFirstInteraction = () => {
+      if (videoRef.current && videoRef.current.muted) {
+        videoRef.current.muted = false;
+        setIsMuted(false);
+      }
+    };
+
+    window.addEventListener("click", handleFirstInteraction, { once: true });
+    window.addEventListener("keydown", handleFirstInteraction, { once: true });
+    window.addEventListener("touchstart", handleFirstInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener("click", handleFirstInteraction);
+      window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener("touchstart", handleFirstInteraction);
+    };
   }, []);
 
   const togglePlay = () => {
@@ -44,7 +71,7 @@ export function Hero({ onExplorePrograms, onSeeProjects, onWatchVideo }: HeroPro
   return (
     <section
       id="top"
-      className="relative min-h-[720px] sm:min-h-[820px] lg:min-h-[920px] flex flex-col justify-start pt-36 pb-24 sm:pt-44 sm:pb-32 lg:pt-48 lg:pb-36 scroll-mt-28 overflow-hidden text-white bg-[#281F72]"
+      className="relative min-h-[720px] sm:min-h-[820px] lg:min-h-[920px] flex flex-col justify-start pt-28 pb-24 sm:pt-32 sm:pb-32 lg:pt-36 lg:pb-36 scroll-mt-28 overflow-hidden text-white bg-[#281F72]"
     >
       {/* 1. Background Video Layer (Clickable to open full video modal) */}
       <div
