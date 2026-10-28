@@ -45,13 +45,29 @@ export default function HomePage() {
   const handleExplorePrograms = () => {
     trackEvent("cta_click", { label: "Explore Programs" });
     const el = document.getElementById("programs");
-    el?.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const headerOffset = 90;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const handleSeeProjects = () => {
     trackEvent("cta_click", { label: "See What Kids Built" });
     const el = document.getElementById("projects");
-    el?.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const headerOffset = 90;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (

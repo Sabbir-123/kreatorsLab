@@ -33,7 +33,7 @@ export function ProgramsSection({
   return (
     <section
       id="programs"
-      className="scroll-mt-20 sm:scroll-mt-24 py-10 sm:py-14 md:py-16 bg-[#FAF9FE] relative overflow-hidden"
+      className="scroll-mt-28 sm:scroll-mt-32 pt-14 sm:pt-18 md:pt-20 pb-12 sm:pb-16 bg-[#FAF9FE] relative overflow-hidden"
     >
       {/* Decorative Background Accents */}
       <div
@@ -48,20 +48,20 @@ export function ProgramsSection({
         {/* Section Heading & Subheading */}
         <div
           ref={headerRef}
-          className={`text-center max-w-2xl mx-auto mb-8 sm:mb-10 reveal-fade-up ${
+          className={`text-center max-w-2xl mx-auto mb-7 sm:mb-10 reveal-fade-up ${
             headerVisible ? "is-visible" : ""
           }`}
         >
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#EEECFF] text-[#35309B] text-xs font-bold uppercase tracking-wider mb-2.5 border border-[#35309B]/15 shadow-2xs">
+          <div className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-[#EEECFF] text-[#35309B] text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2.5 border border-[#35309B]/15 shadow-2xs">
             <Sparkles className="w-3.5 h-3.5 text-[#35309B]" />
             <span>Programs &amp; Formats</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#18152B] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#18152B] tracking-tight leading-tight">
             Programs
           </h2>
 
-          <p className="mt-2 text-xs sm:text-sm text-[#65617A] max-w-xl mx-auto leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-[#65617A] max-w-xl mx-auto leading-relaxed px-2">
             Hands-on AI &amp; creative technology cohorts in Austin &amp; Lake Travis. Every child has their own kind of genius — choose a format to explore:
           </p>
         </div>
@@ -76,25 +76,25 @@ export function ProgramsSection({
           {/* Card 1: After-School Enrichment */}
           <Link
             href="/programs?type=after-school"
-            className="group relative rounded-[32px] sm:rounded-[36px] bg-gradient-to-br from-[#F4F0FE] via-[#E8DDFD] to-[#FAF8FF] border border-[#DFD2FA] p-6 sm:p-7 shadow-[0_10px_35px_rgba(84,56,220,0.08)] hover:shadow-[0_20px_50px_rgba(84,56,220,0.18)] transition-all duration-400 overflow-hidden flex flex-col justify-between hover:-translate-y-2"
+            className="group relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-br from-[#F4F0FE] via-[#E8DDFD] to-[#FAF8FF] border border-[#DFD2FA] p-4.5 xs:p-5 sm:p-7 shadow-[0_10px_35px_rgba(84,56,220,0.08)] hover:shadow-[0_20px_50px_rgba(84,56,220,0.18)] transition-all duration-400 overflow-hidden flex flex-col justify-between hover:-translate-y-2"
             aria-label="Explore After-School Enrichment Programs"
           >
             <div>
               {/* Top Row Badges */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 text-[#40209C] text-xs font-black shadow-xs border border-white/80 backdrop-blur-md">
+                <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/95 text-[#40209C] text-[11px] sm:text-xs font-black shadow-xs border border-white/80 backdrop-blur-md">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#6D3DF2]" />
                   <span>12-Week Enrichment</span>
                 </span>
 
-                <span className="px-3 py-1 rounded-full bg-[#18152B] text-[#DFFF00] text-xs font-black shadow-2xs">
+                <span className="px-2.5 sm:px-3 py-1 rounded-full bg-[#18152B] text-[#DFFF00] text-[11px] sm:text-xs font-black shadow-2xs">
                   Now Enrolling
                 </span>
               </div>
 
               {/* Title & Description */}
               <div className="mb-4">
-                <h3 className="text-2xl sm:text-3xl font-black text-[#151226] tracking-tight leading-snug group-hover:text-[#473DEA] transition-colors mb-2">
+                <h3 className="text-xl sm:text-3xl font-black text-[#151226] tracking-tight leading-snug group-hover:text-[#473DEA] transition-colors mb-2">
                   After-School Enrichment
                 </h3>
 
@@ -141,19 +141,19 @@ export function ProgramsSection({
             </div>
 
             {/* Signature Floating Frosted Glass Bottom Bar (No Price) */}
-            <div className="bg-white/90 backdrop-blur-md rounded-full p-2 pl-5 pr-2 flex items-center justify-between border border-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] z-10">
-              <div className="flex flex-col">
-                <span className="text-sm sm:text-base font-black text-[#18152B] tracking-tight">
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-full p-2 pl-3.5 sm:pl-5 pr-2 flex items-center justify-between gap-2 border border-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] z-10">
+              <div className="flex flex-col min-w-0 pr-1">
+                <span className="text-xs sm:text-base font-black text-[#18152B] tracking-tight truncate">
                   Spring &amp; Fall Cohorts
                 </span>
-                <span className="text-[10px] font-bold text-[#65617A] uppercase tracking-wider leading-none">
+                <span className="text-[9px] sm:text-[10px] font-bold text-[#65617A] uppercase tracking-wider leading-none truncate">
                   Grades K–8 • Austin &amp; Virtual
                 </span>
               </div>
 
-              <div className="h-10 px-4 rounded-full bg-[#18152B] group-hover:bg-[#35309B] text-white font-black text-xs inline-flex items-center gap-1.5 shadow-md group-hover:scale-105 active:scale-95 transition-all">
+              <div className="h-9 sm:h-10 px-3 sm:px-4 rounded-full bg-[#18152B] group-hover:bg-[#35309B] text-white font-black text-[11px] sm:text-xs inline-flex items-center gap-1.5 shadow-md group-hover:scale-105 active:scale-95 transition-all shrink-0">
                 <span>Explore Enrichment</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#DFFF00]" />
+                <ArrowRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#DFFF00]" />
               </div>
             </div>
           </Link>
@@ -161,25 +161,25 @@ export function ProgramsSection({
           {/* Card 2: Holiday & Summer Camps */}
           <Link
             href="/programs?type=camps"
-            className="group relative rounded-[32px] sm:rounded-[36px] bg-gradient-to-br from-[#F0F8FF] via-[#E1F3FE] to-[#F5FAFF] border border-[#CFE9FC] p-6 sm:p-7 shadow-[0_10px_35px_rgba(2,132,199,0.08)] hover:shadow-[0_20px_50px_rgba(2,132,199,0.18)] transition-all duration-400 overflow-hidden flex flex-col justify-between hover:-translate-y-2"
+            className="group relative rounded-[28px] sm:rounded-[36px] bg-gradient-to-br from-[#F0F8FF] via-[#E1F3FE] to-[#F5FAFF] border border-[#CFE9FC] p-4.5 xs:p-5 sm:p-7 shadow-[0_10px_35px_rgba(2,132,199,0.08)] hover:shadow-[0_20px_50px_rgba(2,132,199,0.18)] transition-all duration-400 overflow-hidden flex flex-col justify-between hover:-translate-y-2"
             aria-label="Explore Holiday and Summer Camp Sprints"
           >
             <div>
               {/* Top Row Badges */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 text-[#0A568C] text-xs font-black shadow-xs border border-white/80 backdrop-blur-md">
+                <span className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/95 text-[#0A568C] text-[11px] sm:text-xs font-black shadow-xs border border-white/80 backdrop-blur-md">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
                   <span>School Break Camps</span>
                 </span>
 
-                <span className="px-3 py-1 rounded-full bg-[#18152B] text-[#DFFF00] text-xs font-black shadow-2xs">
+                <span className="px-2.5 sm:px-3 py-1 rounded-full bg-[#18152B] text-[#DFFF00] text-[11px] sm:text-xs font-black shadow-2xs">
                   Limited Spots
                 </span>
               </div>
 
               {/* Title & Description */}
               <div className="mb-4">
-                <h3 className="text-2xl sm:text-3xl font-black text-[#151226] tracking-tight leading-snug group-hover:text-[#473DEA] transition-colors mb-2">
+                <h3 className="text-xl sm:text-3xl font-black text-[#151226] tracking-tight leading-snug group-hover:text-[#473DEA] transition-colors mb-2">
                   Holiday &amp; Summer Camps
                 </h3>
 
@@ -226,19 +226,19 @@ export function ProgramsSection({
             </div>
 
             {/* Signature Floating Frosted Glass Bottom Bar (No Price) */}
-            <div className="bg-white/90 backdrop-blur-md rounded-full p-2 pl-5 pr-2 flex items-center justify-between border border-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] z-10">
-              <div className="flex flex-col">
-                <span className="text-sm sm:text-base font-black text-[#18152B] tracking-tight">
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-full p-2 pl-3.5 sm:pl-5 pr-2 flex items-center justify-between gap-2 border border-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] z-10">
+              <div className="flex flex-col min-w-0 pr-1">
+                <span className="text-xs sm:text-base font-black text-[#18152B] tracking-tight truncate">
                   Holiday &amp; Summer Sprints
                 </span>
-                <span className="text-[10px] font-bold text-[#65617A] uppercase tracking-wider leading-none">
+                <span className="text-[9px] sm:text-[10px] font-bold text-[#65617A] uppercase tracking-wider leading-none truncate">
                   Full-Day &amp; Half-Day Options
                 </span>
               </div>
 
-              <div className="h-10 px-4 rounded-full bg-[#18152B] group-hover:bg-[#35309B] text-white font-black text-xs inline-flex items-center gap-1.5 shadow-md group-hover:scale-105 active:scale-95 transition-all">
+              <div className="h-9 sm:h-10 px-3 sm:px-4 rounded-full bg-[#18152B] group-hover:bg-[#35309B] text-white font-black text-[11px] sm:text-xs inline-flex items-center gap-1.5 shadow-md group-hover:scale-105 active:scale-95 transition-all shrink-0">
                 <span>Explore Camps</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#DFFF00]" />
+                <ArrowRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#DFFF00]" />
               </div>
             </div>
           </Link>

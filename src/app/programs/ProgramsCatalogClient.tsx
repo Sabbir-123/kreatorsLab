@@ -19,6 +19,7 @@ import {
   Layers,
   MapPin,
   CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
 import {
   AFTER_SCHOOL_PROGRAMS,
@@ -187,56 +188,56 @@ export function ProgramsCatalogClient() {
       {/* Header */}
       <Header />
 
-      <main className="flex-1 pt-24 sm:pt-28 pb-16">
+      <main className="flex-1 pt-20 sm:pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Breadcrumb Navigation */}
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-4 sm:mb-6 flex items-center justify-between gap-2">
             <Link
               href="/#programs"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#35309B] hover:text-[#473DEA] transition-colors"
+              className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-[#35309B] hover:text-[#473DEA] transition-colors shrink-0"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Home</span>
             </Link>
 
-            <span className="text-xs font-semibold text-[#65617A]">
+            <span className="text-[11px] sm:text-xs font-semibold text-[#65617A] truncate text-right">
               Austin &amp; Lake Travis, TX + Live Virtual
             </span>
           </div>
 
           {/* 1. HERO BANNER WITH AUTHENTIC PICTURE OF CHILDREN HAVING FUN */}
-          <div className="bg-gradient-to-br from-[#1F184A] via-[#18123B] to-[#2B1B69] rounded-3xl p-6 sm:p-8 lg:p-10 text-white relative overflow-hidden shadow-[0_16px_50px_rgba(31,24,74,0.18)] mb-8 sm:mb-10">
+          <div className="bg-gradient-to-br from-[#1F184A] via-[#18123B] to-[#2B1B69] rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative overflow-hidden shadow-[0_16px_50px_rgba(31,24,74,0.18)] mb-6 sm:mb-8">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#473DEA]/30 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-10 left-1/3 w-64 h-64 bg-[#DFFF00]/15 rounded-full blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
               {/* Left Column: Title, Subtitle & Highlights (lg: 7 cols) */}
               <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#DFFF00] text-[11px] font-extrabold uppercase tracking-wider mb-3 border border-white/15">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#DFFF00] text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider mb-2.5 sm:mb-3 border border-white/15">
                   <Sparkles className="w-3 h-3 text-[#DFFF00]" />
                   <span>Creative Technology Cohort Catalog</span>
                 </div>
 
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-3">
+                <h1 className="text-xl xs:text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-2 sm:mb-3">
                   Explore All Programs &amp; Camps
                 </h1>
 
-                <p className="text-sm sm:text-base text-white/85 leading-relaxed max-w-xl mb-5">
+                <p className="text-xs sm:text-base text-white/85 leading-relaxed max-w-xl mb-4 sm:mb-5">
                   Hands-on AI, game design, and creative technology cohorts for kids in grades K–8. Filter by grade level, program duration, or cohort format below:
                 </p>
 
                 {/* Quick Summary Badges */}
-                <div className="flex flex-wrap items-center gap-2 text-xs text-white/95 font-semibold">
-                  <span className="bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-white/95 font-semibold">
+                  <span className="bg-white/15 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15">
                     ⚡ 12-Week Semesters
                   </span>
-                  <span className="bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+                  <span className="bg-white/15 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15">
                     🏕️ 3–5 Day Break Sprints
                   </span>
-                  <span className="bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+                  <span className="bg-white/15 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15">
                     🎯 Grades K–8
                   </span>
-                  <span className="bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+                  <span className="bg-white/15 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/15">
                     💡 Max 8 Students / Mentor
                   </span>
                 </div>
@@ -244,7 +245,7 @@ export function ProgramsCatalogClient() {
 
               {/* Right Column: Authentic Picture of Children Having Fun & Creating (lg: 5 cols) */}
               <div className="lg:col-span-5 relative">
-                <div className="relative aspect-[16/11] sm:aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl bg-white/5 group">
+                <div className="relative aspect-[16/10] sm:aspect-[4/3] rounded-xl sm:rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl bg-white/5 group">
                   <Image
                     src="/images/founder/actually_knows.JPG"
                     alt="Happy Kreators Lab students smiling together with mentor in studio"
@@ -274,9 +275,9 @@ export function ProgramsCatalogClient() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* LEFT SIDEBAR: FILTERS BESIDE THE CARDS (Minimized to lg:col-span-3) */}
             <aside className="lg:col-span-3 lg:sticky lg:top-24 space-y-4">
-              <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8E5F3] shadow-[0_4px_24px_rgba(53,48,155,0.06)] p-4 sm:p-4.5 space-y-4">
+              <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8E5F3] shadow-[0_4px_24px_rgba(53,48,155,0.06)] p-3.5 sm:p-4.5 space-y-3 sm:space-y-4">
                 {/* Filter Header & Reset Button */}
-                <div className="flex items-center justify-between pb-3 border-b border-[#F0EEF8]">
+                <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-[#F0EEF8]">
                   <div className="flex items-center gap-2 text-xs sm:text-sm font-black text-[#18152B]">
                     <Filter className="w-3.5 h-3.5 text-[#5438DC]" />
                     <span>Filter Cohorts</span>
@@ -306,7 +307,7 @@ export function ProgramsCatalogClient() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Topic, day, or grade..."
-                      className="w-full pl-8 pr-7 py-1.5 text-xs rounded-lg border border-[#E3DFEE] bg-[#FAF9FE] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5438DC]/30 focus:border-[#5438DC] transition-all"
+                      className="w-full pl-8 pr-7 py-2 text-xs rounded-xl border border-[#E3DFEE] bg-[#FAF9FE] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5438DC]/30 focus:border-[#5438DC] transition-all"
                     />
                     {searchQuery && (
                       <button
@@ -320,130 +321,120 @@ export function ProgramsCatalogClient() {
                   </div>
                 </div>
 
-                {/* Filter 1: Program Format */}
-                <div>
-                  <label className="flex items-center gap-1.5 text-[11px] font-bold text-[#55506E] mb-1.5 uppercase tracking-wide">
-                    <Layers className="w-3 h-3 text-[#5438DC]" />
-                    <span>Program Format</span>
-                  </label>
-                  <div className="flex flex-col gap-1">
-                    {[
-                      { key: "all", label: "All Programs" },
-                      { key: "after-school", label: "After-School (12 Wks)" },
-                      { key: "camps", label: "Break Camps (3–5 Days)" },
-                    ].map((fmt) => (
-                      <button
-                        key={fmt.key}
-                        type="button"
-                        onClick={() => handleFormatChange(fmt.key as FormatFilter)}
-                        className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all text-left flex items-center justify-between cursor-pointer ${
-                          selectedFormat === fmt.key
-                            ? "bg-[#35309B] text-white shadow-xs font-extrabold"
-                            : "bg-[#F3F0FA] text-[#4E4870] hover:bg-[#EAE4F7]"
-                        }`}
+                {/* All Filters as Responsive Dropdowns */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3">
+                  {/* Filter 1: Program Format Dropdown */}
+                  <div>
+                    <label
+                      htmlFor="filter-format"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#55506E] mb-1 uppercase tracking-wide"
+                    >
+                      <Layers className="w-3 h-3 text-[#5438DC]" />
+                      <span>Program Format</span>
+                    </label>
+                    <div className="relative w-full">
+                      <select
+                        id="filter-format"
+                        value={selectedFormat}
+                        onChange={(e) => handleFormatChange(e.target.value as FormatFilter)}
+                        aria-label="Filter by Program Format"
+                        className="w-full appearance-none pl-3 sm:pl-3.5 pr-8 py-2 rounded-xl bg-[#FAF9FE] hover:bg-white border border-[#E4E0F4] hover:border-[#35309B] focus:border-[#35309B] text-xs font-bold text-[#18152B] focus:outline-none focus:ring-2 focus:ring-[#35309B]/20 transition-all cursor-pointer shadow-2xs"
                       >
-                        <span>{fmt.label}</span>
-                        {selectedFormat === fmt.key && (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#DFFF00]" />
-                        )}
-                      </button>
-                    ))}
+                        <option value="all">All Programs</option>
+                        <option value="after-school">After-School (12 Wks)</option>
+                        <option value="camps">Break Camps (3–5 Days)</option>
+                      </select>
+                      <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#5438DC]">
+                        <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Filter 2: Grade Level */}
-                <div>
-                  <label className="flex items-center gap-1.5 text-[11px] font-bold text-[#55506E] mb-1.5 uppercase tracking-wide">
-                    <GraduationCap className="w-3 h-3 text-[#5438DC]" />
-                    <span>Grade Level</span>
-                  </label>
-                  <div className="flex flex-col gap-1">
-                    {[
-                      { key: "all", label: "All Grades (K–8)" },
-                      { key: "elementary", label: "Grades K–5 (Elem)" },
-                      { key: "middle", label: "Grades 6–8 (Middle)" },
-                    ].map((grd) => (
-                      <button
-                        key={grd.key}
-                        type="button"
-                        onClick={() => handleGradeChange(grd.key as GradeFilter)}
-                        className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all text-left flex items-center justify-between cursor-pointer ${
-                          selectedGrade === grd.key
-                            ? "bg-[#35309B] text-white shadow-xs font-extrabold"
-                            : "bg-[#F3F0FA] text-[#4E4870] hover:bg-[#EAE4F7]"
-                        }`}
+                  {/* Filter 2: Grade Level Dropdown */}
+                  <div>
+                    <label
+                      htmlFor="filter-grade"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#55506E] mb-1 uppercase tracking-wide"
+                    >
+                      <GraduationCap className="w-3 h-3 text-[#5438DC]" />
+                      <span>Grade Level</span>
+                    </label>
+                    <div className="relative w-full">
+                      <select
+                        id="filter-grade"
+                        value={selectedGrade}
+                        onChange={(e) => handleGradeChange(e.target.value as GradeFilter)}
+                        aria-label="Filter by Grade Level"
+                        className="w-full appearance-none pl-3 sm:pl-3.5 pr-8 py-2 rounded-xl bg-[#FAF9FE] hover:bg-white border border-[#E4E0F4] hover:border-[#35309B] focus:border-[#35309B] text-xs font-bold text-[#18152B] focus:outline-none focus:ring-2 focus:ring-[#35309B]/20 transition-all cursor-pointer shadow-2xs"
                       >
-                        <span>{grd.label}</span>
-                        {selectedGrade === grd.key && (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#DFFF00]" />
-                        )}
-                      </button>
-                    ))}
+                        <option value="all">All Grades (K–8)</option>
+                        <option value="elementary">Grades K–5 (Elem)</option>
+                        <option value="middle">Grades 6–8 (Middle)</option>
+                      </select>
+                      <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#5438DC]">
+                        <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Filter 3: Duration Wise */}
-                <div>
-                  <label className="flex items-center gap-1.5 text-[11px] font-bold text-[#55506E] mb-1.5 uppercase tracking-wide">
-                    <Hourglass className="w-3 h-3 text-[#5438DC]" />
-                    <span>Duration Wise</span>
-                  </label>
-                  <div className="flex flex-col gap-1">
-                    {[
-                      { key: "all", label: "All Durations" },
-                      { key: "12-weeks", label: "12 Weeks (Semester)" },
-                      { key: "sprint", label: "3–5 Days (Sprints)" },
-                    ].map((dur) => (
-                      <button
-                        key={dur.key}
-                        type="button"
-                        onClick={() => handleDurationChange(dur.key as DurationFilter)}
-                        className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all text-left flex items-center justify-between cursor-pointer ${
-                          selectedDuration === dur.key
-                            ? "bg-[#35309B] text-white shadow-xs font-extrabold"
-                            : "bg-[#F3F0FA] text-[#4E4870] hover:bg-[#EAE4F7]"
-                        }`}
+                  {/* Filter 3: Duration Wise Dropdown */}
+                  <div>
+                    <label
+                      htmlFor="filter-duration"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#55506E] mb-1 uppercase tracking-wide"
+                    >
+                      <Hourglass className="w-3 h-3 text-[#5438DC]" />
+                      <span>Duration Wise</span>
+                    </label>
+                    <div className="relative w-full">
+                      <select
+                        id="filter-duration"
+                        value={selectedDuration}
+                        onChange={(e) => handleDurationChange(e.target.value as DurationFilter)}
+                        aria-label="Filter by Duration"
+                        className="w-full appearance-none pl-3 sm:pl-3.5 pr-8 py-2 rounded-xl bg-[#FAF9FE] hover:bg-white border border-[#E4E0F4] hover:border-[#35309B] focus:border-[#35309B] text-xs font-bold text-[#18152B] focus:outline-none focus:ring-2 focus:ring-[#35309B]/20 transition-all cursor-pointer shadow-2xs"
                       >
-                        <span>{dur.label}</span>
-                        {selectedDuration === dur.key && (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#DFFF00]" />
-                        )}
-                      </button>
-                    ))}
+                        <option value="all">All Durations</option>
+                        <option value="12-weeks">12 Weeks (Semester)</option>
+                        <option value="sprint">3–5 Days (Sprints)</option>
+                      </select>
+                      <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#5438DC]">
+                        <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Filter 4: Location Format */}
-                <div>
-                  <label className="flex items-center gap-1.5 text-[11px] font-bold text-[#55506E] mb-1.5 uppercase tracking-wide">
-                    <MapPin className="w-3 h-3 text-[#5438DC]" />
-                    <span>Format Location</span>
-                  </label>
-                  <div className="grid grid-cols-3 gap-1">
-                    {[
-                      { key: "all", label: "All" },
-                      { key: "in-person", label: "Studio" },
-                      { key: "virtual", label: "Virtual" },
-                    ].map((loc) => (
-                      <button
-                        key={loc.key}
-                        type="button"
-                        onClick={() => setSelectedLocation(loc.key as LocationFilter)}
-                        className={`text-[10px] py-1 rounded-md font-bold transition-all text-center cursor-pointer ${
-                          selectedLocation === loc.key
-                            ? "bg-[#5438DC] text-white shadow-xs"
-                            : "bg-[#F3F0FA] text-[#4E4870] hover:bg-[#EAE4F7]"
-                        }`}
+                  {/* Filter 4: Location Format Dropdown */}
+                  <div>
+                    <label
+                      htmlFor="filter-location"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#55506E] mb-1 uppercase tracking-wide"
+                    >
+                      <MapPin className="w-3 h-3 text-[#5438DC]" />
+                      <span>Format Location</span>
+                    </label>
+                    <div className="relative w-full">
+                      <select
+                        id="filter-location"
+                        value={selectedLocation}
+                        onChange={(e) => setSelectedLocation(e.target.value as LocationFilter)}
+                        aria-label="Filter by Location"
+                        className="w-full appearance-none pl-3 sm:pl-3.5 pr-8 py-2 rounded-xl bg-[#FAF9FE] hover:bg-white border border-[#E4E0F4] hover:border-[#35309B] focus:border-[#35309B] text-xs font-bold text-[#18152B] focus:outline-none focus:ring-2 focus:ring-[#35309B]/20 transition-all cursor-pointer shadow-2xs"
                       >
-                        {loc.label}
-                      </button>
-                    ))}
+                        <option value="all">All Locations</option>
+                        <option value="in-person">Studio (Austin &amp; Lake Travis)</option>
+                        <option value="virtual">Live Virtual Cohort</option>
+                      </select>
+                      <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#5438DC]">
+                        <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Sidebar Quick Contact Card */}
-              <div className="bg-[#FAF9FE] rounded-2xl border border-[#E8E5F3] p-4 text-center">
+              {/* Sidebar Quick Contact Card (Hidden on mobile to prioritize program cards) */}
+              <div className="hidden lg:block bg-[#FAF9FE] rounded-2xl border border-[#E8E5F3] p-4 text-center">
                 <p className="text-xs font-bold text-[#18152B] mb-0.5">
                   Need Schedule Advice?
                 </p>
@@ -586,7 +577,7 @@ export function ProgramsCatalogClient() {
                     return (
                       <article
                         key={program.id}
-                        className={`group relative h-full flex flex-col justify-between rounded-[32px] sm:rounded-[36px] bg-gradient-to-br ${theme.bgGradient} border ${theme.border} p-5 sm:p-6 shadow-[0_10px_30px_rgba(53,48,155,0.05)] hover:shadow-[0_20px_45px_rgba(53,48,155,0.13)] transition-all duration-400 hover:-translate-y-2 overflow-hidden`}
+                        className={`group relative h-full flex flex-col justify-between rounded-[28px] sm:rounded-[36px] bg-gradient-to-br ${theme.bgGradient} border ${theme.border} p-4.5 xs:p-5 sm:p-6 shadow-[0_10px_30px_rgba(53,48,155,0.05)] hover:shadow-[0_20px_45px_rgba(53,48,155,0.13)] transition-all duration-400 hover:-translate-y-2 overflow-hidden`}
                         style={{
                           boxShadow: `0 12px 35px -8px ${theme.glowColor}`,
                         }}
@@ -596,7 +587,7 @@ export function ProgramsCatalogClient() {
                           {/* 1. TOP ROW: Category Capsule Badge & Savings Indicator */}
                           <div className="flex items-center justify-between gap-2 mb-3 z-10">
                             <span
-                              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 ${theme.badgeText} text-xs font-black shadow-xs border border-white/80 backdrop-blur-md`}
+                              className={`inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/95 ${theme.badgeText} text-[11px] sm:text-xs font-black shadow-xs border border-white/80 backdrop-blur-md`}
                             >
                               <span
                                 className={`w-1.5 h-1.5 rounded-full ${theme.accentDot}`}
@@ -605,11 +596,11 @@ export function ProgramsCatalogClient() {
                             </span>
 
                             {program.savingsBadge ? (
-                              <span className="px-3 py-1 rounded-full bg-[#18152B] text-[#DFFF00] text-xs font-black shadow-2xs">
+                              <span className="px-2.5 sm:px-3 py-1 rounded-full bg-[#18152B] text-[#DFFF00] text-[11px] sm:text-xs font-black shadow-2xs">
                                 {program.savingsBadge}
                               </span>
                             ) : (
-                              <span className="px-3 py-1 rounded-full bg-white/85 text-[#18152B] text-xs font-bold border border-white/60 shadow-2xs">
+                              <span className="px-2.5 sm:px-3 py-1 rounded-full bg-white/85 text-[#18152B] text-[11px] sm:text-xs font-bold border border-white/60 shadow-2xs">
                                 {program.grades}
                               </span>
                             )}
@@ -618,7 +609,7 @@ export function ProgramsCatalogClient() {
                           {/* 2. PROMINENT TYPOGRAPHY: Left-aligned bold title & details */}
                           <div className="mb-4 z-10">
                             <Link href={`/programs/${program.id}`}>
-                              <h2 className="text-xl sm:text-2xl font-black text-[#18152B] tracking-tight leading-snug group-hover:text-[#35309B] transition-colors mb-1.5 line-clamp-2 hover:underline">
+                              <h2 className="text-lg sm:text-2xl font-black text-[#18152B] tracking-tight leading-snug group-hover:text-[#35309B] transition-colors mb-1.5 line-clamp-2 hover:underline">
                                 {program.title}
                               </h2>
                             </Link>
@@ -628,14 +619,14 @@ export function ProgramsCatalogClient() {
                             </p>
 
                             {/* Clean Rounded Schedule Pills */}
-                            <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-[#18152B]">
-                              <span className="bg-white/85 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/70 shadow-2xs">
+                            <div className="flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-[#18152B]">
+                              <span className="bg-white/85 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-lg border border-white/70 shadow-2xs">
                                 {program.grades}
                               </span>
-                              <span className="bg-white/85 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/70 shadow-2xs">
+                              <span className="bg-white/85 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-lg border border-white/70 shadow-2xs">
                                 {program.scheduleDays}
                               </span>
-                              <span className="bg-white/85 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/70 shadow-2xs">
+                              <span className="bg-white/85 backdrop-blur-md px-2 sm:px-2.5 py-1 rounded-lg border border-white/70 shadow-2xs">
                                 {program.classCount}
                               </span>
                             </div>
@@ -654,7 +645,7 @@ export function ProgramsCatalogClient() {
 
                             {/* Overlaid Date Range Pill */}
                             <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5">
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-black/65 backdrop-blur-md text-white text-[11px] font-bold border border-white/20">
+                              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-black/65 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold border border-white/20">
                                 <Calendar className="w-3 h-3 text-[#DFFF00]" />
                                 <span>{program.dateRange}</span>
                               </span>
@@ -663,17 +654,17 @@ export function ProgramsCatalogClient() {
                         </div>
 
                         {/* 4. SIGNATURE FLOATING FROSTED GLASS BOTTOM BAR */}
-                        <div className="bg-white/90 backdrop-blur-md rounded-full p-2 pl-4 sm:pl-5 pr-2 flex items-center justify-between border border-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] z-10">
-                          <div className="flex flex-col min-w-0 pr-2">
-                            <div className="flex items-baseline gap-1.5">
-                              <span className="text-xl sm:text-2xl font-black text-[#18152B] tracking-tight">
+                        <div className="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-full p-2 pl-3.5 sm:pl-5 pr-2 flex items-center justify-between border border-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] z-10 gap-2">
+                          <div className="flex flex-col min-w-0 pr-1">
+                            <div className="flex items-baseline gap-1 sm:gap-1.5">
+                              <span className="text-lg sm:text-2xl font-black text-[#18152B] tracking-tight">
                                 {program.promoPrice}
                               </span>
-                              <span className="text-xs text-[#8A84A6] line-through font-bold">
+                              <span className="text-[11px] sm:text-xs text-[#8A84A6] line-through font-bold">
                                 {program.regularPrice}
                               </span>
                             </div>
-                            <span className="text-[10px] font-bold text-[#65617A] uppercase tracking-wider leading-none">
+                            <span className="text-[9px] sm:text-[10px] font-bold text-[#65617A] uppercase tracking-wider leading-none truncate">
                               Tuition (1:8 Ratio)
                             </span>
                           </div>
@@ -681,19 +672,19 @@ export function ProgramsCatalogClient() {
                           <div className="flex items-center gap-1.5 shrink-0">
                             <Link
                               href={`/programs/${program.id}`}
-                              className="w-10 h-10 rounded-full bg-white hover:bg-[#FAF9FE] text-[#18152B] border border-[#18152B]/10 flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-xs"
+                              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white hover:bg-[#FAF9FE] text-[#18152B] border border-[#18152B]/10 flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-xs shrink-0"
                               title="View Curriculum"
                             >
-                              <ArrowUpRight className="w-4 h-4 text-[#18152B]" />
+                              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#18152B]" />
                             </Link>
 
                             <button
                               type="button"
                               onClick={() => handleEnrollClick(program)}
-                              className="h-10 px-4 rounded-full bg-[#18152B] hover:bg-[#35309B] text-white font-black text-xs inline-flex items-center gap-1.5 shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer group/btn"
+                              className="h-9 sm:h-10 px-3 sm:px-4 rounded-full bg-[#18152B] hover:bg-[#35309B] text-white font-black text-[11px] sm:text-xs inline-flex items-center gap-1.5 shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer group/btn shrink-0"
                             >
                               <span>{program.ctaText}</span>
-                              <ArrowRight className="w-3.5 h-3.5 text-[#DFFF00] group-hover/btn:translate-x-0.5 transition-transform" />
+                              <ArrowRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#DFFF00] group-hover/btn:translate-x-0.5 transition-transform" />
                             </button>
                           </div>
                         </div>
@@ -723,6 +714,29 @@ export function ProgramsCatalogClient() {
                   </button>
                 </div>
               )}
+
+              {/* Mobile Quick Advice Card (Visible only on mobile/tablet below results) */}
+              <div className="mt-6 lg:hidden bg-white rounded-2xl border border-[#E8E5F3] p-4 text-center shadow-xs">
+                <p className="text-xs font-bold text-[#18152B] mb-0.5">
+                  Need Schedule Advice?
+                </p>
+                <p className="text-[11px] text-[#65617A] mb-3 leading-snug">
+                  Our Austin education director matches your child&apos;s grade and interest.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInquiryPrefill({
+                      program: "Catalog Schedule Advisor Request",
+                      grade: "Grades K–8",
+                    });
+                    setIsInquiryModalOpen(true);
+                  }}
+                  className="w-full py-2 px-4 text-xs font-extrabold rounded-full bg-[#35309B] text-white hover:bg-[#473DEA] transition-all shadow-xs cursor-pointer"
+                >
+                  Request Advisor Callback
+                </button>
+              </div>
             </section>
           </div>
 
