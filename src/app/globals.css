@@ -14,6 +14,8 @@
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-heading: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --font-signature: var(--font-great-vibes), cursive;
+  --font-serif: var(--font-playfair), Georgia, serif;
 }
 
 :root {
@@ -38,7 +40,7 @@ body {
   background-color: #FFFFFF;
   color: #18152B;
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -84,16 +86,133 @@ h6 {
   }
 }
 
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .animate-marquee-left {
   display: flex;
   width: max-content;
-  animation: marquee-left 35s linear infinite;
+  animation: marquee-left 80s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 80s linear infinite;
   will-change: transform;
 }
 
 .animate-marquee-left:hover,
-.marquee-container:hover .animate-marquee-left {
+.animate-marquee-right:hover,
+.marquee-container:hover .animate-marquee-left,
+.marquee-container:hover .animate-marquee-right,
+.marquee-row:hover .animate-marquee-left,
+.marquee-row:hover .animate-marquee-right {
   animation-play-state: paused;
+}
+
+/* Subtle, gentle floating animations for visual storytelling elements */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(0.8deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(7px) rotate(-0.8deg);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 7s ease-in-out infinite 1s;
+  will-change: transform;
+}
+
+.animate-float-slow {
+  animation: float-slow 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Subtle Scroll-Triggered Reveals (Phase 2) */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.stagger-visible .stagger-item,
+.is-visible .stagger-item,
+.stagger-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-delay-1 { transition-delay: 80ms; }
+.stagger-delay-2 { transition-delay: 160ms; }
+.stagger-delay-3 { transition-delay: 240ms; }
+.stagger-delay-4 { transition-delay: 320ms; }
+
+/* Papumba-inspired text highlighter sweep */
+.highlight-brush {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.highlight-brush::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 4px;
+  height: 36%;
+  background: rgba(223, 255, 0, 0.35);
+  border-radius: 4px;
+  z-index: 0;
+  transform: rotate(-1.2deg);
+  transform-origin: left bottom;
+  pointer-events: none;
 }
 
 /* Accessibility & reduced motion */

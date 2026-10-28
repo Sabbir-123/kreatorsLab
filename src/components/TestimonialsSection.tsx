@@ -11,6 +11,7 @@ import {
   Star,
   Video,
 } from "lucide-react";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useScrollReveal";
 
 interface TestimonialsSectionProps {
   onWatchVideo?: () => void;
@@ -18,12 +19,19 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) {
   const [isPlayingInline, setIsPlayingInline] = useState(false);
+  const { ref: headerRef, isVisible: isHeaderVisible } = useScrollReveal<HTMLDivElement>();
+  const { containerRef: cardsRef, isVisible: isCardsVisible } = useStaggerReveal<HTMLDivElement>();
 
   return (
     <section id="reviews" className="py-20 md:py-28 bg-[#F6F5FD] border-b border-[#E8E6F1] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-14 md:mb-16">
+        <div
+          ref={headerRef}
+          className={`max-w-3xl mb-14 md:mb-16 reveal-fade-up ${
+            isHeaderVisible ? "is-visible" : ""
+          }`}
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEECFF] text-[#473DEA] text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Parent Stories</span>
@@ -40,10 +48,14 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
         </div>
 
         {/* 3 Diverse Testimonial Cards: 1 with Real Photo, 1 with Video, 1 with Just Texts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 items-stretch">
-          
+        <div
+          ref={cardsRef}
+          className={`grid grid-cols-1 lg:grid-cols-3 gap-7 items-stretch ${
+            isCardsVisible ? "stagger-visible" : ""
+          }`}
+        >
           {/* CARD 1: REAL PARENTS PICTURE */}
-          <div className="bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div className="stagger-item stagger-delay-1 bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
             <div>
               {/* Real Parent Photo Frame */}
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-[#18152B] border border-[#F0EEF8]">
@@ -60,20 +72,15 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   <span>Real Family Story</span>
                 </div>
-
-                <div className="absolute bottom-3 left-3 text-white">
-                  <p className="text-xs font-bold drop-shadow-sm">Sarah &amp; Maya (3rd Grade)</p>
-                  <p className="text-[10px] text-white/80">Lakeway, TX</p>
-                </div>
               </div>
 
-              {/* Quote */}
+              {/* Real Quote Snippet */}
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-[#EEECFF] flex items-center justify-center text-[#473DEA] shrink-0 mt-0.5">
                   <Quote className="w-4 h-4 fill-current" />
                 </div>
                 <p className="text-sm sm:text-base text-[#18152B] font-medium leading-relaxed italic">
-                  &ldquo;My daughter came home on day one with a notebook filled with drawings and said: &apos;Mom, I&apos;m designing my own game!&apos; Watching her actually build it and explain how it worked on Friday was breathtaking.&rdquo;
+                  &ldquo;My daughter used to just consume games on an iPad. Now she designs mechanics, creates character dialogues, and explains computational logic to us at dinner. The change in her confidence is unbelievable.&rdquo;
                 </p>
               </div>
             </div>
@@ -82,10 +89,10 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
             <div className="mt-6 pt-5 border-t border-[#F0EEF8] flex items-center justify-between">
               <div>
                 <h4 className="text-sm font-bold text-[#18152B]">Sarah M.</h4>
-                <p className="text-xs text-[#473DEA] font-semibold">3rd Grade Parent</p>
+                <p className="text-xs text-[#473DEA] font-semibold">4th Grade Parent</p>
                 <div className="flex items-center gap-1 text-[11px] text-[#65617A] mt-0.5">
                   <MapPin className="w-3 h-3 text-[#473DEA]" />
-                  <span>Lakeway, TX</span>
+                  <span>Austin, TX (Lake Travis Cohort)</span>
                 </div>
               </div>
 
@@ -96,17 +103,14 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
             </div>
           </div>
 
-          {/* CARD 2: VIDEO TESTIMONIAL */}
-          <div className="bg-white rounded-[28px] p-6 sm:p-7 border-2 border-[#473DEA]/30 hover:border-[#473DEA] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
-            {/* Top Accent Gradient Ribbon */}
-            <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#473DEA] via-[#7C3AED] to-[#DFFF00]" />
-
+          {/* CARD 2: REAL PARENT VIDEO REVIEW */}
+          <div className="stagger-item stagger-delay-2 bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
             <div>
-              {/* Video Player / Preview Frame */}
+              {/* Parent Video Frame */}
               <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-[#18152B] border border-[#F0EEF8]">
                 {isPlayingInline ? (
                   <video
-                    src="/videos/kreators-lab-studio-loop.mp4"
+                    src="/videos/week-at-kreatorslab.mp4"
                     controls
                     autoPlay
                     className="w-full h-full object-cover"
@@ -185,7 +189,7 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
           </div>
 
           {/* CARD 3: JUST TEXTS */}
-          <div className="bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div className="stagger-item stagger-delay-3 bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
             <div>
               {/* Top Meta Header: Large Quotation Icon + Star Rating */}
               <div className="flex items-center justify-between mb-6">
@@ -209,16 +213,12 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
               </div>
 
               {/* Full Text Quote */}
-              <p className="text-base sm:text-lg text-[#18152B] font-semibold leading-relaxed">
+              <p className="text-sm sm:text-base text-[#18152B] font-semibold leading-relaxed">
                 &ldquo;Kreators Lab gave our homeschool curriculum the hands-on tech spark we were missing.{" "}
                 <span className="text-[#473DEA] underline decoration-[#473DEA]/30 underline-offset-4 font-bold">
                   It feels like an actual studio for young creators
                 </span>
-                , not another boring coding tutorial.&rdquo;
-              </p>
-
-              <p className="mt-4 text-xs sm:text-sm text-[#65617A] leading-relaxed">
-                The focus on asking questions, planning on paper, and celebrating Friday project completions made a measurable difference in our child&apos;s independent confidence.
+                , with an encouraging focus on planning on paper and independent confidence.&rdquo;
               </p>
             </div>
 
@@ -239,7 +239,6 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
               </span>
             </div>
           </div>
-
         </div>
       </div>
     </section>

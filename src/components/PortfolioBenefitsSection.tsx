@@ -77,7 +77,7 @@ export function PortfolioBenefitsSection() {
 
             <div className="pt-2">
               <p className="text-xs text-[#65617A] italic">
-                * Focuses on authentic student agency, project articulation, and long-term creative self-efficacy.
+                * Real projects demonstrate student initiative and problem-solving to support future academic applications without guaranteeing admission or scholarship outcomes.
               </p>
             </div>
           </div>

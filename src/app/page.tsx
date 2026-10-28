@@ -3,15 +3,15 @@
 import React, { useState } from "react";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { HeroPhotoStrip } from "@/components/HeroPhotoStrip";
 import { ProjectShowcase } from "@/components/ProjectShowcase";
 import { WhyKreatorsLab } from "@/components/WhyKreatorsLab";
 import { LearningMethod } from "@/components/LearningMethod";
 import { AILiteracySection } from "@/components/AILiteracySection";
 import { MentorsSection } from "@/components/MentorsSection";
-import { EnrollmentCTA } from "@/components/EnrollmentCTA";
-import { PortfolioBenefitsSection } from "@/components/PortfolioBenefitsSection";
 import { ProgramsSection } from "@/components/ProgramsSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { GalleryPreview } from "@/components/GalleryPreview";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import { FAQSection } from "@/components/FAQSection";
 import { FinalCTA } from "@/components/FinalCTA";
@@ -64,9 +64,13 @@ export default function HomePage() {
         <Hero
           onExplorePrograms={handleExplorePrograms}
           onSeeProjects={handleSeeProjects}
+          onWatchVideo={() => setIsVideoModalOpen(true)}
         />
 
-        {/* 2. Student Project Showcase (Directly below Hero) */}
+        {/* 2.5 Dynamic Studio Photo Marquee Strip (Right Below Hero Video) */}
+        <HeroPhotoStrip />
+
+        {/* 3. Student Project Showcase (Clean Interactive Cards Grid) */}
         <ProjectShowcase
           onSelectProject={(project) => setSelectedProject(project)}
           onExploreAll={handleSeeProjects}
@@ -86,32 +90,21 @@ export default function HomePage() {
         <WhyKreatorsLab />
 
         {/* 4.2 Project-Building Process: The Kreators Lab signature method */}
-        <LearningMethod
-          onDiscoverMore={() => {
-            const el = document.getElementById("about");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
-        />
+        <LearningMethod />
 
         {/* 4.3 AI Literacy: Distinct Program Benefit */}
         <AILiteracySection
           onLearnMore={() => handleOpenInquiry({ program: "AI Literacy & Curriculum Inquiry" })}
         />
 
-        {/* 5. Founder & Guidance Content: Great Ideas Grow With the Right Guidance */}
-        <MentorsSection onMeetTeam={() => handleOpenInquiry({ program: "Educator Guidance Inquiry" })} />
-
-        {/* 6. Call to Action: Encourage Enrollment */}
-        <EnrollmentCTA
-          onExplorePrograms={handleExplorePrograms}
-          onOpenInquiry={() => handleOpenInquiry()}
-        />
-
-        {/* 7. Supporting Future Applications: Student Portfolio Benefits */}
-        <PortfolioBenefitsSection />
-
-        {/* 8. Parent Testimonials: Authentic Stories from Austin & Lake Travis */}
+        {/* 7. Parent Testimonials: Authentic Stories from Austin & Lake Travis */}
         <TestimonialsSection onWatchVideo={() => setIsVideoModalOpen(true)} />
+
+        {/* 8. Life at Kreators Lab: Authentic Gallery Bento Preview (Photos & Videos) */}
+        <GalleryPreview />
+
+        {/* 5. Founder's Letter & Guidance Content */}
+        <MentorsSection onMeetTeam={() => handleOpenInquiry({ program: "Educator Guidance Inquiry" })} />
 
         {/* 9. FAQ Section: Good Questions Deserve Clear Answers */}
         <FAQSection />
@@ -141,6 +134,7 @@ export default function HomePage() {
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
+        videoSrc="/videos/KREATORS.mp4"
       />
 
       <InquiryModal

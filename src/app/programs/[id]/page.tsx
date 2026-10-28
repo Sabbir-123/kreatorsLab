@@ -1,14 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {
   Calendar,
-  Clock,
   Sparkles,
-  ArrowRight,
   ArrowLeft,
-  CheckCircle2,
   MapPin,
   Users,
   ShieldCheck,
@@ -31,6 +28,7 @@ interface ProgramPageProps {
   }>;
 }
 
+
 export async function generateStaticParams() {
   const allPrograms = [...AFTER_SCHOOL_PROGRAMS, ...DAY_CAMPS];
   return allPrograms.map((p) => ({
@@ -38,7 +36,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ProgramDetailPage({ params }: ProgramPageProps) {
+async function ProgramDetailContent({ params }: ProgramPageProps) {
   const { id } = await params;
   const allPrograms: SectionProgramItem[] = [
     ...AFTER_SCHOOL_PROGRAMS,
@@ -213,5 +211,24 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
       {/* Footer */}
       <Footer />
     </div>
+  );
+}
+
+export default function ProgramDetailPage({ params }: ProgramPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-[#FAF9FE]">
+          <div className="text-center">
+            <div className="w-10 h-10 border-4 border-[#35309B] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+            <p className="text-sm font-bold text-[#55506E]">
+              Loading Program Curriculum...
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <ProgramDetailContent params={params} />
+    </Suspense>
   );
 }

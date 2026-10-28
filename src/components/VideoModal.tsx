@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { X, Play, CheckCircle2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
@@ -15,20 +15,37 @@ interface VideoModalProps {
 export function VideoModal({
   isOpen,
   onClose,
-  videoSrc,
+  videoSrc = "/videos/KREATORS.mp4",
   posterSrc = "/videos/week-at-kreatorslab-poster.jpg",
 }: VideoModalProps) {
-  const isMuted = true;
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
+
     if (isOpen) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
       trackEvent("camp_video_open");
+
+      // Auto-play automatically when modal pops up
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // If browser autoplay policy requires initial mute, mute and play
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+          });
+        }
+      }
     }
+
     return () => {
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
@@ -42,10 +59,11 @@ export function VideoModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="video-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#18152B]/85 backdrop-blur-md animate-in fade-in duration-200"
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200 cursor-pointer"
     >
       <div
-        className="relative w-full max-w-4xl bg-[#18152B] rounded-3xl shadow-2xl border border-white/20 overflow-hidden flex flex-col animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-4xl bg-[#18152B] rounded-3xl shadow-2xl border border-white/20 overflow-hidden flex flex-col animate-in zoom-in-95 duration-200 cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Bar */}
@@ -53,29 +71,29 @@ export function VideoModal({
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#DFFF00]" />
             <h3 id="video-modal-title" className="text-sm font-bold text-white tracking-wide">
-              A Week at Kreators Lab — Student Experience Preview
+              Kreators Lab — Student Experience &amp; Studio Preview
             </h3>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer transition-colors"
             aria-label="Close video player modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Video / Poster Container */}
+        {/* Video Player Container */}
         <div className="relative aspect-[16/9] w-full bg-black flex items-center justify-center overflow-hidden">
           {videoSrc ? (
             <video
+              ref={videoRef}
               src={videoSrc}
               poster={posterSrc}
               controls
               autoPlay
-              muted={isMuted}
               playsInline
               className="w-full h-full object-contain"
             />
@@ -99,10 +117,9 @@ export function VideoModal({
                     Official Video Slot Ready
                   </h4>
                   <p className="text-xs sm:text-sm text-[#EEECFF]/90 leading-relaxed">
-                    Per design guidelines, unrelated placeholder videos are not embedded.
                     Upload your verified Kreators Lab camp reel to{" "}
                     <code className="text-[#DFFF00] bg-white/10 px-2 py-0.5 rounded font-mono text-xs">
-                      /public/videos/week-at-kreatorslab.mp4
+                      /public/videos/KREATORS.mp4
                     </code>
                   </p>
                 </div>
@@ -127,7 +144,7 @@ export function VideoModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2.5 rounded-full bg-[#35309B] hover:bg-[#302A91] text-white font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00]"
+            className="px-6 py-2.5 rounded-full bg-[#35309B] hover:bg-[#473DEA] text-white font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00] cursor-pointer"
           >
             Done Watching
           </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "./Logo";
 
@@ -20,13 +21,13 @@ export function Header({ onExplorePrograms }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // EXACTLY FIVE NAVIGATION LINKS per requirements
+  // EXACTLY FIVE NAVIGATION LINKS: Home, Programs, Student Projects, How It Works, Gallery
   const navLinks = [
-    { name: "Home", href: "#top" },
-    { name: "Programs", href: "#programs" },
-    { name: "Student Projects", href: "#projects" },
-    { name: "How It Works", href: "#how-it-works" },
-    { name: "About", href: "#about" },
+    { name: "Home", href: "/#top" },
+    { name: "Programs", href: "/programs" },
+    { name: "Student Projects", href: "/#projects" },
+    { name: "How It Works", href: "/#how-it-works" },
+    { name: "Gallery", href: "/gallery" },
   ];
 
   const handleNavClick = () => {
@@ -54,36 +55,36 @@ export function Header({ onExplorePrograms }: HeaderProps) {
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className="px-3.5 py-1.5 rounded-full text-white/85 hover:text-[#DFFF00] hover:bg-[#473DEA]/20 transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00]"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* Separate CTA Button on the Right: Electric Purple #473DEA */}
           <div className="hidden md:flex items-center">
-            <a
-              href="#programs"
+            <Link
+              href="/programs"
               onClick={onExplorePrograms}
               className="inline-flex items-center gap-2 bg-[#473DEA] hover:bg-[#3D33CE] text-white text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-full shadow-[0_4px_18px_rgba(71,61,234,0.45)] hover:shadow-[0_6px_24px_rgba(71,61,234,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00]"
             >
               <span>Explore Programs</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#DFFF00]" />
-            </a>
+            </Link>
           </div>
 
           {/* Mobile: Accessible Menu Button */}
           <div className="flex items-center md:hidden gap-2">
-            <a
-              href="#programs"
+            <Link
+              href="/programs"
               className="inline-flex items-center text-xs font-bold bg-[#473DEA] text-white px-3.5 py-1.5 rounded-full shadow-xs"
             >
               Programs
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -106,26 +107,26 @@ export function Header({ onExplorePrograms }: HeaderProps) {
         <div className="max-w-md mx-auto mt-2.5 rounded-3xl bg-[#18123B]/98 backdrop-blur-2xl border border-[#473DEA]/35 shadow-[0_20px_50px_rgba(71,61,234,0.35)] p-5 pointer-events-auto animate-in fade-in slide-in-from-top-3 duration-200">
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onClick={handleNavClick}
                 className="px-4 py-2.5 rounded-2xl text-sm font-semibold text-white/90 hover:bg-[#473DEA]/20 hover:text-[#DFFF00] transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="mt-3 pt-3 border-t border-white/10">
-            <a
-              href="#programs"
+            <Link
+              href="/programs"
               onClick={handleNavClick}
               className="w-full inline-flex items-center justify-center gap-2 text-center bg-[#473DEA] hover:bg-[#3D33CE] text-white font-extrabold py-2.5 px-4 rounded-full shadow-xs transition-all text-sm"
             >
               <span>Explore Programs</span>
               <ArrowRight className="w-4 h-4 text-[#DFFF00]" />
-            </a>
+            </Link>
           </div>
         </div>
       )}

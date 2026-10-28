@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SectionProgramItem } from "@/data/siteContent";
 import { InquiryModal } from "@/components/InquiryModal";
 import { trackEvent } from "@/lib/analytics";

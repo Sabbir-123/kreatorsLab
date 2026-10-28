@@ -177,8 +177,9 @@ export function CampJourneyInteractive({
             {/* Content Details (7 cols) */}
             <div className="lg:col-span-7 space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black uppercase tracking-widest text-[#35309B] bg-[#EEECFF] px-3 py-1 rounded-full">
-                  {currentDay.dayNumber} • {currentDay.day}
+                <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#35309B] bg-[#EEECFF] px-3 py-1 rounded-full">
+                  <IconComp className="w-3.5 h-3.5 text-[#35309B]" />
+                  <span>{currentDay.dayNumber} • {currentDay.day}</span>
                 </span>
                 <span className="text-xs text-[#55506E] font-bold">
                   {currentDay.vibe}
