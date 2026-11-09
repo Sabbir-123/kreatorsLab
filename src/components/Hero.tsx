@@ -47,6 +47,10 @@ const INSIDE_SLIDES = [
 
 // Rotating verbs: THINK -> CREATE -> EXPERIMENT
 const ROTATING_WORDS = ["THINK", "CREATE", "EXPERIMENT"];
+const LINE1_CHARS = "THE AI PROGRAM".split("");
+const LINE2_CHARS = "WHERE".split("");
+const LINE3_KIDS = "KIDS".split("");
+const LINE4_LETTERS = "BUILD REAL THINGS".split("");
 
 export function Hero({
   onExplorePrograms,
@@ -55,10 +59,14 @@ export function Hero({
 }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  // Delay hero main text for the first 3 seconds while "Welcome to Kreators Lab" plays in video
+  const [showMainText, setShowMainText] = useState(false);
+  const textTriggeredRef = useRef(false);
 
   // Inside Kreators Lab photo slider state
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -68,7 +76,30 @@ export function Hero({
   const [displayedText, setDisplayedText] = useState("THINK");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Trigger main text after 2.8s in video playback
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!video || textTriggeredRef.current) return;
+    if (video.currentTime >= 2.8) {
+      textTriggeredRef.current = true;
+      setShowMainText(true);
+    }
+  };
+
+  // Fallback timer: guarantee reveal at ~3 seconds even before or during buffering
   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!textTriggeredRef.current) {
+        textTriggeredRef.current = true;
+        setShowMainText(true);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!showMainText) return;
+
     const currentWord = ROTATING_WORDS[wordIndex];
     let timer: NodeJS.Timeout;
 
@@ -94,7 +125,7 @@ export function Hero({
     }
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, wordIndex]);
+  }, [displayedText, isDeleting, wordIndex, showMainText]);
 
   // Auto-advance photo slider every 4.0 seconds
   useEffect(() => {
@@ -119,13 +150,13 @@ export function Hero({
     setMounted(true);
   }, []);
 
-  // Handle Autoplay with Audio behavior
+  // Handle instant autoplay on page landing
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const savedAudio = sessionStorage.getItem("kl_hero_audio_muted");
-    const initialMuted = savedAudio !== null ? savedAudio === "true" : false;
+    const initialMuted = savedAudio !== null ? savedAudio === "true" : true;
 
     video.muted = initialMuted;
     setIsMuted(initialMuted);
@@ -226,6 +257,7 @@ export function Hero({
           preload="auto"
           onPlaying={handleVideoLoaded}
           onLoadedData={handleVideoLoaded}
+          onTimeUpdate={handleTimeUpdate}
           className="absolute inset-0 w-full h-full object-cover object-[center_55%] md:object-center z-0 transition-opacity duration-1000"
         />
 
@@ -242,7 +274,11 @@ export function Hero({
           trust bar and Inside Kreators Lab carousel remain 100% fixed in place.
           ───────────────────────────────────────────────────────────── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center">
-        <div className="max-w-4xl flex flex-col items-start text-left translate-y-6 sm:translate-y-10 md:translate-y-16 lg:translate-y-20 xl:translate-y-24">
+        <div
+          className={`max-w-4xl flex flex-col items-start text-left translate-y-6 sm:translate-y-10 md:translate-y-16 lg:translate-y-20 xl:translate-y-24 transition-opacity duration-700 ${
+            showMainText ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+        >
           {/* ─────────────────────────────────────────────────────────
               EXACT FORMAT FROM USER SPECIFICATION:
               Line 1: THE AI PROGRAM
@@ -250,25 +286,76 @@ export function Hero({
               Line 3: KIDS + CHARACTER EFFECT (THINK -> CREATE -> EXPERIMENT)
               Line 4: & BUILD REAL THINGS
               ───────────────────────────────────────────────────────── */}
-          <h1
-            className={`font-black tracking-tight leading-[1.0] sm:leading-[0.96] text-white text-[32px] xs:text-[38px] sm:text-[48px] md:text-[56px] lg:text-[62px] xl:text-[68px] drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] uppercase transition-all duration-1000 ${
-              mounted
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-6"
-            }`}
-          >
-            {/* Line 1 */}
-            <div>THE AI PROGRAM</div>
+          <h1 className="font-black tracking-tight leading-[1.0] sm:leading-[0.96] text-white text-[32px] xs:text-[38px] sm:text-[48px] md:text-[56px] lg:text-[62px] xl:text-[68px] drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] uppercase">
+            {/* Line 1: Character-by-character animated reveal */}
+            <div className="flex flex-wrap overflow-hidden">
+              {LINE1_CHARS.map((char, idx) => (
+                <span
+                  key={`l1-${idx}`}
+                  className="inline-block transition-all duration-600 ease-out"
+                  style={{
+                    opacity: showMainText ? 1 : 0,
+                    transform: showMainText
+                      ? "translateY(0) scale(1)"
+                      : "translateY(36px) scale(0.85)",
+                    filter: showMainText ? "blur(0)" : "blur(8px)",
+                    transitionDelay: `${idx * 26}ms`,
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </div>
 
             {/* Line 2: WHERE (distinctively smaller in font size) */}
-            <div className="text-[17px] xs:text-[20px] sm:text-[25px] md:text-[28px] lg:text-[32px] xl:text-[34px] font-extrabold tracking-widest text-white/90 my-1 sm:my-1.5 opacity-90">
-              WHERE
+            <div className="text-[17px] xs:text-[20px] sm:text-[25px] md:text-[28px] lg:text-[32px] xl:text-[34px] font-extrabold tracking-widest text-white/90 my-1 sm:my-1.5 opacity-90 flex flex-wrap overflow-hidden">
+              {LINE2_CHARS.map((char, idx) => (
+                <span
+                  key={`l2-${idx}`}
+                  className="inline-block transition-all duration-600 ease-out"
+                  style={{
+                    opacity: showMainText ? 1 : 0,
+                    transform: showMainText
+                      ? "translateY(0) scale(1)"
+                      : "translateY(24px) scale(0.85)",
+                    filter: showMainText ? "blur(0)" : "blur(6px)",
+                    transitionDelay: `${380 + idx * 30}ms`,
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
             </div>
 
             {/* Line 3: KIDS + Character Effect on THINK -> CREATE -> EXPERIMENT */}
             <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 flex-wrap">
-              <span className="text-white">KIDS</span>
-              <span className="inline-flex items-center">
+              <span className="flex">
+                {LINE3_KIDS.map((char, idx) => (
+                  <span
+                    key={`kids-${idx}`}
+                    className="inline-block text-white transition-all duration-600 ease-out"
+                    style={{
+                      opacity: showMainText ? 1 : 0,
+                      transform: showMainText
+                        ? "translateY(0) scale(1)"
+                        : "translateY(30px) scale(0.85)",
+                      filter: showMainText ? "blur(0)" : "blur(6px)",
+                      transitionDelay: `${560 + idx * 30}ms`,
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+              <span
+                className="inline-flex items-center transition-all duration-700 ease-out"
+                style={{
+                  opacity: showMainText ? 1 : 0,
+                  transform: showMainText ? "translateY(0) scale(1)" : "translateY(24px) scale(0.9)",
+                  filter: showMainText ? "blur(0)" : "blur(6px)",
+                  transitionDelay: "700ms",
+                }}
+              >
                 <span className="inline-flex bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] bg-clip-text text-transparent drop-shadow-[0_2px_24px_rgba(255,107,0,0.55)]">
                   {displayedText.split("").map((char, idx) => (
                     <span
@@ -288,19 +375,47 @@ export function Hero({
             </div>
 
             {/* Line 4: & BUILD REAL THINGS */}
-            <div className="mt-0.5 sm:mt-1 drop-shadow-[0_2px_24px_rgba(255,107,0,0.55)]">
-              <span className="text-white">&amp; </span>
-              <span className="bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] bg-clip-text text-transparent">BUILD REAL THINGS</span>
+            <div className="mt-0.5 sm:mt-1 drop-shadow-[0_2px_24px_rgba(255,107,0,0.55)] flex flex-wrap overflow-hidden">
+              <span
+                className="text-white inline-block transition-all duration-600 ease-out"
+                style={{
+                  opacity: showMainText ? 1 : 0,
+                  transform: showMainText ? "translateY(0)" : "translateY(28px)",
+                  filter: showMainText ? "blur(0)" : "blur(6px)",
+                  transitionDelay: "760ms",
+                }}
+              >
+                &amp;&nbsp;
+              </span>
+              {LINE4_LETTERS.map((char, idx) => (
+                <span
+                  key={`l4-${idx}`}
+                  className="inline-block bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] bg-clip-text text-transparent transition-all duration-600 ease-out"
+                  style={{
+                    opacity: showMainText ? 1 : 0,
+                    transform: showMainText
+                      ? "translateY(0) scale(1)"
+                      : "translateY(28px) scale(0.9)",
+                    filter: showMainText ? "blur(0)" : "blur(6px)",
+                    transitionDelay: `${800 + idx * 22}ms`,
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </div>
           </h1>
 
           {/* CTA Buttons: Compact, Side-by-Side (Pasha Pashi) on all screen sizes */}
           <div
-            className={`mt-6 sm:mt-8 flex flex-row flex-wrap items-center gap-2.5 sm:gap-3.5 transition-all duration-1000 delay-300 ${
-              mounted
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-6"
+            className={`mt-6 sm:mt-8 flex flex-row flex-wrap items-center gap-2.5 sm:gap-3.5 transition-all duration-700 ease-out ${
+              showMainText
+                ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+                : "opacity-0 translate-y-8 scale-95 pointer-events-none"
             }`}
+            style={{
+              transitionDelay: "1220ms",
+            }}
           >
             {/* Primary CTA: EXPLORE THE PROGRAM ↗ (Radiant Orange Gradient) */}
             <Link
