@@ -86,8 +86,10 @@ export function Hero({
     const video = videoRef.current;
     if (video) {
       video.muted = false;
-      setIsMuted(false);
+      video.volume = 1;
       video.play().catch(() => {});
+      setIsMuted(false);
+      setAudioBlocked(false);
     }
     setLoaderFading(true);
     setTimeout(() => {
@@ -101,8 +103,10 @@ export function Hero({
     setLoadProgress(100);
     const video = videoRef.current;
     if (video) {
-      video.muted = isMuted;
+      video.muted = false;
+      video.volume = 1;
       video.play().catch(() => {});
+      setIsMuted(false);
     }
     setTimeout(() => {
       setLoaderFading(true);
@@ -214,17 +218,14 @@ export function Hero({
     setMounted(true);
   }, []);
 
-  // Handle instant autoplay with sound enabled by default
+  // Handle instant autoplay with sound enabled by default & instant interaction unlock
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const savedAudio = sessionStorage.getItem("kl_hero_audio_muted");
-    // Sound is ON by default unless user explicitly chose to mute before
-    const initialMuted = savedAudio === "true";
-
-    video.muted = initialMuted;
-    setIsMuted(initialMuted);
+    video.muted = false;
+    video.volume = 1;
+    setIsMuted(false);
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
@@ -234,44 +235,41 @@ export function Hero({
           setAudioBlocked(false);
         })
         .catch(() => {
-          // If browser policy temporarily blocks unmuted autoplay without prior gesture
+          // If browser temporarily restricts unmuted autoplay before gesture, keep video rolling
           video.muted = true;
-          setIsMuted(true);
-          setAudioBlocked(true);
           video
             .play()
             .then(() => setIsPlaying(true))
             .catch(() => setIsPlaying(false));
+          setAudioBlocked(true);
         });
     }
 
-    const handleFirstInteraction = () => {
+    const unlockAudio = () => {
       const v = videoRef.current;
-      const userManuallyMuted = sessionStorage.getItem("kl_hero_audio_muted") === "true";
-      if (v && !userManuallyMuted) {
+      if (v) {
         v.muted = false;
+        v.volume = 1;
+        v.play().catch(() => {});
         setIsMuted(false);
         setAudioBlocked(false);
-        sessionStorage.setItem("kl_hero_audio_muted", "false");
       }
     };
 
-    window.addEventListener("click", handleFirstInteraction, { once: true });
-    window.addEventListener("keydown", handleFirstInteraction, { once: true });
-    window.addEventListener("scroll", handleFirstInteraction, {
-      once: true,
-      passive: true,
-    });
-    window.addEventListener("touchstart", handleFirstInteraction, {
-      once: true,
-      passive: true,
-    });
+    window.addEventListener("click", unlockAudio, { once: true });
+    window.addEventListener("pointerdown", unlockAudio, { once: true });
+    window.addEventListener("mousedown", unlockAudio, { once: true });
+    window.addEventListener("touchstart", unlockAudio, { once: true, passive: true });
+    window.addEventListener("keydown", unlockAudio, { once: true });
+    window.addEventListener("scroll", unlockAudio, { once: true, passive: true });
 
     return () => {
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
-      window.removeEventListener("scroll", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
+      window.removeEventListener("click", unlockAudio);
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("mousedown", unlockAudio);
+      window.removeEventListener("touchstart", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+      window.removeEventListener("scroll", unlockAudio);
     };
   }, []);
 
@@ -335,10 +333,15 @@ export function Hero({
               <span>PREPARING EXPERIENCE</span>
             </div>
 
-            {/* Tap to enter hint */}
-            <p className="mt-4 text-[10px] text-white/40 tracking-wider">
-              Tap anywhere to enter with sound
-            </p>
+            {/* Glowing CTA Button to Enter with Sound */}
+            <button
+              type="button"
+              onClick={dismissLoader}
+              className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFA024] hover:from-[#FF4E22] hover:to-[#FF9014] text-white text-xs font-black uppercase tracking-wider shadow-[0_4px_22px_rgba(255,94,54,0.6)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            >
+              <Volume2 className="w-4 h-4 stroke-[2.5]" />
+              <span>ENTER WITH SOUND</span>
+            </button>
           </div>
         </div>
       )}
