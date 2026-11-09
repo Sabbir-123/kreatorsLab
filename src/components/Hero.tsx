@@ -217,7 +217,7 @@ export function Hero({
         {/* Existing High-Definition Classroom Footage */}
         <video
           ref={videoRef}
-          src="/videos/KreatorsLAb.mp4"
+          src="/videos/Kreator%20Club%20Trailer%20without%20text.mp4"
           poster="/videos/week-at-kreatorslab-poster.jpg"
           autoPlay
           loop

@@ -150,7 +150,7 @@ export default function HomePage() {
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoSrc="/videos/KreatorsLAb.mp4"
+        videoSrc="/videos/Kreator%20Club%20Trailer%20without%20text.mp4"
       />
 
       <InquiryModal
