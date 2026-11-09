@@ -59,7 +59,7 @@ export function Hero({
 }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -103,17 +103,17 @@ export function Hero({
     setLoadProgress(100);
     const video = videoRef.current;
     if (video) {
-      video.muted = false;
-      video.volume = 1;
+      video.defaultMuted = true;
+      video.muted = true;
+      video.playsInline = true;
       video.play().catch(() => {});
-      setIsMuted(false);
     }
     setTimeout(() => {
       setLoaderFading(true);
       setTimeout(() => {
         setIsSiteLoading(false);
-      }, 700);
-    }, 450);
+      }, 600);
+    }, 350);
   };
 
   // Smooth loading bar progression + max safety timeout
@@ -125,17 +125,17 @@ export function Hero({
           clearInterval(interval);
           return 90;
         }
-        return prev + 15;
+        return prev + 25;
       });
-    }, 180);
+    }, 120);
 
     const maxTimeout = setTimeout(() => {
       setLoadProgress(100);
       setLoaderFading(true);
       setTimeout(() => {
         setIsSiteLoading(false);
-      }, 700);
-    }, 2200);
+      }, 500);
+    }, 1300);
 
     return () => {
       clearInterval(interval);
@@ -218,30 +218,26 @@ export function Hero({
     setMounted(true);
   }, []);
 
-  // Handle instant autoplay with sound enabled by default & instant interaction unlock
+  // Handle 100% guaranteed automatic video playback on landing
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = false;
-    video.volume = 1;
-    setIsMuted(false);
+    // Start muted on DOM node for guaranteed automatic browser playback with zero block
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
           setIsPlaying(true);
-          setAudioBlocked(false);
         })
         .catch(() => {
-          // If browser temporarily restricts unmuted autoplay before gesture, keep video rolling
+          video.defaultMuted = true;
           video.muted = true;
-          video
-            .play()
-            .then(() => setIsPlaying(true))
-            .catch(() => setIsPlaying(false));
-          setAudioBlocked(true);
+          video.play().catch(() => {});
         });
     }
 
