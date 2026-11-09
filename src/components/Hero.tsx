@@ -59,7 +59,7 @@ export function Hero({
 }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -94,7 +94,7 @@ export function Hero({
     setLoaderFading(true);
     setTimeout(() => {
       setIsSiteLoading(false);
-    }, 700);
+    }, 600);
   };
 
   // When video has buffered enough data to render smoothly
@@ -103,10 +103,14 @@ export function Hero({
     setLoadProgress(100);
     const video = videoRef.current;
     if (video) {
-      video.defaultMuted = true;
-      video.muted = true;
-      video.playsInline = true;
-      video.play().catch(() => {});
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => {
+        // If unmuted autoplay blocked before gesture, keep video rolling
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+      setIsMuted(false);
     }
     setTimeout(() => {
       setLoaderFading(true);
@@ -218,46 +222,49 @@ export function Hero({
     setMounted(true);
   }, []);
 
-  // Handle 100% guaranteed automatic video playback on landing
+  // Handle automatic video playback with unmuted sound by default
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Start muted on DOM node for guaranteed automatic browser playback with zero block
-    video.defaultMuted = true;
-    video.muted = true;
-    video.playsInline = true;
+    video.muted = false;
+    video.volume = 1;
+    setIsMuted(false);
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
           setIsPlaying(true);
+          setIsMuted(false);
         })
         .catch(() => {
-          video.defaultMuted = true;
+          // If browser strictly blocks unmuted autoplay without prior interaction,
+          // temporarily run muted visually so video rolls without stopping:
           video.muted = true;
           video.play().catch(() => {});
         });
     }
 
+    // Unmute immediately on ANY user interaction (pointermove, click, touch, scroll, etc.)
     const unlockAudio = () => {
       const v = videoRef.current;
       if (v) {
         v.muted = false;
         v.volume = 1;
-        v.play().catch(() => {});
         setIsMuted(false);
         setAudioBlocked(false);
+        v.play().catch(() => {});
       }
     };
 
-    window.addEventListener("click", unlockAudio, { once: true });
-    window.addEventListener("pointerdown", unlockAudio, { once: true });
-    window.addEventListener("mousedown", unlockAudio, { once: true });
-    window.addEventListener("touchstart", unlockAudio, { once: true, passive: true });
-    window.addEventListener("keydown", unlockAudio, { once: true });
-    window.addEventListener("scroll", unlockAudio, { once: true, passive: true });
+    window.addEventListener("click", unlockAudio, { passive: true });
+    window.addEventListener("pointerdown", unlockAudio, { passive: true });
+    window.addEventListener("mousedown", unlockAudio, { passive: true });
+    window.addEventListener("touchstart", unlockAudio, { passive: true });
+    window.addEventListener("keydown", unlockAudio, { passive: true });
+    window.addEventListener("scroll", unlockAudio, { passive: true });
+    window.addEventListener("mousemove", unlockAudio, { once: true, passive: true });
 
     return () => {
       window.removeEventListener("click", unlockAudio);
@@ -266,6 +273,7 @@ export function Hero({
       window.removeEventListener("touchstart", unlockAudio);
       window.removeEventListener("keydown", unlockAudio);
       window.removeEventListener("scroll", unlockAudio);
+      window.removeEventListener("mousemove", unlockAudio);
     };
   }, []);
 
