@@ -59,10 +59,15 @@ export function Hero({
 }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  // Loading screen states
+  const [isSiteLoading, setIsSiteLoading] = useState(true);
+  const [loaderFading, setLoaderFading] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(25);
 
   // Delay hero main text for the first 3 seconds while "Welcome to Kreators Lab" plays in video
   const [showMainText, setShowMainText] = useState(false);
@@ -76,6 +81,64 @@ export function Hero({
   const [displayedText, setDisplayedText] = useState("THINK");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Dismiss loader manually on click (also unlocks audio gesture)
+  const dismissLoader = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = false;
+      setIsMuted(false);
+      video.play().catch(() => {});
+    }
+    setLoaderFading(true);
+    setTimeout(() => {
+      setIsSiteLoading(false);
+    }, 700);
+  };
+
+  // When video has buffered enough data to render smoothly
+  const handleVideoLoaded = () => {
+    setIsVideoLoaded(true);
+    setLoadProgress(100);
+    const video = videoRef.current;
+    if (video) {
+      video.muted = isMuted;
+      video.play().catch(() => {});
+    }
+    setTimeout(() => {
+      setLoaderFading(true);
+      setTimeout(() => {
+        setIsSiteLoading(false);
+      }, 700);
+    }, 450);
+  };
+
+  // Smooth loading bar progression + max safety timeout
+  useEffect(() => {
+    if (!isSiteLoading) return;
+    const interval = setInterval(() => {
+      setLoadProgress((prev) => {
+        if (prev >= 90) {
+          clearInterval(interval);
+          return 90;
+        }
+        return prev + 15;
+      });
+    }, 180);
+
+    const maxTimeout = setTimeout(() => {
+      setLoadProgress(100);
+      setLoaderFading(true);
+      setTimeout(() => {
+        setIsSiteLoading(false);
+      }, 700);
+    }, 2200);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(maxTimeout);
+    };
+  }, [isSiteLoading]);
+
   // Trigger main text after 2.8s in video playback
   const handleTimeUpdate = () => {
     const video = videoRef.current;
@@ -86,8 +149,9 @@ export function Hero({
     }
   };
 
-  // Fallback timer: guarantee reveal at ~3 seconds even before or during buffering
+  // Fallback timer: guarantee reveal at 3 seconds after site loader finishes
   useEffect(() => {
+    if (isSiteLoading) return;
     const timer = setTimeout(() => {
       if (!textTriggeredRef.current) {
         textTriggeredRef.current = true;
@@ -95,7 +159,7 @@ export function Hero({
       }
     }, 3000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isSiteLoading]);
 
   useEffect(() => {
     if (!showMainText) return;
@@ -150,13 +214,14 @@ export function Hero({
     setMounted(true);
   }, []);
 
-  // Handle instant autoplay on page landing
+  // Handle instant autoplay with sound enabled by default
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const savedAudio = sessionStorage.getItem("kl_hero_audio_muted");
-    const initialMuted = savedAudio !== null ? savedAudio === "true" : true;
+    // Sound is ON by default unless user explicitly chose to mute before
+    const initialMuted = savedAudio === "true";
 
     video.muted = initialMuted;
     setIsMuted(initialMuted);
@@ -169,6 +234,7 @@ export function Hero({
           setAudioBlocked(false);
         })
         .catch(() => {
+          // If browser policy temporarily blocks unmuted autoplay without prior gesture
           video.muted = true;
           setIsMuted(true);
           setAudioBlocked(true);
@@ -181,7 +247,8 @@ export function Hero({
 
     const handleFirstInteraction = () => {
       const v = videoRef.current;
-      if (v && v.muted && audioBlocked) {
+      const userManuallyMuted = sessionStorage.getItem("kl_hero_audio_muted") === "true";
+      if (v && !userManuallyMuted) {
         v.muted = false;
         setIsMuted(false);
         setAudioBlocked(false);
@@ -191,6 +258,10 @@ export function Hero({
 
     window.addEventListener("click", handleFirstInteraction, { once: true });
     window.addEventListener("keydown", handleFirstInteraction, { once: true });
+    window.addEventListener("scroll", handleFirstInteraction, {
+      once: true,
+      passive: true,
+    });
     window.addEventListener("touchstart", handleFirstInteraction, {
       once: true,
       passive: true,
@@ -199,9 +270,10 @@ export function Hero({
     return () => {
       window.removeEventListener("click", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener("scroll", handleFirstInteraction);
       window.removeEventListener("touchstart", handleFirstInteraction);
     };
-  }, [audioBlocked]);
+  }, []);
 
   const toggleMute = () => {
     const video = videoRef.current;
@@ -214,16 +286,62 @@ export function Hero({
     trackEvent("cta_click", { label: nextMuted ? "Sound Muted" : "Sound Unmuted" });
   };
 
-  const handleVideoLoaded = () => {
-    setIsVideoLoaded(true);
-  };
-
   return (
     <section
       id="top"
       className="relative min-h-[90vh] lg:min-h-screen w-full flex flex-col justify-between pt-20 sm:pt-22 md:pt-24 pb-6 sm:pb-8 md:pb-10 px-4 sm:px-6 lg:px-12 xl:px-16 overflow-hidden text-white bg-black select-none"
       aria-label="Kreators Lab Hero"
     >
+      {/* ─────────────────────────────────────────────────────────────
+          PRELOADER / BRANDED LOADING SCREEN (KREATORS LAB LOGO)
+          Holds until video is buffered & ready to render instantly with sound
+          ───────────────────────────────────────────────────────────── */}
+      {isSiteLoading && (
+        <div
+          onClick={dismissLoader}
+          className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-700 ease-out select-none cursor-pointer ${
+            loaderFading ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+          aria-label="Kreators Lab Loading Screen"
+        >
+          {/* Subtle Ambient Radial Glows */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full bg-gradient-to-r from-sky-500/20 via-[#FF6B00]/15 to-transparent blur-[130px]" />
+          </div>
+
+          <div className="relative z-10 flex flex-col items-center max-w-sm px-6 text-center">
+            {/* Kreators Lab Official Logo with gentle breathing pulse */}
+            <div className="relative w-48 sm:w-60 h-14 sm:h-18 mb-6 flex items-center justify-center animate-pulse">
+              <Image
+                src="/brand/kreators-lab-logo-light.png"
+                alt="Kreators Lab Logo"
+                fill
+                priority
+                className="object-contain"
+              />
+            </div>
+
+            {/* Glowing High-Tech Loading Bar */}
+            <div className="w-56 sm:w-64 h-1.5 bg-white/10 rounded-full overflow-hidden shadow-inner mb-3">
+              <div
+                className="h-full bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#0EA5E9] transition-all duration-300 ease-out rounded-full shadow-[0_0_12px_#FF8A00]"
+                style={{ width: `${loadProgress}%` }}
+              />
+            </div>
+
+            {/* Loading text status */}
+            <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-extrabold tracking-widest uppercase text-slate-300/80">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-ping" />
+              <span>PREPARING EXPERIENCE</span>
+            </div>
+
+            {/* Tap to enter hint */}
+            <p className="mt-4 text-[10px] text-white/40 tracking-wider">
+              Tap anywhere to enter with sound
+            </p>
+          </div>
+        </div>
+      )}
       {/* ─────────────────────────────────────────────────────────────
           1. FULL-SCREEN BACKGROUND VIDEO (NO COLOR OVERLAY / ZERO LAYER EFFECT)
           Video is 100% natural, clear and uninterrupted
