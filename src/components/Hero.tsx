@@ -287,7 +287,7 @@ export function Hero({
   return (
     <section
       id="top"
-      className="relative min-h-[90vh] lg:min-h-screen w-full flex flex-col justify-between pt-20 sm:pt-22 md:pt-24 pb-6 sm:pb-8 md:pb-10 px-4 sm:px-6 lg:px-12 xl:px-16 overflow-hidden text-white bg-black select-none"
+      className="relative min-h-[90vh] lg:min-h-screen w-full flex flex-col justify-between pt-20 sm:pt-22 md:pt-24 pb-12 sm:pb-8 md:pb-10 px-4 sm:px-6 lg:px-12 xl:px-16 overflow-hidden text-white bg-black select-none"
       aria-label="Kreators Lab Hero"
     >
       {/* ─────────────────────────────────────────────────────────────
@@ -567,7 +567,7 @@ export function Hero({
           - Right: Inside Kreators Lab Carousel (placed directly in Austin Live Feed position)
           - Removed divider line & Austin live feed indicator per user instruction
           ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4 pb-4 sm:pb-6 md:pb-8 text-xs text-white/70">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 sm:gap-4 pb-4 sm:pb-6 md:pb-8 text-xs text-white/70">
         {/* Left Side: Sound Icon Toggle + Trust Pill + Badges */}
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           {/* Minimized Icon-Only Sound Button */}
@@ -644,7 +644,7 @@ export function Hero({
 
         {/* Right Side: Inside Kreators Lab Carousel (Apple-style Glassmorphism Card in Austin Live Feed position) */}
         <div
-          className={`w-full sm:w-[320px] md:w-[340px] lg:w-[360px] xl:w-[380px] shrink-0 transition-all duration-1000 delay-200 ${
+          className={`w-full sm:w-[320px] md:w-[340px] lg:w-[360px] xl:w-[380px] shrink-0 mt-8 sm:mt-10 lg:mt-0 transition-all duration-1000 delay-200 ${
             mounted
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-6"
