@@ -11,11 +11,11 @@ export function AILiteracySection({ onLearnMore }: AILiteracySectionProps) {
   const { ref: headerRef, isVisible: isHeaderVisible } = useScrollReveal<HTMLDivElement>();
 
   return (
-    <section id="ai-literacy" className="py-16 md:py-24 bg-[#FAF9FE] relative overflow-hidden">
+    <section id="ai-literacy" className="py-16 md:py-24 bg-gradient-to-b from-white via-sky-50/25 to-white relative overflow-hidden">
       {/* Ambient background glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div className="absolute top-1/3 -right-36 w-96 h-96 rounded-full bg-[#473DEA]/8 blur-3xl" />
-        <div className="absolute bottom-1/3 -left-36 w-96 h-96 rounded-full bg-[#35309B]/8 blur-3xl" />
+        <div className="absolute top-1/3 -right-36 w-96 h-96 rounded-full bg-sky-400/8 blur-3xl" />
+        <div className="absolute bottom-1/3 -left-36 w-96 h-96 rounded-full bg-orange-400/8 blur-3xl" />
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,17 +26,17 @@ export function AILiteracySection({ onLearnMore }: AILiteracySectionProps) {
             isHeaderVisible ? "is-visible" : ""
           }`}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#18152B] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Understanding AI Beyond Just the Prompt.
           </h2>
 
           {/* Client's exact text callout - concise and high impact */}
-          <div className="mt-8 p-6 sm:p-8 rounded-3xl bg-white border-2 border-[#35309B]/20 shadow-[0_10px_35px_rgba(53,48,155,0.06)] text-left relative">
-            <div className="absolute top-0 left-6 -translate-y-1/2 px-3.5 py-1 rounded-full bg-[#35309B] text-[#DFFF00] text-xs font-black uppercase tracking-wider shadow-xs">
+          <div className="mt-8 p-6 sm:p-8 rounded-3xl bg-white border-2 border-sky-200/80 shadow-[0_10px_35px_rgba(2,132,199,0.06)] text-left relative">
+            <div className="absolute top-0 left-6 -translate-y-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-black uppercase tracking-wider shadow-xs">
               Our Educational Approach
             </div>
 
-            <p className="text-base sm:text-lg lg:text-xl font-bold text-[#18152B] leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 leading-relaxed">
               &ldquo;Our students do not just write stories or create images with AI. They understand how AI works, what happens behind the tools, how AI generates its outputs, the role of data and models, and responsible AI use.&rdquo;
             </p>
           </div>

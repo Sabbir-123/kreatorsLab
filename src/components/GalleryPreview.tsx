@@ -27,7 +27,7 @@ export function GalleryPreview() {
   return (
     <section
       id="gallery-preview"
-      className="py-16 sm:py-20 lg:py-24 bg-[#FAFAFC] relative overflow-hidden border-b border-[#35309B]/10"
+      className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-sky-50/20 to-white relative overflow-hidden border-b border-sky-100"
       aria-label="Kreators Lab Media Gallery Preview"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,16 +38,16 @@ export function GalleryPreview() {
             isHeaderVisible ? "is-visible" : ""
           }`}
         >
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#35309B] text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs border border-[#35309B]/20">
-            <Camera className="w-3.5 h-3.5 text-[#35309B]" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs border border-sky-200/80">
+            <Camera className="w-3.5 h-3.5 text-sky-600" />
             <span>Studio &amp; Camps Showcase</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#18152B] tracking-tight leading-snug">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
             Life at Kreators Lab
           </h2>
 
-          <p className="mt-2 text-sm sm:text-base text-[#55506E] max-w-xl mx-auto leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
             A glimpse into the projects, discoveries, and creative experiences happening at Kreators Lab.
           </p>
         </div>
@@ -94,8 +94,8 @@ export function GalleryPreview() {
                 </h3>
                 {/* Rounded tag pill at bottom */}
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 text-[#18152B] text-xs font-black shadow-xs border border-[#18152B]/10">
-                    <Sparkles className="w-3 h-3 text-[#35309B]" />
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 text-slate-900 text-xs font-black shadow-xs border border-slate-200">
+                    <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                     <span>Summer Camp • Grades 6–8</span>
                   </span>
                 </div>
@@ -299,7 +299,7 @@ export function GalleryPreview() {
                     Hardware &amp; Sensor Electronics
                   </h3>
                   <div>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#35309B] text-white text-[11px] font-bold shadow-2xs">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#FF5E36] to-[#FFAE00] text-white text-[11px] font-bold shadow-2xs">
                       Workshops • Grade 9
                     </span>
                   </div>
@@ -314,11 +314,11 @@ export function GalleryPreview() {
             >
               {/* Left Text */}
               <div className="relative z-10 max-w-[200px] sm:max-w-xs space-y-2.5">
-                <h3 className="text-xl sm:text-2xl font-black text-[#18152B] tracking-tight leading-tight">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-tight">
                   High School AI Lab
                 </h3>
                 <div>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EEECFF] text-[#35309B] text-xs font-bold border border-[#35309B]/15">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold border border-sky-200">
                     Grades 9–12 • Advanced APIs
                   </span>
                 </div>
@@ -336,7 +336,7 @@ export function GalleryPreview() {
               </div>
 
               {/* Top-Right Round Arrow Badge (Ref: Arrow circle in top-right) */}
-              <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#F3F4F6] text-[#18152B] flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#F3F4F6] text-slate-900 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
               </div>
             </div>
@@ -347,10 +347,10 @@ export function GalleryPreview() {
         <div className="mt-12 sm:mt-16 text-center">
           <Link
             href="/gallery"
-            className="inline-flex items-center justify-center gap-2.5 bg-[#35309B] hover:bg-[#2A247A] text-white text-sm sm:text-base font-extrabold px-8 py-4 rounded-full shadow-[0_10px_30px_rgba(53,48,155,0.25)] hover:shadow-[0_14px_40px_rgba(53,48,155,0.35)] hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+            className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] hover:opacity-95 text-white text-sm sm:text-base font-extrabold px-8 py-4 rounded-full shadow-[0_10px_30px_rgba(255,107,0,0.3)] hover:shadow-[0_14px_40px_rgba(255,107,0,0.4)] hover:scale-105 active:scale-95 transition-all cursor-pointer group"
           >
             <span>See Full Gallery</span>
-            <ArrowRight className="w-4 h-4 text-[#DFFF00] group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>

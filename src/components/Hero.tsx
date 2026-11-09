@@ -1,8 +1,19 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MapPin, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Volume2,
+  VolumeX,
+  Play,
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 interface HeroProps {
   onExplorePrograms?: () => void;
@@ -10,217 +21,484 @@ interface HeroProps {
   onWatchVideo?: () => void;
 }
 
-export function Hero({ onExplorePrograms, onSeeProjects, onWatchVideo }: HeroProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
+// Authentic Kreators Lab classroom images for the Inside Kreators Lab slider
+const INSIDE_SLIDES = [
+  {
+    image: "/images/founder/actually_knows.JPG",
+    title: "HANDS-ON AI & CODING STUDIO",
+  },
+  {
+    image: "/images/founder/camp.JPG",
+    title: "MAKER CAMP & ROBOTICS LAB",
+  },
+  {
+    image: "/images/founder/gallary1.JPG",
+    title: "COLLABORATIVE GAME DESIGN",
+  },
+  {
+    image: "/images/founder/gallary2.JPG",
+    title: "REAL-WORLD TECH CREATION",
+  },
+  {
+    image: "/images/founder/gallary5.JPG",
+    title: "VISUAL LOGIC & AI EXPERIMENTS",
+  },
+];
 
-  // Auto-play video with sound ON by default
+// Rotating verbs: THINK -> CREATE -> EXPERIMENT
+const ROTATING_WORDS = ["THINK", "CREATE", "EXPERIMENT"];
+
+export function Hero({
+  onExplorePrograms,
+  onSeeProjects,
+  onWatchVideo,
+}: HeroProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [audioBlocked, setAudioBlocked] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Inside Kreators Lab photo slider state
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Dynamic character-by-character typewriter effect for rotating keywords (THINK -> CREATE -> EXPERIMENT)
+  const [wordIndex, setWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("THINK");
+  const [isDeleting, setIsDeleting] = useState(false);
+
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = false;
-      videoRef.current.play().catch(() => {
-        // If the browser autoplay policy blocks unmuted audio on first load,
-        // start playback muted and unmute upon first user interaction
-        if (videoRef.current) {
-          videoRef.current.muted = true;
-          setIsMuted(true);
-          videoRef.current.play().catch(() => {
-            setIsPlaying(false);
-          });
-        }
-      });
+    const currentWord = ROTATING_WORDS[wordIndex];
+    let timer: NodeJS.Timeout;
+
+    if (!isDeleting) {
+      if (displayedText.length < currentWord.length) {
+        timer = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
+        }, 110);
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 1800);
+      }
+    } else {
+      if (displayedText.length > 0) {
+        timer = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length - 1));
+        }, 55);
+      } else {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+      }
     }
 
-    // Automatically unmute on first user interaction if blocked initially
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, wordIndex]);
+
+  // Auto-advance photo slider every 4.0 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % INSIDE_SLIDES.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handlePrevSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev - 1 + INSIDE_SLIDES.length) % INSIDE_SLIDES.length);
+  };
+
+  const handleNextSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev + 1) % INSIDE_SLIDES.length);
+  };
+
+  // Trigger entrance sequence when mounted
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Handle Autoplay with Audio behavior
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const savedAudio = sessionStorage.getItem("kl_hero_audio_muted");
+    const initialMuted = savedAudio !== null ? savedAudio === "true" : false;
+
+    video.muted = initialMuted;
+    setIsMuted(initialMuted);
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+          setAudioBlocked(false);
+        })
+        .catch(() => {
+          video.muted = true;
+          setIsMuted(true);
+          setAudioBlocked(true);
+          video
+            .play()
+            .then(() => setIsPlaying(true))
+            .catch(() => setIsPlaying(false));
+        });
+    }
+
     const handleFirstInteraction = () => {
-      if (videoRef.current && videoRef.current.muted) {
-        videoRef.current.muted = false;
+      const v = videoRef.current;
+      if (v && v.muted && audioBlocked) {
+        v.muted = false;
         setIsMuted(false);
+        setAudioBlocked(false);
+        sessionStorage.setItem("kl_hero_audio_muted", "false");
       }
     };
 
     window.addEventListener("click", handleFirstInteraction, { once: true });
     window.addEventListener("keydown", handleFirstInteraction, { once: true });
-    window.addEventListener("touchstart", handleFirstInteraction, { once: true });
+    window.addEventListener("touchstart", handleFirstInteraction, {
+      once: true,
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("click", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
       window.removeEventListener("touchstart", handleFirstInteraction);
     };
-  }, []);
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play().catch(() => {});
-      setIsPlaying(true);
-    }
-  };
+  }, [audioBlocked]);
 
   const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+    const video = videoRef.current;
+    if (!video) return;
+    const nextMuted = !isMuted;
+    video.muted = nextMuted;
+    setIsMuted(nextMuted);
+    setAudioBlocked(false);
+    sessionStorage.setItem("kl_hero_audio_muted", String(nextMuted));
+    trackEvent("cta_click", { label: nextMuted ? "Sound Muted" : "Sound Unmuted" });
+  };
+
+  const handleVideoLoaded = () => {
+    setIsVideoLoaded(true);
   };
 
   return (
     <section
       id="top"
-      className="relative min-h-[660px] sm:min-h-[820px] lg:min-h-[920px] flex flex-col justify-start pt-24 pb-16 sm:pt-32 sm:pb-32 lg:pt-36 lg:pb-36 scroll-mt-28 overflow-hidden text-white bg-[#281F72]"
+      className="relative min-h-[90vh] lg:min-h-screen w-full flex flex-col justify-between pt-20 sm:pt-22 md:pt-24 pb-6 sm:pb-8 md:pb-10 px-4 sm:px-6 lg:px-12 xl:px-16 overflow-hidden text-white bg-black select-none"
+      aria-label="Kreators Lab Hero"
     >
-      {/* 1. Background Video Layer (Clickable to open full video modal) */}
-      <div
-        onClick={onWatchVideo}
-        role="button"
-        tabIndex={0}
-        aria-label="Click to play full video"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onWatchVideo?.();
-          }
-        }}
-        className="absolute inset-0 w-full h-full overflow-hidden cursor-pointer z-0 group"
-      >
+      {/* ─────────────────────────────────────────────────────────────
+          1. FULL-SCREEN BACKGROUND VIDEO (NO COLOR OVERLAY / ZERO LAYER EFFECT)
+          Video is 100% natural, clear and uninterrupted
+          ───────────────────────────────────────────────────────────── */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        {/* Poster Fallback Image while video is buffering */}
+        <div
+          className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-out z-[1] ${
+            isVideoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <Image
+            src="/videos/week-at-kreatorslab-poster.jpg"
+            alt="Kreators Lab classroom hands-on learning environment"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+
+        {/* Existing High-Definition Classroom Footage */}
         <video
           ref={videoRef}
-          src="/videos/KREATORS.mp4"
+          src="/videos/KreatorsLAb.mp4"
+          poster="/videos/week-at-kreatorslab-poster.jpg"
           autoPlay
           loop
           muted={isMuted}
           playsInline
           preload="auto"
-          className="w-full h-full object-cover object-bottom sm:object-[center_70%] scale-100 group-hover:scale-105 transition-transform duration-700"
+          onPlaying={handleVideoLoaded}
+          onLoadedData={handleVideoLoaded}
+          className="absolute inset-0 w-full h-full object-cover object-[center_55%] md:object-center z-0 transition-opacity duration-1000"
         />
 
-        {/* 2. Gradient Overlay Matching the Screenshot:
-            Deep rich purple covering the top nav and text,
-            fading smoothly down into the video of the classroom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#261C68] via-[#2F2582]/95 via-[38%] to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#261C68]/40 via-transparent to-[#261C68]/40 pointer-events-none" />
-
-        {/* Floating badge indicating video is clickable (hidden on mobile to prevent overlapping trust badge) */}
-        <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 pointer-events-none opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all hidden sm:flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold shadow-2xl">
-          <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#DFFF00] flex items-center justify-center text-[#18152B] shrink-0 shadow-md">
-            <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current ml-0.5" />
-          </span>
-          <span>Click to watch full video</span>
-        </div>
+        {/* Soft, minimal dark shadow ONLY behind the left-aligned text for crisp legibility */}
+        <div
+          className="absolute inset-y-0 left-0 w-full md:w-3/5 bg-gradient-to-r from-black/55 via-black/20 to-transparent pointer-events-none z-[2]"
+          aria-hidden="true"
+        />
       </div>
 
-      {/* 3. Hero Content (Centered, Immersive, High Impact) */}
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 z-20 text-center flex flex-col items-center pointer-events-none">
-        {/* Eyebrow: Brand tagline & grade span */}
-        <div className="pointer-events-auto inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white shadow-md mb-3 sm:mb-5">
-          <span className="w-2 h-2 rounded-full bg-[#DFFF00] shrink-0 ring-2 ring-[#DFFF00]/40 animate-pulse" />
-          <span className="text-[11px] sm:text-sm font-black tracking-wide text-[#DFFF00]">
-            Think. Innovate. Explore.
-          </span>
-          <span className="text-white/40 text-xs">•</span>
-          <span className="text-[11px] sm:text-sm font-bold text-white/95">
-            Grades K–12
-          </span>
-        </div>
-
-        {/* Core Headline */}
-        <h1 className="text-[28px] xs:text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-black tracking-tight leading-[1.12] sm:leading-[1.08] text-white max-w-4xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
-          The AI program where kids{" "}
-          <span className="text-[#DFFF00] inline sm:inline-block drop-shadow-[0_4px_24px_rgba(223,255,0,0.45)]">
-            think and build real things.
-          </span>
-        </h1>
-
-        {/* Supporting Copy */}
-        <p className="mt-3 sm:mt-5 text-sm sm:text-lg lg:text-xl text-[#F2F0FF] max-w-2xl font-medium leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] px-2">
-          Hands-on AI and creative tech programs turning curiosity into working games, websites, animations, and real-world projects.
-        </p>
-
-        {/* Action CTAs */}
-        <div className="pointer-events-auto mt-5 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
-          <Link
-            href="/programs"
-            onClick={onExplorePrograms}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#DFFF00] hover:bg-[#d4f200] text-[#18152B] text-sm sm:text-base font-extrabold px-7 sm:px-8 py-3 sm:py-4 rounded-full shadow-[0_8px_30px_rgba(223,255,0,0.35)] hover:shadow-[0_12px_40px_rgba(223,255,0,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-4 focus-visible:ring-[#DFFF00]/50"
+      {/* ─────────────────────────────────────────────────────────────
+          2. MAIN HERO CONTENT AREA (LEFT TYPOGRAPHY + CTAs)
+          Main text moved down further via transform translate-y so the bottom
+          trust bar and Inside Kreators Lab carousel remain 100% fixed in place.
+          ───────────────────────────────────────────────────────────── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center">
+        <div className="max-w-4xl flex flex-col items-start text-left translate-y-6 sm:translate-y-10 md:translate-y-16 lg:translate-y-20 xl:translate-y-24">
+          {/* ─────────────────────────────────────────────────────────
+              EXACT FORMAT FROM USER SPECIFICATION:
+              Line 1: THE AI PROGRAM
+              Line 2: WHERE (smaller size)
+              Line 3: KIDS + CHARACTER EFFECT (THINK -> CREATE -> EXPERIMENT)
+              Line 4: & BUILD REAL THINGS
+              ───────────────────────────────────────────────────────── */}
+          <h1
+            className={`font-black tracking-tight leading-[1.0] sm:leading-[0.96] text-white text-[32px] xs:text-[38px] sm:text-[48px] md:text-[56px] lg:text-[62px] xl:text-[68px] drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)] uppercase transition-all duration-1000 ${
+              mounted
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-6"
+            }`}
           >
-            <span>Explore Programs</span>
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#18152B]" />
-          </Link>
+            {/* Line 1 */}
+            <div>THE AI PROGRAM</div>
 
-          <a
-            href="#projects"
-            onClick={onSeeProjects}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white text-sm sm:text-base font-bold px-6 sm:px-7 py-3 sm:py-4 rounded-full border border-white/30 hover:border-white/50 backdrop-blur-md transition-all hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            {/* Line 2: WHERE (distinctively smaller in font size) */}
+            <div className="text-[17px] xs:text-[20px] sm:text-[25px] md:text-[28px] lg:text-[32px] xl:text-[34px] font-extrabold tracking-widest text-white/90 my-1 sm:my-1.5 opacity-90">
+              WHERE
+            </div>
+
+            {/* Line 3: KIDS + Character Effect on THINK -> CREATE -> EXPERIMENT */}
+            <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 flex-wrap">
+              <span className="text-white">KIDS</span>
+              <span className="inline-flex items-center">
+                <span className="inline-flex bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] bg-clip-text text-transparent drop-shadow-[0_2px_24px_rgba(255,107,0,0.55)]">
+                  {displayedText.split("").map((char, idx) => (
+                    <span
+                      key={`${wordIndex}-${idx}-${char}`}
+                      className="inline-block animate-in fade-in zoom-in-75 duration-100"
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+                {/* Blinking radiant orange pulse cursor */}
+                <span
+                  aria-hidden="true"
+                  className="inline-block w-[3.5px] sm:w-[4.5px] md:w-[5px] h-[0.8em] bg-[#FF6B00] ml-1.5 sm:ml-2 animate-pulse align-middle rounded-full shadow-[0_0_14px_rgba(255,107,0,0.9)]"
+                />
+              </span>
+            </div>
+
+            {/* Line 4: & BUILD REAL THINGS */}
+            <div className="mt-0.5 sm:mt-1 drop-shadow-[0_2px_24px_rgba(255,107,0,0.55)]">
+              <span className="text-white">&amp; </span>
+              <span className="bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] bg-clip-text text-transparent">BUILD REAL THINGS</span>
+            </div>
+          </h1>
+
+          {/* CTA Buttons: Compact, Side-by-Side (Pasha Pashi) on all screen sizes */}
+          <div
+            className={`mt-6 sm:mt-8 flex flex-row flex-wrap items-center gap-2.5 sm:gap-3.5 transition-all duration-1000 delay-300 ${
+              mounted
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-6"
+            }`}
           >
-            <span>See What Kids Built</span>
-          </a>
-        </div>
+            {/* Primary CTA: EXPLORE THE PROGRAM ↗ (Radiant Orange Gradient) */}
+            <Link
+              href="/programs"
+              onClick={onExplorePrograms}
+              className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-[#FF5E36] via-[#FF7A00] to-[#FFA024] hover:from-[#FF4E22] hover:to-[#FF9014] text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-[0_6px_25px_rgba(255,94,54,0.45)] hover:shadow-[0_8px_32px_rgba(255,94,54,0.65)] hover:scale-[1.02] active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-3 focus-visible:ring-orange-400 shrink-0"
+            >
+              <span>EXPLORE THE PROGRAM</span>
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
 
-        {/* Community Trust Statement */}
-        <div className="pointer-events-auto mt-5 sm:mt-10 inline-flex items-center gap-2 text-[11px] sm:text-sm text-white/90 font-medium px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 max-w-sm sm:max-w-none text-center">
-          <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#DFFF00] shrink-0" />
-          <span>Trusted by GT and Discovery families across Austin &amp; Lake Travis</span>
+            {/* Secondary CTA: SEE KREATORS LAB (Sky-tinted Frosted Glass) */}
+            <a
+              href="#projects"
+              onClick={onSeeProjects}
+              className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-sky-950/45 hover:bg-sky-900/70 text-white text-xs sm:text-sm font-bold tracking-wide uppercase px-4.5 sm:px-5 py-2.5 sm:py-3 rounded-full border border-sky-300/40 hover:border-sky-300/70 backdrop-blur-md transition-all hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0 shadow-lg"
+            >
+              <span>SEE KREATORS LAB</span>
+              <ArrowRight className="w-3.5 h-3.5 text-white/90 group-hover:translate-x-1 group-hover:text-white transition-all" />
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* 4. Floating Ambient Video Controls in Bottom Right Corner */}
-      <div className="absolute bottom-8 right-6 z-20 hidden sm:flex items-center gap-2 pointer-events-auto">
-        <button
-          type="button"
-          onClick={onWatchVideo}
-          aria-label="Open full video modal"
-          title="Watch full video"
-          className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#18123B]/80 hover:bg-[#18123B] text-white border border-white/25 backdrop-blur-md shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer text-xs font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00]"
-        >
-          <Play className="w-3.5 h-3.5 text-[#DFFF00] fill-[#DFFF00]" />
-          <span>Watch Video</span>
-        </button>
+      {/* ─────────────────────────────────────────────────────────────
+          3. BOTTOM AREA:
+          - Left: Sound icon toggle + Trust Pill + Badges (Trustpilot & Crunchbase)
+          - Right: Inside Kreators Lab Carousel (placed directly in Austin Live Feed position)
+          - Removed divider line & Austin live feed indicator per user instruction
+          ───────────────────────────────────────────────────────────── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4 pb-4 sm:pb-6 md:pb-8 text-xs text-white/70">
+        {/* Left Side: Sound Icon Toggle + Trust Pill + Badges */}
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+          {/* Minimized Icon-Only Sound Button */}
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={isMuted ? "Unmute sound" : "Mute sound"}
+            title={isMuted ? "Unmute video sound" : "Mute video sound"}
+            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 shrink-0 ${
+              !isMuted
+                ? "bg-gradient-to-r from-[#FF5E36] to-[#FFA024] text-white border-transparent shadow-[0_2px_14px_rgba(255,94,54,0.5)]"
+                : "bg-black/55 hover:bg-black/75 text-white/85 border-white/20 hover:border-white/40"
+            }`}
+          >
+            {!isMuted ? (
+              <Volume2 className="w-3.5 h-3.5 stroke-[2.5]" />
+            ) : (
+              <VolumeX className="w-3.5 h-3.5 text-white/70" />
+            )}
+          </button>
 
-        <button
-          type="button"
-          onClick={toggleMute}
-          aria-label={isMuted ? "Unmute background video" : "Mute background video"}
-          className="p-2.5 rounded-full bg-[#18123B]/80 hover:bg-[#18123B] text-white border border-white/25 backdrop-blur-md shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00]"
-        >
-          {isMuted ? (
-            <VolumeX className="w-4 h-4 text-white/80" />
-          ) : (
-            <Volume2 className="w-4 h-4 text-[#DFFF00]" />
+          {/* Trusted by GT & Discovery families Pill (Placed by the side of the sound icon) */}
+          <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] text-white/90 font-medium px-3 py-1 rounded-full bg-slate-900/60 backdrop-blur-md border border-sky-400/30 drop-shadow-md">
+            <MapPin className="w-3.5 h-3.5 text-[#FFA024] shrink-0" />
+            <span>Trusted by GT &amp; Discovery families across Austin &amp; Lake Travis</span>
+          </div>
+
+          {/* Trustpilot Logo Badge */}
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] sm:text-[11px] font-bold text-white/90">
+            {/* Trustpilot Green Star Icon */}
+            <svg
+              className="w-3.5 h-3.5 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="3" fill="#00B67A" />
+              <path
+                d="M12 4.5L14.3 9.2L19.5 9.9L15.7 13.6L16.6 18.8L12 16.3L7.4 18.8L8.3 13.6L4.5 9.9L9.7 9.2L12 4.5Z"
+                fill="white"
+              />
+            </svg>
+            <span className="tracking-tight">Trustpilot</span>
+            <span className="text-[#00B67A] font-black">★ 4.9</span>
+          </div>
+
+          {/* Crunchbase Logo Badge */}
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] sm:text-[11px] font-bold text-white/90">
+            {/* Crunchbase Official Cyan/Blue Icon */}
+            <svg
+              className="w-3.5 h-3.5 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="24" height="24" rx="4" fill="#0284C7" />
+              <circle cx="9.5" cy="12" r="3.5" stroke="white" strokeWidth="2" fill="none" />
+              <path
+                d="M17.5 8.5C16.5 8.5 15 9.5 15 12C15 14.5 16.5 15.5 17.5 15.5"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="tracking-tight">crunchbase</span>
+          </div>
+
+          {audioBlocked && (
+            <span className="text-[10px] font-semibold text-[#FFA024] hidden xl:inline animate-pulse">
+              Click speaker to unmute
+            </span>
           )}
-        </button>
+        </div>
 
-        <button
-          type="button"
-          onClick={togglePlay}
-          aria-label={isPlaying ? "Pause background video" : "Play background video"}
-          className="p-2.5 rounded-full bg-[#18123B]/80 hover:bg-[#18123B] text-white border border-white/25 backdrop-blur-md shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00]"
+        {/* Right Side: Inside Kreators Lab Carousel (Apple-style Glassmorphism Card in Austin Live Feed position) */}
+        <div
+          className={`w-full sm:w-[320px] md:w-[340px] lg:w-[360px] xl:w-[380px] shrink-0 transition-all duration-1000 delay-200 ${
+            mounted
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-6"
+          }`}
         >
-          {isPlaying ? (
-            <Pause className="w-4 h-4 text-white" />
-          ) : (
-            <Play className="w-4 h-4 text-[#DFFF00] fill-[#DFFF00]" />
-          )}
-        </button>
-      </div>
+          {/* Apple UI Glass Card Container: pure picture, border-white/30, backdrop-blur-2xl */}
+          <div
+            onClick={onWatchVideo}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onWatchVideo?.();
+              }
+            }}
+            aria-label="Inside Kreators Lab — Click to watch full studio video"
+            className="group relative w-full rounded-[24px] sm:rounded-[28px] overflow-hidden bg-white/[0.12] backdrop-blur-2xl border border-sky-300/40 shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.4)] p-2 sm:p-2.5 transition-all duration-400 hover:scale-[1.02] hover:border-sky-300/70 cursor-pointer"
+          >
+            {/* Picture Slider Area */}
+            <div className="relative aspect-[16/10] w-full rounded-[18px] sm:rounded-[20px] overflow-hidden bg-black/40">
+              {INSIDE_SLIDES.map((slide, idx) => (
+                <div
+                  key={slide.image}
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
+                    idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 380px"
+                    className="object-cover object-[center_35%] transition-transform duration-700 ease-out group-hover:scale-105"
+                    priority={idx === 0}
+                  />
+                  {/* Subtle bottom vignette inside photo to support the title */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                </div>
+              ))}
 
-      {/* 5. Organic Curved Wave Section Transition into ProjectShowcase (#FAF9FE) */}
-      <div className="absolute -bottom-1 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none z-20">
-        <svg
-          className="relative block w-full h-8 sm:h-12 lg:h-16 text-[#FAF9FE]"
-          viewBox="0 0 1440 64"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,24 C320,56 640,64 960,32 C1200,8 1360,28 1440,36 L1440,64 L0,64 Z"
-            fill="currentColor"
-          />
-        </svg>
+              {/* Overlaid Center Play Button with Apple Glass effect */}
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-gradient-to-r group-hover:from-[#FF5E36] group-hover:to-[#FFA024] group-hover:text-white group-hover:border-transparent transition-all shadow-xl">
+                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                </div>
+              </div>
+
+              {/* Left/Right Apple Glass Slider Controls */}
+              <button
+                type="button"
+                onClick={handlePrevSlide}
+                aria-label="Previous photo"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/35 hover:bg-black/65 text-white border border-white/25 flex items-center justify-center backdrop-blur-md transition-all hover:scale-110 cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextSlide}
+                aria-label="Next photo"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/35 hover:bg-black/65 text-white border border-white/25 flex items-center justify-center backdrop-blur-md transition-all hover:scale-110 cursor-pointer"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              {/* Dot Pagination inside picture */}
+              <div className="absolute top-2 right-2 z-20 flex items-center gap-1 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/15">
+                {INSIDE_SLIDES.map((_, dotIdx) => (
+                  <span
+                    key={dotIdx}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      dotIdx === currentSlide
+                        ? "w-3 bg-gradient-to-r from-[#FF5E36] to-[#FFA024]"
+                        : "w-1.5 bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Side: Pure H1 Title (No extra boxes, no clutter) */}
+            <div className="pt-2 pb-0.5 px-1.5 flex items-center justify-between gap-2">
+              <h1 className="text-xs sm:text-[13px] font-black text-white tracking-wider uppercase group-hover:text-[#FFA024] transition-colors truncate drop-shadow-md">
+                {INSIDE_SLIDES[currentSlide].title}
+              </h1>
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/70 group-hover:text-[#FFA024] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

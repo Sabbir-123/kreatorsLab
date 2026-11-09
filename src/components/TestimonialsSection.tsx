@@ -23,7 +23,7 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
   const { containerRef: cardsRef, isVisible: isCardsVisible } = useStaggerReveal<HTMLDivElement>();
 
   return (
-    <section id="reviews" className="py-20 md:py-28 bg-[#F6F5FD] border-b border-[#E8E6F1] relative">
+    <section id="reviews" className="py-20 md:py-28 bg-gradient-to-b from-white via-sky-50/20 to-white border-b border-sky-100 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div
@@ -32,16 +32,16 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
             isHeaderVisible ? "is-visible" : ""
           }`}
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEECFF] text-[#473DEA] text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider mb-4 border border-sky-200/80 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
             <span>Parent Stories</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#18152B] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Hear From the Families Behind Our Young Creators.
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-[#65617A] leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
             What does a meaningful creative learning experience look like from a parent&apos;s perspective?
             Explore authentic stories from families who have experienced Kreators Lab.
           </p>
@@ -55,10 +55,10 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
           }`}
         >
           {/* CARD 1: REAL PARENTS PICTURE */}
-          <div className="stagger-item stagger-delay-1 bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+          <div className="stagger-item stagger-delay-1 bg-white rounded-[28px] p-6 sm:p-7 border border-sky-100/80 hover:border-sky-300 shadow-xs hover:shadow-xl hover:shadow-sky-500/5 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
             <div>
               {/* Real Parent Photo Frame */}
-              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-[#18152B] border border-[#F0EEF8]">
+              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-slate-900 border border-sky-100">
                 <Image
                   src="/images/parents/sarah-parent.jpg"
                   alt="Sarah M. and her daughter exploring creative technology at Kreators Lab"
@@ -68,7 +68,7 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-[#18152B] shadow-xs flex items-center gap-1.5 border border-white/40">
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-slate-900 shadow-xs flex items-center gap-1.5 border border-white/40">
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   <span>Real Family Story</span>
                 </div>
@@ -76,22 +76,22 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
 
               {/* Real Quote Snippet */}
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#EEECFF] flex items-center justify-center text-[#473DEA] shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600 shrink-0 mt-0.5">
                   <Quote className="w-4 h-4 fill-current" />
                 </div>
-                <p className="text-sm sm:text-base text-[#18152B] font-medium leading-relaxed italic">
+                <p className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed italic">
                   &ldquo;My daughter used to just consume games on an iPad. Now she designs mechanics, creates character dialogues, and explains computational logic to us at dinner. The change in her confidence is unbelievable.&rdquo;
                 </p>
               </div>
             </div>
 
             {/* Author Footer */}
-            <div className="mt-6 pt-5 border-t border-[#F0EEF8] flex items-center justify-between">
+            <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-bold text-[#18152B]">Sarah M.</h4>
-                <p className="text-xs text-[#473DEA] font-semibold">4th Grade Parent</p>
-                <div className="flex items-center gap-1 text-[11px] text-[#65617A] mt-0.5">
-                  <MapPin className="w-3 h-3 text-[#473DEA]" />
+                <h4 className="text-sm font-bold text-slate-900">Sarah M.</h4>
+                <p className="text-xs text-sky-600 font-semibold">4th Grade Parent</p>
+                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                  <MapPin className="w-3 h-3 text-sky-500" />
                   <span>Austin, TX (Lake Travis Cohort)</span>
                 </div>
               </div>
@@ -104,10 +104,10 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
           </div>
 
           {/* CARD 2: REAL PARENT VIDEO REVIEW */}
-          <div className="stagger-item stagger-delay-2 bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+          <div className="stagger-item stagger-delay-2 bg-white rounded-[28px] p-6 sm:p-7 border border-sky-100/80 hover:border-sky-300 shadow-xs hover:shadow-xl hover:shadow-sky-500/5 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
             <div>
               {/* Parent Video Frame */}
-              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-[#18152B] border border-[#F0EEF8]">
+              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-slate-900 border border-sky-100">
                 {isPlayingInline ? (
                   <video
                     src="/videos/week-at-kreatorslab.mp4"
@@ -127,7 +127,7 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
 
                     {/* Top Duration Badge */}
-                    <div className="absolute top-3 left-3 bg-[#473DEA] text-white px-2.5 py-1 rounded-full text-[10px] font-bold shadow-xs flex items-center gap-1">
+                    <div className="absolute top-3 left-3 bg-gradient-to-r from-[#FF5E36] to-[#FFAE00] text-white px-2.5 py-1 rounded-full text-[10px] font-bold shadow-xs flex items-center gap-1">
                       <Video className="w-3 h-3" />
                       <span>Video Review • 1:12</span>
                     </div>
@@ -143,10 +143,10 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
                             setIsPlayingInline(true);
                           }
                         }}
-                        className="w-14 h-14 rounded-full bg-[#DFFF00] text-[#18152B] flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all cursor-pointer group-hover:ring-4 group-hover:ring-white/40"
+                        className="w-14 h-14 rounded-full bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] text-white flex items-center justify-center shadow-lg shadow-orange-500/30 hover:scale-110 active:scale-95 transition-all cursor-pointer group-hover:ring-4 group-hover:ring-orange-200"
                         aria-label="Play parent video testimonial"
                       >
-                        <Play className="w-6 h-6 fill-current ml-0.5 text-[#18152B]" />
+                        <Play className="w-6 h-6 fill-current ml-0.5 text-white" />
                       </button>
                     </div>
 
@@ -161,22 +161,22 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
 
               {/* Quote Snippet */}
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#473DEA] flex items-center justify-center text-white shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600 shrink-0 mt-0.5">
                   <Play className="w-4 h-4 fill-current ml-0.5" />
                 </div>
-                <p className="text-sm sm:text-base text-[#18152B] font-medium leading-relaxed italic">
+                <p className="text-sm sm:text-base text-slate-800 font-medium leading-relaxed italic">
                   &ldquo;What stood out most wasn&apos;t just the AI tools, but how the instructors taught them to question what the computer suggested. My son learned to be critical, thoughtful, and creative.&rdquo;
                 </p>
               </div>
             </div>
 
             {/* Author Footer */}
-            <div className="mt-6 pt-5 border-t border-[#F0EEF8] flex items-center justify-between">
+            <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-bold text-[#18152B]">David K.</h4>
-                <p className="text-xs text-[#473DEA] font-semibold">7th Grade Parent</p>
-                <div className="flex items-center gap-1 text-[11px] text-[#65617A] mt-0.5">
-                  <MapPin className="w-3 h-3 text-[#473DEA]" />
+                <h4 className="text-sm font-bold text-slate-900">David K.</h4>
+                <p className="text-xs text-sky-600 font-semibold">7th Grade Parent</p>
+                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                  <MapPin className="w-3 h-3 text-sky-500" />
                   <span>Westlake / Austin, TX</span>
                 </div>
               </div>
@@ -189,33 +189,33 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
           </div>
 
           {/* CARD 3: JUST TEXTS */}
-          <div className="stagger-item stagger-delay-3 bg-white rounded-[28px] p-6 sm:p-7 border border-[#E8E6F1] hover:border-[#473DEA]/50 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+          <div className="stagger-item stagger-delay-3 bg-white rounded-[28px] p-6 sm:p-7 border border-sky-100/80 hover:border-sky-300 shadow-xs hover:shadow-xl hover:shadow-sky-500/5 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
             <div>
               {/* Top Meta Header: Large Quotation Icon + Star Rating */}
               <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-[#EEECFF] flex items-center justify-center text-[#473DEA]">
+                <div className="w-12 h-12 rounded-2xl bg-sky-50 flex items-center justify-center text-sky-600">
                   <Quote className="w-6 h-6 fill-current" />
                 </div>
 
-                <div className="flex items-center gap-1 bg-[#FAF9FE] px-3 py-1.5 rounded-full border border-[#EDE8F7]">
+                <div className="flex items-center gap-1 bg-amber-50/70 px-3 py-1.5 rounded-full border border-amber-200/60">
                   <div className="flex text-amber-400">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
-                  <span className="text-xs font-bold text-[#18152B] ml-1">5.0</span>
+                  <span className="text-xs font-bold text-slate-900 ml-1">5.0</span>
                 </div>
               </div>
 
               {/* Tag / Category Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5F3FB] text-[#473DEA] text-xs font-bold border border-[#EDE8F7] mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold border border-sky-200/60 mb-4">
                 <span>📚 Homeschool Perspective</span>
               </div>
 
               {/* Full Text Quote */}
-              <p className="text-sm sm:text-base text-[#18152B] font-semibold leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-800 font-semibold leading-relaxed">
                 &ldquo;Kreators Lab gave our homeschool curriculum the hands-on tech spark we were missing.{" "}
-                <span className="text-[#473DEA] underline decoration-[#473DEA]/30 underline-offset-4 font-bold">
+                <span className="text-sky-600 underline decoration-sky-300 underline-offset-4 font-bold">
                   It feels like an actual studio for young creators
                 </span>
                 , with an encouraging focus on planning on paper and independent confidence.&rdquo;
@@ -223,12 +223,12 @@ export function TestimonialsSection({ onWatchVideo }: TestimonialsSectionProps) 
             </div>
 
             {/* Author Footer */}
-            <div className="mt-6 pt-5 border-t border-[#F0EEF8] flex items-center justify-between">
+            <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-bold text-[#18152B]">Elena R.</h4>
-                <p className="text-xs text-[#473DEA] font-semibold">5th Grade Parent</p>
-                <div className="flex items-center gap-1 text-[11px] text-[#65617A] mt-0.5">
-                  <MapPin className="w-3 h-3 text-[#473DEA]" />
+                <h4 className="text-sm font-bold text-slate-900">Elena R.</h4>
+                <p className="text-xs text-sky-600 font-semibold">5th Grade Parent</p>
+                <div className="flex items-center gap-1 text-[11px] text-slate-500 mt-0.5">
+                  <MapPin className="w-3 h-3 text-sky-500" />
                   <span>Bee Cave, TX</span>
                 </div>
               </div>

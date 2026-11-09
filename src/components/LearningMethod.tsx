@@ -75,7 +75,7 @@ export function LearningMethod({ onDiscoverMore }: LearningMethodProps) {
   return (
     <section
       id="how-it-works"
-      className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#ECE9FE]/60 via-[#F4F2FF] to-[#ECE9FE]/40 border-y border-[#35309B]/15 relative"
+      className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-sky-50/50 via-white to-sky-50/30 border-y border-sky-100 relative"
       aria-label="The 5-stage project-building process"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,16 +86,16 @@ export function LearningMethod({ onDiscoverMore }: LearningMethodProps) {
             isHeaderVisible ? "is-visible" : ""
           }`}
         >
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#35309B] text-xs font-bold uppercase tracking-wider mb-3 shadow-xs border border-[#35309B]/20">
-            <Sparkles className="w-3.5 h-3.5 text-[#35309B]" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-sky-700 text-xs font-bold uppercase tracking-wider mb-3 shadow-xs border border-sky-200/80">
+            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
             <span>Our Learning Method</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#18152B] tracking-tight leading-snug">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
             How Ideas Become Real Projects
           </h2>
 
-          <p className="mt-2 text-sm sm:text-base text-[#55506E] max-w-xl mx-auto leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
             Our 5-stage maker framework guides young creators from their first brainstorm all the way to a finished, shareable creation.
           </p>
         </div>
@@ -217,10 +217,10 @@ export function LearningMethod({ onDiscoverMore }: LearningMethodProps) {
             <button
               type="button"
               onClick={onDiscoverMore}
-              className="inline-flex items-center justify-center gap-2 bg-[#35309B] hover:bg-[#2A247A] text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-full shadow-xs hover:shadow-md transition-all cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer"
             >
               <span>Explore Programs Using This Method</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#DFFF00]" />
+              <ArrowRight className="w-3.5 h-3.5 text-white" />
             </button>
           </div>
         )}

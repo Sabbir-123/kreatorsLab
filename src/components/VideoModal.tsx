@@ -69,7 +69,7 @@ export function VideoModal({
         {/* Top Bar */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-white/10 bg-black/40">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#DFFF00]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#FF5E36] to-[#FFAE00]" />
             <h3 id="video-modal-title" className="text-sm font-bold text-white tracking-wide">
               Kreators Lab — Student Experience &amp; Studio Preview
             </h3>
@@ -108,24 +108,24 @@ export function VideoModal({
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/60" />
 
               <div className="relative z-10 max-w-md p-6 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#DFFF00] text-[#18152B] mx-auto flex items-center justify-center shadow-lg">
-                  <Play className="w-8 h-8 fill-current ml-1 text-[#18152B]" />
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-[#FF5E36] to-[#FFAE00] text-white mx-auto flex items-center justify-center shadow-lg">
+                  <Play className="w-8 h-8 fill-current ml-1 text-white" />
                 </div>
 
                 <div className="space-y-2">
                   <h4 className="text-xl font-bold text-white">
                     Official Video Slot Ready
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#EEECFF]/90 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                     Upload your verified Kreators Lab camp reel to{" "}
-                    <code className="text-[#DFFF00] bg-white/10 px-2 py-0.5 rounded font-mono text-xs">
+                    <code className="text-orange-400 bg-white/10 px-2 py-0.5 rounded font-mono text-xs">
                       /public/videos/KREATORS.mp4
                     </code>
                   </p>
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-white/10 text-xs text-left text-white/85 space-y-1 border border-white/10">
-                  <div className="flex items-center gap-1.5 font-bold text-[#DFFF00]">
+                  <div className="flex items-center gap-1.5 font-bold text-orange-400">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Camp Journey Flow Featured:</span>
                   </div>
@@ -144,7 +144,7 @@ export function VideoModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2.5 rounded-full bg-[#35309B] hover:bg-[#473DEA] text-white font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#DFFF00] cursor-pointer"
+            className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] hover:opacity-95 text-white font-bold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 cursor-pointer shadow-md shadow-orange-500/20"
           >
             Done Watching
           </button>

@@ -235,7 +235,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
   return (
     <section
       id="contact"
-      className="py-16 sm:py-20 lg:py-24 bg-[#FAF9FE] border-t border-[#E8E6F1] relative overflow-hidden"
+      className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-sky-50/20 to-white border-t border-sky-100 relative overflow-hidden"
       aria-label="Contact and Program Matching Section"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -246,13 +246,13 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
           <div className="lg:col-span-7 space-y-6">
             {/* Top Badge (Ref: YOUR CHILD'S NEXT CREATIVE STEP) */}
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#EEECFF] text-[#35309B] text-xs font-bold uppercase tracking-wider mb-3.5 border border-[#35309B]/15 shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#35309B]" />
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider mb-3.5 border border-sky-200/80 shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                 <span>YOUR CHILD&apos;S NEXT CREATIVE STEP</span>
               </div>
 
               {/* Main Headline */}
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#18152B] tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
                 Not Sure Where to Begin?
               </h2>
             </div>
@@ -265,7 +265,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
               <div
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
-                className="relative w-full aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#18123B] border border-[#35309B]/15 shadow-md group"
+                className="relative w-full aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-950 border border-sky-200/50 shadow-md group"
               >
                 {STUDIO_CAROUSEL_IMAGES.map((img, idx) => (
                   <div
@@ -286,7 +286,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
 
                     {/* Top Location Pill */}
                     <div className="absolute top-3 left-3 z-20">
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#18123B]/85 text-[#DFFF00] text-[11px] font-bold border border-white/20 backdrop-blur-md">
+                      <span className="px-2.5 py-0.5 rounded-full bg-black/70 text-orange-300 text-[11px] font-bold border border-white/20 backdrop-blur-md">
                         {img.tag}
                       </span>
                     </div>
@@ -304,7 +304,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                 <button
                   type="button"
                   onClick={handlePrevSlide}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/60 hover:bg-[#35309B] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 cursor-pointer shadow-md"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/60 hover:bg-gradient-to-r hover:from-[#FF5E36] hover:to-[#FFAE00] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 cursor-pointer shadow-md"
                   aria-label="Previous studio picture"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
@@ -313,7 +313,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                 <button
                   type="button"
                   onClick={handleNextSlide}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/60 hover:bg-[#35309B] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 cursor-pointer shadow-md"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-7 h-7 rounded-full bg-black/60 hover:bg-gradient-to-r hover:from-[#FF5E36] hover:to-[#FFAE00] text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all hover:scale-110 cursor-pointer shadow-md"
                   aria-label="Next studio picture"
                 >
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -327,7 +327,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                       type="button"
                       onClick={() => setActiveSlide(dotIdx)}
                       className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                        activeSlide === dotIdx ? "w-3 bg-[#DFFF00]" : "w-1.5 bg-white/60 hover:bg-white"
+                        activeSlide === dotIdx ? "w-3 bg-gradient-to-r from-[#FF5E36] to-[#FFAE00]" : "w-1.5 bg-white/60 hover:bg-white"
                       }`}
                       aria-label={`Go to slide ${dotIdx + 1}`}
                     />
@@ -339,7 +339,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
               <div className="space-y-4">
                 {/* Filter 1: CHILD'S GRADE LEVEL */}
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-[#18152B] mb-2">
+                  <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-2">
                     CHILD&apos;S GRADE LEVEL
                   </label>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -352,8 +352,8 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                           onClick={() => setSelectedGrade(opt.id)}
                           className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#2E2882] text-white shadow-xs scale-102"
-                              : "bg-white hover:bg-[#F9F8FE] text-[#18152B] border border-gray-200 hover:border-[#35309B]/40"
+                              ? "bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] text-white shadow-md shadow-orange-500/20 scale-102"
+                              : "bg-white hover:bg-sky-50 text-slate-700 border border-sky-200/80 hover:border-sky-300"
                           }`}
                         >
                           {opt.label}
@@ -365,7 +365,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
 
                 {/* Filter 2: AREA OF CREATIVE INTEREST */}
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-[#18152B] mb-2">
+                  <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-2">
                     AREA OF CREATIVE INTEREST
                   </label>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -378,8 +378,8 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                           onClick={() => setSelectedInterest(opt.id)}
                           className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#2E2882] text-white shadow-xs scale-102"
-                              : "bg-white hover:bg-[#F9F8FE] text-[#18152B] border border-gray-200 hover:border-[#35309B]/40"
+                              ? "bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] text-white shadow-md shadow-orange-500/20 scale-102"
+                              : "bg-white hover:bg-sky-50 text-slate-700 border border-sky-200/80 hover:border-sky-300"
                           }`}
                         >
                           {opt.label}
@@ -393,7 +393,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
 
             {/* Filter 3: PREFERRED LEARNING FORMAT (Spans below the side-by-side row) */}
             <div className="pt-1">
-              <label className="block text-xs font-black uppercase tracking-wider text-[#18152B] mb-2">
+              <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-2">
                 PREFERRED LEARNING FORMAT
               </label>
               <div className="flex flex-wrap gap-2">
@@ -406,8 +406,8 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                       onClick={() => setSelectedFormat(opt.id)}
                       className={`px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                         isSelected
-                          ? "bg-[#2E2882] text-white shadow-xs scale-102"
-                          : "bg-white hover:bg-[#F9F8FE] text-[#18152B] border border-gray-200 hover:border-[#35309B]/40"
+                          ? "bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] text-white shadow-md shadow-orange-500/20 scale-102"
+                          : "bg-white hover:bg-sky-50 text-slate-700 border border-sky-200/80 hover:border-sky-300"
                       }`}
                     >
                       {opt.label}
@@ -425,7 +425,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                   const el = document.getElementById("advisor-form");
                   el?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="inline-flex items-center gap-2 bg-[#2E2882] hover:bg-[#231E68] text-white text-xs sm:text-sm font-extrabold px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] text-white text-xs sm:text-sm font-extrabold px-6 py-3 rounded-full shadow-md shadow-orange-500/25 hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
                 <Search className="w-4 h-4 text-white" />
                 <span>Find Your Child&apos;s Program</span>
@@ -434,9 +434,9 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
               <button
                 type="button"
                 onClick={() => onOpenInquiry && onOpenInquiry({ program: "General Creative Question" })}
-                className="inline-flex items-center gap-2 bg-white hover:bg-[#F9F8FE] text-[#18152B] border border-gray-200 hover:border-[#35309B]/40 text-xs sm:text-sm font-extrabold px-6 py-3 rounded-full shadow-xs hover:shadow-md transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 bg-white hover:bg-sky-50 text-slate-800 border border-sky-200 hover:border-sky-400 text-xs sm:text-sm font-extrabold px-6 py-3 rounded-full shadow-xs hover:shadow-md transition-all cursor-pointer"
               >
-                <MessageSquare className="w-4 h-4 text-[#35309B]" />
+                <MessageSquare className="w-4 h-4 text-sky-600" />
                 <span>Ask Us a Question</span>
               </button>
             </div>
@@ -446,13 +446,13 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
           {/* RIGHT COLUMN: Matching Programs Card + Advisor Form       */}
           {/* ========================================================= */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-xl border border-gray-100 space-y-5">
+            <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-xl shadow-sky-500/5 border border-sky-100 space-y-5">
               {/* Header Bar: MATCHING PROGRAMS (4) / Lake Travis / Austin */}
-              <div className="flex items-center justify-between pb-3 border-b border-[#F0EEF8]">
-                <span className="text-xs font-black uppercase tracking-wider text-[#1E40AF]">
+              <div className="flex items-center justify-between pb-3 border-b border-sky-100">
+                <span className="text-xs font-black uppercase tracking-wider text-sky-700">
                   MATCHING PROGRAMS ({matchingPrograms.length})
                 </span>
-                <span className="text-xs text-[#65617A] font-semibold">
+                <span className="text-xs text-slate-500 font-semibold">
                   Lake Travis / Austin
                 </span>
               </div>
@@ -462,33 +462,33 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                 {matchingPrograms.map((prog) => (
                   <div
                     key={prog.id}
-                    className="p-4 rounded-2xl bg-white border border-[#E8E6F1] hover:border-[#35309B]/40 hover:shadow-xs transition-all space-y-2 group"
+                    className="p-4 rounded-2xl bg-white border border-sky-100 hover:border-sky-300 hover:shadow-xs transition-all space-y-2 group"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#1E40AF]">
+                      <span className="text-xs font-bold text-sky-700">
                         {prog.gradeLabel}
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#FAF9FE] text-[#18152B] text-[10px] font-bold border border-gray-200">
+                      <span className="px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-800 text-[10px] font-bold border border-sky-200">
                         {prog.badge}
                       </span>
                     </div>
 
-                    <h4 className="text-sm font-extrabold text-[#18152B] group-hover:text-[#35309B] transition-colors">
+                    <h4 className="text-sm font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors">
                       {prog.title}
                     </h4>
 
-                    <p className="text-xs text-[#55506E] leading-relaxed">
+                    <p className="text-xs text-slate-600 leading-relaxed">
                       {prog.description}
                     </p>
 
-                    <div className="pt-1 flex items-center justify-between text-xs border-t border-[#F0EEF8]/60">
-                      <span className="text-[11px] text-[#65617A] font-medium">
+                    <div className="pt-1 flex items-center justify-between text-xs border-t border-slate-100">
+                      <span className="text-[11px] text-slate-500 font-medium">
                         Active Cohorts
                       </span>
                       <button
                         type="button"
                         onClick={() => handleInquireProgram(prog.title)}
-                        className="inline-flex items-center gap-1 font-bold text-[#35309B] hover:text-[#473DEA] transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 font-bold text-orange-500 hover:text-orange-600 transition-colors cursor-pointer"
                       >
                         <span>Inquire</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -499,26 +499,26 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
               </div>
 
               {/* Form Section */}
-              <div id="advisor-form" className="pt-3 border-t border-[#F0EEF8] space-y-3">
-                <p className="text-xs font-bold text-[#18152B]">
+              <div id="advisor-form" className="pt-3 border-t border-sky-100 space-y-3">
+                <p className="text-xs font-bold text-slate-900">
                   Request cohort schedules directly from an advisor:
                 </p>
 
                 {submissionSuccess ? (
-                  <div className="p-4 rounded-2xl bg-[#ECFDF5] border border-[#A7F3D0] text-center space-y-1.5 animate-fade-in">
+                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-1.5 animate-fade-in">
                     <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
-                    <p className="text-xs font-black text-[#065F46]">
+                    <p className="text-xs font-black text-emerald-800">
                       Thank you! An advisor will reach out shortly.
                     </p>
-                    <p className="text-[11px] text-[#065F46]/80">
+                    <p className="text-[11px] text-emerald-700">
                       We will share the recommended cohort schedules for your child.
                     </p>
                     <button
                       type="button"
                       onClick={() => setSubmissionSuccess(false)}
-                      className="text-[11px] font-bold text-[#065F46] underline mt-1 cursor-pointer"
+                      className="text-[11px] font-bold text-emerald-800 underline mt-1 cursor-pointer"
                     >
                       Send another inquiry
                     </button>
@@ -532,7 +532,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                         onChange={(e) => setParentName(e.target.value)}
                         placeholder="Parent's Name"
                         required
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-[#FAF9FE] focus:bg-white text-xs sm:text-sm text-[#18152B] placeholder:text-[#65617A] focus:outline-none focus:border-[#35309B] transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-sky-200 bg-sky-50/30 focus:bg-white text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-200 transition-all"
                       />
                     </div>
 
@@ -543,7 +543,7 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                         onChange={(e) => setParentEmail(e.target.value)}
                         placeholder="Parent's Email Address"
                         required
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-[#FAF9FE] focus:bg-white text-xs sm:text-sm text-[#18152B] placeholder:text-[#65617A] focus:outline-none focus:border-[#35309B] transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl border border-sky-200 bg-sky-50/30 focus:bg-white text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-200 transition-all"
                       />
                     </div>
 
@@ -557,11 +557,11 @@ export function ProgramFinder({ onOpenInquiry }: ProgramFinderProps) {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3 rounded-xl bg-[#18152B] hover:bg-[#2E2882] text-white text-xs sm:text-sm font-extrabold shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70"
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FF5E36] via-[#FF8A00] to-[#FFAE00] hover:opacity-95 text-white text-xs sm:text-sm font-extrabold shadow-md shadow-orange-500/25 hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-70"
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin text-[#DFFF00]" />
+                          <Loader2 className="w-4 h-4 animate-spin text-white" />
                           <span>Sending Inquiry...</span>
                         </>
                       ) : (

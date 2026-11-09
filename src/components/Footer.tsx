@@ -11,29 +11,29 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#18152B] text-white pt-16 pb-12 border-t border-[#35309B]/20 relative">
+    <footer className="bg-[#0B132B] text-white pt-16 pb-12 border-t border-sky-900/30 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-white/10">
           {/* Brand Identity & Location */}
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="light" />
 
-            <p className="text-sm text-[#EEECFF]/90 max-w-sm leading-relaxed pt-2">
+            <p className="text-sm text-slate-300 max-w-sm leading-relaxed pt-2">
               Kreators Lab helps young creators think independently, explore AI responsibly, and bring original ideas to life.
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#DFFF00] text-xs font-semibold tracking-wide border border-white/10">
-              <Sparkles className="w-3.5 h-3.5 text-[#DFFF00]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-orange-400 text-xs font-semibold tracking-wide border border-white/10">
+              <Sparkles className="w-3.5 h-3.5 text-orange-400" />
               <span>{SITE_CONFIG.tagline}</span>
             </div>
 
-            <div className="pt-2 text-xs text-[#EEECFF]/80 space-y-2">
+            <div className="pt-2 text-xs text-slate-300 space-y-2">
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#DFFF00] shrink-0" />
+                <MapPin className="w-4 h-4 text-orange-400 shrink-0" />
                 <span>{SITE_CONFIG.geographicFocus}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#DFFF00] shrink-0" />
+                <Mail className="w-4 h-4 text-orange-400 shrink-0" />
                 <span>hello@kreatorslab.ai</span>
               </div>
             </div>
@@ -41,37 +41,37 @@ export function Footer() {
 
           {/* Explore Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#DFFF00] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
               Explore
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#EEECFF]/90">
+            <ul className="space-y-2.5 text-sm text-slate-300">
               <li>
-                <a href="#top" className="hover:text-white transition-colors">
+                <a href="#top" className="hover:text-sky-400 transition-colors">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#programs" className="hover:text-white transition-colors">
+                <a href="#programs" className="hover:text-sky-400 transition-colors">
                   Programs
                 </a>
               </li>
               <li>
-                <a href="#projects" className="hover:text-white transition-colors">
+                <a href="#projects" className="hover:text-sky-400 transition-colors">
                   Student Projects
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors">
+                <a href="#how-it-works" className="hover:text-sky-400 transition-colors">
                   How It Works
                 </a>
               </li>
               <li>
-                <a href="/gallery" className="hover:text-[#DFFF00] font-bold transition-colors">
+                <a href="/gallery" className="hover:text-orange-400 font-bold transition-colors">
                   Gallery
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-white transition-colors">
+                <a href="#about" className="hover:text-sky-400 transition-colors">
                   About
                 </a>
               </li>
@@ -80,22 +80,22 @@ export function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#DFFF00] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
               Resources
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#EEECFF]/90">
+            <ul className="space-y-2.5 text-sm text-slate-300">
               <li>
-                <a href="#parents" className="hover:text-white transition-colors">
+                <a href="#parents" className="hover:text-sky-400 transition-colors">
                   Parent Resources
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-white transition-colors">
+                <a href="#about" className="hover:text-sky-400 transition-colors">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-white transition-colors">
+                <a href="#faq" className="hover:text-sky-400 transition-colors">
                   FAQs
                 </a>
               </li>
@@ -104,12 +104,12 @@ export function Footer() {
 
           {/* Connect Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#DFFF00] mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
               Connect
             </h4>
-            <ul className="space-y-2.5 text-sm text-[#EEECFF]/90">
+            <ul className="space-y-2.5 text-sm text-slate-300">
               <li>
-                <a href="#program-finder" className="hover:text-white transition-colors">
+                <a href="#program-finder" className="hover:text-sky-400 transition-colors">
                   Contact
                 </a>
               </li>
@@ -118,7 +118,7 @@ export function Footer() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-sky-400 transition-colors"
                 >
                   Facebook
                 </a>
@@ -128,7 +128,7 @@ export function Footer() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-sky-400 transition-colors"
                 >
                   Instagram
                 </a>
@@ -138,7 +138,7 @@ export function Footer() {
                   href="https://youtube.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-sky-400 transition-colors"
                 >
                   YouTube
                 </a>
@@ -148,7 +148,7 @@ export function Footer() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-sky-400 transition-colors"
                 >
                   LinkedIn
                 </a>
@@ -158,7 +158,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Legal */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#EEECFF]/70">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>© 2026 Kreators Lab. All rights reserved.</p>
 
           <div className="flex flex-wrap items-center gap-5 sm:gap-6">
@@ -174,7 +174,7 @@ export function Footer() {
             <button
               type="button"
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 text-[#DFFF00] hover:underline focus:outline-none"
+              className="inline-flex items-center gap-1.5 text-orange-400 hover:text-orange-300 hover:underline focus:outline-none cursor-pointer"
             >
               <span>Back to Top</span>
               <ArrowUp className="w-3.5 h-3.5" />

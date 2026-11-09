@@ -73,7 +73,7 @@ export function HeroPhotoStrip() {
   return (
     <section
       aria-label="Studio Moments and Classroom Experiences"
-      className="relative w-full py-8 sm:py-12 md:py-14 bg-gradient-to-b from-[#281F72]/5 via-white to-[#FAF9FE] overflow-hidden"
+      className="relative w-full py-8 sm:py-12 md:py-14 bg-gradient-to-b from-sky-50/50 via-white to-sky-50/30 overflow-hidden"
     >
       {/* Soft Left & Right Fade Gradients */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 md:w-44 bg-gradient-to-r from-white via-white/80 to-transparent z-20" />
@@ -85,7 +85,7 @@ export function HeroPhotoStrip() {
           {[...HERO_PHOTOS, ...HERO_PHOTOS].map((photo, idx) => (
             <div
               key={`${photo.id}-${idx}`}
-              className={`relative shrink-0 ${photo.shapeClass} rounded-2xl sm:rounded-3xl overflow-hidden bg-[#18123B] border-2 border-white shadow-[0_8px_24px_rgba(35,28,84,0.08)] hover:shadow-[0_16px_40px_rgba(71,61,234,0.18)] transition-all duration-500 ease-out hover:scale-[1.03] hover:z-10 group cursor-pointer`}
+              className={`relative shrink-0 ${photo.shapeClass} rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-900 border-2 border-white shadow-[0_8px_24px_rgba(2,132,199,0.08)] hover:shadow-[0_16px_40px_rgba(249,115,22,0.18)] transition-all duration-500 ease-out hover:scale-[1.03] hover:z-10 group cursor-pointer`}
             >
               <Image
                 src={photo.src}

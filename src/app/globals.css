@@ -1,16 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-purple: #35309B;
-  --color-brand-purple-electric: #473DEA;
-  --color-brand-purple-deep: #302A91;
-  --color-brand-lime: #DFFF00;
-  --color-brand-lavender: #F5F4FF;
-  --color-brand-purple-soft: #EEECFF;
+  --color-brand-purple: #0284C7;
+  --color-brand-purple-electric: #0EA5E9;
+  --color-brand-purple-deep: #0369A1;
+  --color-brand-lime: #FF6B00;
+  --color-brand-lavender: #F0F9FF;
+  --color-brand-purple-soft: #E0F2FE;
   --color-brand-white: #FFFFFF;
-  --color-brand-text: #18152B;
-  --color-brand-text-secondary: #65617A;
-  --color-brand-border: #E8E6F1;
+  --color-brand-text: #0F172A;
+  --color-brand-text-secondary: #475569;
+  --color-brand-border: #E2E8F0;
+
+  --color-sky-primary: #0284C7;
+  --color-sky-vibrant: #0EA5E9;
+  --color-sky-light: #E0F2FE;
+  --color-sky-soft: #F0F9FF;
+  --color-orange-gradient-start: #FF5E36;
+  --color-orange-gradient-end: #FFAE00;
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-heading: var(--font-jakarta), system-ui, -apple-system, sans-serif;
@@ -19,16 +26,16 @@
 }
 
 :root {
-  --color-primary-purple: #35309B;
-  --color-electric-purple: #473DEA;
-  --color-deep-indigo: #302A91;
-  --color-neon-lime: #DFFF00;
-  --color-light-lavender: #F5F4FF;
-  --color-soft-purple: #EEECFF;
+  --color-primary-purple: #0284C7;
+  --color-electric-purple: #0EA5E9;
+  --color-deep-indigo: #0369A1;
+  --color-neon-lime: #FF6B00;
+  --color-light-lavender: #F0F9FF;
+  --color-soft-purple: #E0F2FE;
   --color-white: #FFFFFF;
-  --color-primary-text: #18152B;
-  --color-secondary-text: #65617A;
-  --color-border: #E8E6F1;
+  --color-primary-text: #0F172A;
+  --color-secondary-text: #475569;
+  --color-border: #E2E8F0;
 }
 
 html {
@@ -38,7 +45,7 @@ html {
 
 body {
   background-color: #FFFFFF;
-  color: #18152B;
+  color: #0F172A;
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
@@ -53,27 +60,68 @@ h6 {
   font-family: var(--font-jakarta), system-ui, -apple-system, sans-serif;
 }
 
-/* Official Gradient System: Electric purple 80%, Light lavender 15%, White 5% */
+/* Official Gradient System: Sky Blue and Radiant Orange Theme */
 .bg-hero-gradient {
-  background: linear-gradient(135deg, #473DEA 0%, #473DEA 80%, #F5F4FF 95%, #FFFFFF 100%);
-  background: linear-gradient(135deg in oklab, #473DEA 0%, #473DEA 80%, #F5F4FF 95%, #FFFFFF 100%);
+  background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 65%, #38BDF8 85%, #E0F2FE 100%);
+  background: linear-gradient(135deg in oklab, #0284C7 0%, #0EA5E9 65%, #38BDF8 85%, #E0F2FE 100%);
 }
 
 .bg-soft-content-gradient {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F5F4FF 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 100%);
 }
 
 .bg-radial-accent {
-  background-image: radial-gradient(circle at 75% 25%, rgba(71, 61, 234, 0.22), transparent 60%);
+  background-image: radial-gradient(circle at 75% 25%, rgba(14, 165, 233, 0.2), transparent 60%);
+}
+
+.bg-gradient-orange {
+  background: linear-gradient(135deg, #FF5E36 0%, #FF8A00 50%, #FFAE00 100%);
+}
+
+.text-gradient-orange {
+  background: linear-gradient(135deg, #FF5E36 0%, #FFAE00 100%);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 /* Tasteful subtle glows */
-.glow-lime {
-  box-shadow: 0 10px 30px -4px rgba(223, 255, 0, 0.35);
+.glow-lime,
+.glow-orange {
+  box-shadow: 0 10px 30px -4px rgba(255, 107, 0, 0.4);
 }
 
-.glow-purple {
-  box-shadow: 0 20px 60px -10px rgba(53, 48, 155, 0.30);
+.glow-purple,
+.glow-sky {
+  box-shadow: 0 20px 60px -10px rgba(14, 165, 233, 0.35);
+}
+
+.glow-neon-lime {
+  box-shadow: 0 0 35px -5px rgba(223, 255, 0, 0.45), 0 0 15px -2px rgba(223, 255, 0, 0.3);
+}
+
+.glow-royal-blue {
+  box-shadow: 0 0 50px -10px rgba(2, 132, 199, 0.5), 0 0 20px -2px rgba(14, 165, 233, 0.4);
+}
+
+/* 3D Hardware Accelerated Canvas and Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1400 {
+  perspective: 1400px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }
 
 /* Continuous Framer-style Marquee Animation */
@@ -207,13 +255,86 @@ h6 {
   right: -4px;
   bottom: 4px;
   height: 36%;
-  background: rgba(223, 255, 0, 0.35);
+  background: linear-gradient(90deg, rgba(255, 94, 54, 0.35), rgba(255, 174, 0, 0.25));
   border-radius: 4px;
   z-index: 0;
   transform: rotate(-1.2deg);
   transform-origin: left bottom;
   pointer-events: none;
 }
+
+/* Hero Cinematic Entrance Sequence */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-hero-fade {
+  animation: hero-fade-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-slide-up {
+  animation: hero-slide-up 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-slide-right {
+  animation: hero-slide-right 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes trail-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04) rotate(var(--item-rot, 0deg));
+  }
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(var(--item-rot, 0deg));
+  }
+  70% {
+    opacity: 0.9;
+    transform: translate(calc(-50% + var(--item-float-x, 0px)), calc(-50% + var(--item-float-y, 0px))) scale(1) rotate(var(--item-rot, 0deg));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--item-float-x, 0px)), calc(-50% + var(--item-float-y, 0px))) scale(0.9) rotate(var(--item-rot, 0deg));
+  }
+}
+
+.animate-trail-pop {
+  animation: trail-pop 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
 
 /* Accessibility & reduced motion */
 @media (prefers-reduced-motion: reduce) {

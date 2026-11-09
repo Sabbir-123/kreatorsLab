@@ -144,18 +144,18 @@ export function WhyKreatorsLab() {
               headerVisible ? "is-visible" : ""
             }`}
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEECFF] text-[#35309B] text-xs font-bold uppercase tracking-wider border border-[#35309B]/15 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#35309B]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider border border-sky-200/80 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
               <span>Critical Thinking &amp; Ownership</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#18152B] tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-slate-900 tracking-tight leading-tight">
               It&apos;s Not Just What They Build.{" "}
-              <span className="text-[#35309B]">It&apos;s How They Think.</span>
+              <span className="text-sky-600">It&apos;s How They Think.</span>
             </h2>
 
             {/* Human-centered, parent-friendly supporting paragraph */}
-            <p className="text-base sm:text-lg text-[#3A3554] font-medium leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed max-w-2xl">
               Kids come up with their own ideas, test what works, fix mistakes, and use AI to help bring their projects to life.
             </p>
 
@@ -183,10 +183,10 @@ export function WhyKreatorsLab() {
                         setActiveIndex(idx);
                       }
                     }}
-                    className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-start gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#473DEA] ${
+                    className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-start gap-4 outline-none focus-visible:ring-2 focus-visible:ring-sky-500 ${
                       isActive
-                        ? "bg-[#F7F5FE] border-[#473DEA] shadow-[0_4px_20px_rgba(71,61,234,0.08)] scale-[1.008]"
-                        : "bg-white border-[#E8E6F1] hover:border-[#35309B]/35 hover:bg-[#FAF9FE] shadow-2xs"
+                        ? "bg-sky-50/70 border-sky-400 shadow-[0_4px_20px_rgba(14,165,233,0.12)] scale-[1.008]"
+                        : "bg-white border-slate-200 hover:border-sky-300 hover:bg-sky-50/30 shadow-2xs"
                     }`}
                   >
                     {/* Step Number Badge & Icon */}
@@ -194,15 +194,15 @@ export function WhyKreatorsLab() {
                       <div
                         className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-200 ${
                           isActive
-                            ? "bg-[#35309B] text-[#DFFF00] shadow-xs"
-                            : "bg-[#EEECFF] text-[#35309B]"
+                            ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-xs"
+                            : "bg-sky-50 text-sky-600"
                         }`}
                       >
                         <IconComponent className="w-5 h-5" />
                       </div>
                       <span
                         className={`text-[11px] font-black uppercase tracking-wider ${
-                          isActive ? "text-[#35309B]" : "text-[#8A84A6]"
+                          isActive ? "text-orange-500" : "text-slate-400"
                         }`}
                       >
                         {pillar.step}
@@ -213,12 +213,12 @@ export function WhyKreatorsLab() {
                     <div className="flex-1">
                       <h3
                         className={`text-base sm:text-lg font-bold tracking-tight leading-snug transition-colors ${
-                          isActive ? "text-[#18123B]" : "text-[#2B2648]"
+                          isActive ? "text-slate-900" : "text-slate-700"
                         }`}
                       >
                         {pillar.title}
                       </h3>
-                      <p className="text-sm text-[#5B5675] mt-1.5 leading-relaxed">
+                      <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
                         {pillar.description}
                       </p>
                     </div>
@@ -233,7 +233,7 @@ export function WhyKreatorsLab() {
             <div className="relative mx-auto max-w-md sm:max-w-lg lg:max-w-none">
               {/* Clean Student Experience Progress Indicator */}
               <div className="flex items-center justify-between mb-3 px-1">
-                <span className="text-xs font-bold text-[#55506E] uppercase tracking-wider">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                   Student Experience {activeIndex + 1} of {PILLARS.length}
                 </span>
                 <div className="flex items-center gap-1.5" role="tablist" aria-label="Student experience tabs">
@@ -245,8 +245,8 @@ export function WhyKreatorsLab() {
                       onClick={() => setActiveIndex(i)}
                       className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                         activeIndex === i
-                          ? "w-6 bg-[#35309B]"
-                          : "w-2 bg-[#35309B]/20 hover:bg-[#35309B]/40"
+                          ? "w-6 bg-gradient-to-r from-orange-500 to-amber-500"
+                          : "w-2 bg-sky-200 hover:bg-sky-300"
                       }`}
                       aria-label={`View photo for: ${p.title}`}
                       aria-selected={activeIndex === i}

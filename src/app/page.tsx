@@ -83,7 +83,7 @@ export default function HomePage() {
           onWatchVideo={() => setIsVideoModalOpen(true)}
         />
 
-        {/* 2.5 Dynamic Studio Photo Marquee Strip (Right Below Hero Video) */}
+        {/* 2.5 Dynamic Studio Photo Marquee Strip */}
         <HeroPhotoStrip />
 
         {/* 3. Student Project Showcase (Clean Interactive Cards Grid) */}
@@ -150,7 +150,7 @@ export default function HomePage() {
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoSrc="/videos/KREATORS.mp4"
+        videoSrc="/videos/KreatorsLAb.mp4"
       />
 
       <InquiryModal
